@@ -1,0 +1,9 @@
+---
+modules:
+  pools_ip: true
+  pools_iqn: false
+  pools_mac: true
+  pools_resource: false
+  pools_uuid: true
+  pools_wwnn: true
+  pools_wwpn: true

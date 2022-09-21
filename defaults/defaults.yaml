@@ -1,0 +1,34 @@
+---
+defaults:
+  intersight:
+    organization: 'Wakanda'
+    pools:
+      assignment_order: 'sequential'
+      ip_pools:
+        ipv4_config:
+          primary_dns: '208.67.220.220'
+        ipv6_config:
+          primary_dns: '2620:119:53::53'
+        name_suffix: ''
+      iqn_pools:
+        name_suffix: ''
+        iqn_blocks:
+          suffix: 'ucs-host'
+        prefix: ''
+      mac_pools:
+        name_suffix: ''
+      resource_pools:
+        name_suffix: ''
+        pool_type: 'Static'
+        resource_type: 'Server'
+        server_type: 'Blades'
+      uuid_pools:
+        name_suffix: ''
+        prefix: '000025B5-0000-0000'
+      wwnn_pools:
+        name_suffix: ''
+      wwpn_pools:
+        name_suffix: ''
+    tags:
+      - key: 'iac-intersight'
+        value: '1.0.1'

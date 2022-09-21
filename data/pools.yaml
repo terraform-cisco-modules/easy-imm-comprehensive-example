@@ -1,0 +1,42 @@
+---
+intersight:
+    pools:
+      ip_pools:
+        - name: KVM
+          ipv4_blocks:
+            - from: 198.18.0.10
+              size: 240
+          ipv4_config:
+            - gateway: 198.18.0.1
+              netmask: 255.255.255.0
+              primary_dns: 208.67.220.220
+              secondary_dns: 208.67.222.222
+      mac_pools:
+        - name: vNIC-A
+          mac_blocks:
+            - from: 00:25:B5:0A:00:00
+              size: 1000
+        - name: vNIC-B
+          mac_blocks:
+            - from: 00:25:B5:0B:00:00
+              size: 1000
+      uuid_pools:
+        - name: Wakanda
+          prefix: 000025B5-0000-0000
+          uuid_blocks:
+            - from: 0000-000000000000
+              size: 1000
+      wwnn_pools:
+        - name: Wakanda
+          id_blocks:
+            - from: 20:00:00:25:B5:00:00:00
+              size: 1000
+      wwpn_pools:
+        - name: vHBA-A
+          id_blocks:
+            - from: 20:00:00:25:B5:0A:00:00
+              size: 1000
+        - name: vHBA-B
+          id_blocks:
+            - from: 20:00:00:25:B5:0B:00:00
+              size: 1000
