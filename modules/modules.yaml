@@ -1,5 +1,44 @@
 ---
 modules:
+  policies_bios: true
+  policies_boot_order: true
+  policies_device_claim: false
+  policies_device_connector: false
+  policies_ethernet_adapter: true
+  policies_ethernet_network_control: true
+  policies_ethernet_network_group: true
+  policies_ethernet_qos: true
+  policies_fibre_channel_adapter: true
+  policies_fibre_channel_network: true
+  policies_fibre_channel_qos: true
+  policies_flow_control: true
+  policies_imc_access: true
+  policies_ipmi_over_lan: true
+  policies_iscsi_adapter: false
+  policies_iscsi_boot: false
+  policies_iscsi_static_target: false
+  policies_lan_connectivity: true
+  policies_ldap: false
+  policies_local_user: true
+  policies_multicast: true
+  policies_network_connectivity: true
+  policies_ntp: true
+  policies_port: true
+  policies_power: true
+  policies_san_connectivity: true
+  policies_sd_card: false
+  policies_serial_over_lan: true
+  policies_smtp: false
+  policies_snmp: true
+  policies_ssh: false
+  policies_storage: true
+  policies_switch_control: true
+  policies_syslog: true
+  policies_thermal: true
+  policies_virtual_kvm: true
+  policies_virtual_media: true
+  policies_vlan: true
+  policies_vsan: true
   pools_ip: true
   pools_iqn: false
   pools_mac: true
@@ -7,3 +46,7 @@ modules:
   pools_uuid: true
   pools_wwnn: true
   pools_wwpn: true
+  profiles_chassis: true
+  profiles_domain: true
+  profiles_server: true
+  templates_server_profile: true

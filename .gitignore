@@ -413,6 +413,7 @@ site/
 *.tfstate
 *.tfstate.backup
 *.tfplan
+*.plan
 
 # key
 key

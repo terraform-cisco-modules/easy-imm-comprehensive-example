@@ -39,6 +39,23 @@ module "pools" {
   model = local.model
 }
 
-output "pools" {
-  value = module.pools
+module "domain_profiles" {
+  source = "../terraform-intersight-ucs-domain-profiles"
+  # source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
+  # version = ">= 1.0.1"
+  model = local.model
 }
+
+# module "policies" {
+#   source = "../terraform-intersight-policies"
+#   # source  = "terraform-cisco-modules/policies/intersight"
+#   # version = ">= 1.0.1"
+#   model = local.model
+# }
+# 
+# module "profiles" {
+#   source = "../terraform-intersight-profiles"
+#   # source  = "terraform-cisco-modules/profiles/intersight"
+#   # version = ">= 1.0.1"
+#   model = local.model
+# }

@@ -29,6 +29,11 @@ defaults:
         name_suffix: ''
       wwpn_pools:
         name_suffix: ''
+    profiles:
+      domain_profiles:
+        action: 'No-op'
+        domain_type: 'instance'
+        name_suffix: ''
     tags:
       - key: 'iac-intersight'
         value: '1.0.1'
