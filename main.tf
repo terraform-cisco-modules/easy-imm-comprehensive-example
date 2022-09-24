@@ -39,12 +39,12 @@ module "pools" {
   model = local.model
 }
 
-module "domain_profiles" {
-  source = "../terraform-intersight-ucs-domain-profiles"
-  # source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
-  # version = ">= 1.0.1"
-  model = local.model
-}
+# module "domain_profiles" {
+#   source = "../terraform-intersight-ucs-domain-profiles"
+#   # source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
+#   # version = ">= 1.0.1"
+#   model = local.model
+# }
 
 # module "policies" {
 #   source = "../terraform-intersight-policies"
@@ -52,7 +52,7 @@ module "domain_profiles" {
 #   # version = ">= 1.0.1"
 #   model = local.model
 # }
-# 
+
 # module "profiles" {
 #   source = "../terraform-intersight-profiles"
 #   # source  = "terraform-cisco-modules/profiles/intersight"
