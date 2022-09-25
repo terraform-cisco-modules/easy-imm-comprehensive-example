@@ -40,27 +40,28 @@ module "pools" {
   model = local.model
 }
 
-# module "domain_profiles" {
-#   depends_on = [
-#     module.pools
-#   ]
-#   source = "../terraform-intersight-ucs-domain-profiles"
-#   # source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
-#   # version = ">= 1.0.1"
-#   model = local.model
-# }
+module "domain_profiles" {
+  depends_on = [
+    module.pools
+  ]
+  source = "../terraform-intersight-ucs-domain-profiles"
+  # source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
+  # version = ">= 1.0.1"
+  model = local.model
+  orgs = module.pools.orgs
+}
 
-# module "policies" {
-#   depends_on = [
-#     module.domain_profiles
-#   ]
-#   source = "../terraform-intersight-policies"
-#   # source  = "terraform-cisco-modules/policies/intersight"
-#   # version = ">= 1.0.1"
-#   model = local.model
-#   pools = module.pools
-#   domain_profiles = module.domain_profiles
-# }
+module "policies" {
+  depends_on = [
+    module.domain_profiles
+  ]
+  source = "../terraform-intersight-policies"
+  # source  = "terraform-cisco-modules/policies/intersight"
+  # version = ">= 1.0.1"
+  model = local.model
+  domains = module.domain_profiles
+  pools = module.pools
+}
 
 # module "profiles" {
 #   depends_on = [
