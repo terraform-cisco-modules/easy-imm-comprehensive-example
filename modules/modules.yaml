@@ -5,9 +5,11 @@ modules:
   policies_device_claim: false
   policies_device_connector: false
   policies_ethernet_adapter: true
+  policies_ethernet_network: false
   policies_ethernet_network_control: true
   policies_ethernet_network_group: true
   policies_ethernet_qos: true
+  policies_fc_zone: false
   policies_fibre_channel_adapter: true
   policies_fibre_channel_network: true
   policies_fibre_channel_qos: true
@@ -34,6 +36,7 @@ modules:
   policies_storage: true
   policies_switch_control: true
   policies_syslog: true
+  policies_system_qos: true
   policies_thermal: true
   policies_virtual_kvm: true
   policies_virtual_media: true

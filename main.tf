@@ -15,6 +15,7 @@ terraform {
       version = ">= 0.1.2"
     }
   }
+  required_version = ">=1.3.0"
 }
 
 provider "intersight" {
@@ -40,6 +41,9 @@ module "pools" {
 }
 
 # module "domain_profiles" {
+#   depends_on = [
+#     module.pools
+#   ]
 #   source = "../terraform-intersight-ucs-domain-profiles"
 #   # source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
 #   # version = ">= 1.0.1"
@@ -47,15 +51,25 @@ module "pools" {
 # }
 
 # module "policies" {
+#   depends_on = [
+#     module.domain_profiles
+#   ]
 #   source = "../terraform-intersight-policies"
 #   # source  = "terraform-cisco-modules/policies/intersight"
 #   # version = ">= 1.0.1"
 #   model = local.model
+#   pools = module.pools
+#   domain_profiles = module.domain_profiles
 # }
 
 # module "profiles" {
+#   depends_on = [
+#     module.policies
+#   ]
 #   source = "../terraform-intersight-profiles"
 #   # source  = "terraform-cisco-modules/profiles/intersight"
 #   # version = ">= 1.0.1"
 #   model = local.model
+#   pools = module.pools
+#   policies = module.policies
 # }

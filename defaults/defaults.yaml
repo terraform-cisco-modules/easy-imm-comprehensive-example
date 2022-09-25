@@ -518,38 +518,120 @@ defaults:
         fc_target_zoning_type: SIMT
       fibre_channel_adapter:
         name_suffix: ''
+        error_detection_timeout: 2000
+        enable_fcp_error_recovery: false
+        error_recovery_io_retry_timeout: 5
+        error_recovery_link_down_timeout: 30000
+        error_recovery_port_down_io_retry: 8
+        error_recovery_port_down_timeout: 10000
+        flogi_retries: 8
+        flogi_timeout: 4000
+        interrupt_mode: MSIx
+        io_throttle_count: 256
+        lun_queue_depth: 20
+        max_luns_per_target: 1024
+        plogi_retries: 8
+        plogi_timeout: 20000
+        receive_ring_size: 64
+        resource_allocation_timeout: 10000
+        scsi_io_queue_count: 1
+        scsi_io_ring_size: 512
+        transmit_ring_size: 64
       fibre_channel_network:
         name_suffix: ''
+        default_vlan_id: 0
       fibre_channel_qos:
         name_suffix: ''
+        burst: 1024
+        cos: 3
+        max_data_field_size: 2112
+        rate_limit: 0
       flow_control:
         name_suffix: ''
+        priority: auto
+        receive: Disabled
+        send: Disabled
       imc_access:
         name_suffix: ''
+        inband_vlan_id: 4
+        ipv4_address_configuration: true
+        ipv6_address_configuration: false
       ipmi_over_lan:
         name_suffix: ''
+        enabled: true
       iscsi_adapter:
         name_suffix: ''
+        dhcp_timeout: 60
+        lun_busy_retry_count: 15
+        tcp_connection_timeout: 15
       iscsi_boot:
         name_suffix: ''
+        initiator_ip_source: Pool
+        target_source_type: Auto
       iscsi_static_target:
         name_suffix: ''
       lan_connectivity:
         name_suffix: ''
+        enable_azure_stack_host_qos: false
+        iqn_allocation_type: None
+        iqn_pool: ''
+        iqn_static_identifier: ''
+        target_platform: FIAttached
+        vnic_placement_mode: custom
       ldap:
         name_suffix: ''
+        timeout: 0
+      binding_parameters:
+        bind_dn: ''
+        bind_method: LoginCredentials
+      enable_encryption: false
+      enable_group_authorization: false
+      enable_ldap: true
+      nested_group_search_depth: 128
+      search_parameters:
+        attribute: CiscoAvPair
+        filter: samAccountName
+        group_attribute: memberOf
+      user_search_precedence: LocalUserDb
       link_aggregation:
         name_suffix: ''
+        lacp_rate: normal
+        suspend_individual: false
       link_control:
         name_suffix: ''
+        admin_state: Enabled
+        mode: normal
       local_user:
         name_suffix: ''
+        always_send_user_password: false
+        enable_password_expiry: false
+        enforce_strong_password: true
+        grace_period: 0
+        notification_period: 15
+        password_expiry_duration: 90
+        password_history: 5
       multicast:
         name_suffix: ''
+        querier_ip_address: ''
+        querier_ip_address_peer: ''
+        querier_state: Disabled
+        snooping_state: Enabled
       network_connectivity:
         name_suffix: ''
+        dns_servers_v4: [208.67.220.220, 208.67.222.222]
+        dns_servers_v6: []
+        enable_dynamic_dns: false
+        enable_ipv6: false
+        obtain_ipv4_dns_from_dhcp: false
+        obtain_ipv6_dns_from_dhcp: false
+        tags: []
+        update_domain: ''
       ntp:
         name_suffix: ''
+        enabled: true
+        ntp_servers: [time-a-g.nist.gov, time-b-g.nist.gov]
+        tags: []
+        timezone: Etc/GMT
       port:
         name_suffix: ''
         device_model: UCS-FI-6454
@@ -564,6 +646,11 @@ defaults:
         power_save_mode: Enabled
       san_connectivity:
         name_suffix: ''
+        target_platform: FIAttached
+        vhba_placement_mode: custom
+        wwnn_allocation_type: POOL
+        wwnn_pool: ''
+        wwnn_static_address: ''
       sd_card:
         name_suffix: ''
         enable_diagnostics: false
@@ -573,8 +660,17 @@ defaults:
         enable_scu: false
       serial_over_lan:
         name_suffix: ''
+        baud_rate: 115200
+        com_port: com0
+        enabled: true
+        ssh_port: 2400
       smtp:
         name_suffix: ''
+        enable_smtp: true
+        mail_alert_recipients: []
+        minimum_severity: critical
+        smtp_alert_sender_address: ''
+        smtp_port: 25
       snmp:
         name_suffix: ''
         enable_snmp: true
@@ -585,10 +681,22 @@ defaults:
         system_location: ''
       ssh:
         name_suffix: ''
+        enable_ssh: true
+        ssh_port: 22
+        ssh_timeout: 1800
       storage:
         name_suffix: ''
+        unused_disks_state: NoChange
+        use_jbod_for_vd_creation: false
       switch_control:
         name_suffix: ''
+        ethernet_switching_mode: end-host
+        fc_switching_mode: end-host
+        mac_address_table_aging: Default
+        mac_aging_time: 14500
+        udld_message_interval: 15
+        udld_recovery_action: none
+        vlan_port_count_optimization: false
       syslog:
         name_suffix: ''
         local_min_severity: warning
