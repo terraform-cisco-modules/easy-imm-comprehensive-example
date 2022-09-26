@@ -42,6 +42,3 @@ intersight:
         - name: link_agg
       link_control:
         - name: link_ctrl
-      multicast:
-        - name: mcast
-          description: default Multicast Policy.

@@ -1,6 +1,9 @@
 ---
 intersight:
     policies:
+      multicast:
+        - name: mcast
+          description: default Multicast Policy.
       vlan:
         - name: wakanda_vlans
           vlans:

@@ -18,3 +18,6 @@ intersight:
       virtual_kvm:
         - name: wakanda_vkvm
           allow_tunneled_kvm: true
+      virtual_media:
+        - name: wakanda_vmedia
+          enable_virtual_media_encryption: true

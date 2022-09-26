@@ -51,6 +51,3 @@ intersight:
           boot_mode: "Uefi"
           # description: "Wakanda_boot Boot Policy."
           enable_secure_boot: false
-      virtual_media:
-        - name: wakanda_vmedia
-          enable_virtual_media_encryption: true
