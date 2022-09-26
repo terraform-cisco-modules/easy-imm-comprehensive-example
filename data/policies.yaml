@@ -1,0 +1,266 @@
+---
+intersight:
+    policies:
+      boot_order:
+        - name: "Wakanda_boot"
+          boot_devices:
+            - name: "KVM-DVD"
+              object_type: "boot.VirtualMedia"
+              sub_type: "kvm-mapped-dvd"
+            - name: "CIMC-DVD"
+              object_type: "boot.VirtualMedia"
+              sub_type: "cimc-mapped-dvd"
+            - name: "M2"
+              object_type: "boot.LocalDisk"
+              slot: "MSTOR-RAID"
+            - name: "Raid1"
+              object_type: "boot.LocalDisk"
+              slot: "MRAID"
+            - name: "PXE"
+              interface_name: "MGMT-A"
+              object_type: "boot.Pxe"
+              slot: "MLOM"
+            - name: "iSCSI"
+              interface_name: "iSCSI-A"
+              object_type: "boot.Iscsi"
+              slot: "MLOM"
+            - name: "Primary-A"
+              interface_name: "vHBA-A"
+              lun: 0
+              object_type: "boot.San"
+              slot: "MLOM"
+              wwpn: "50:00:00:25:B5:0A:00:01"
+            - name: "Primary-B"
+              interface_name: "vHBA-B"
+              lun: 0
+              object_type: "boot.San"
+              slot: "MLOM"
+              wwpn: "50:00:00:25:B5:0B:00:01"
+            - name: "Secondary-A"
+              interface_name: "vHBA-A"
+              lun: 0
+              object_type: "boot.San"
+              slot: "MLOM"
+              wwpn: "50:00:00:25:B5:0A:00:02"
+            - name: "Secondary-B"
+              interface_name: "vHBA-B"
+              lun: 0
+              object_type: "boot.San"
+              slot: "MLOM"
+              wwpn: "50:00:00:25:B5:0B:00:02"
+          boot_mode: "Uefi"
+          # description: "Wakanda_boot Boot Policy."
+          enable_secure_boot: false
+      ethernet_adapter:
+        - name: VMware
+          adapter_template: VMware
+        - name: WIN-AzureStack
+          adapter_template: WIN-AzureStack
+      ethernet_network_control:
+        - name: CDP
+          cdp_enable: true
+        - name: LLDP
+          lldp_enable_receive: true
+          lldp_enable_transmit: true
+      ethernet_network_group:
+        - name: Uplink
+          allowed_vlans: 1-99
+        - name: DATA
+          allowed_vlans: 1-99
+        - name: MGMT
+          allowed_vlans: 10
+          native_vlan: 10
+      ethernet_qos:
+        - name: Best_Effort
+          mtu: 9000
+          priority: Best Effort
+        - name: Bronze
+          mtu: 9000
+          priority: Bronze
+        - name: Gold
+          mtu: 9000
+          priority: Gold
+        - name: Platinum
+          mtu: 9000
+          priority: Platinum
+        - name: Silver
+          mtu: 9000
+          priority: Silver
+      fibre_channel_adapter:
+        - name: FCNVMeInitiator
+          adapter_template: FCNVMeInitiator
+        - name: VMware
+          adapter_template: VMware
+        - name: WindowsBoot
+          adapter_template: WindowsBoot
+      fibre_channel_network:
+        - name: VSAN-A
+          vsan_id: 100
+        - name: VSAN-B
+          vsan_id: 200
+      fibre_channel_qos:
+        - name: fc_qos
+      flow_control:
+        - name: flow_ctrl
+      imc_access:
+        - name: KVM
+          out_of_band_ip_pool: KVM
+      ipmi_over_lan:
+        - name: ipmi
+      lan_connectivity:
+        - name: Win_single
+          vnics:
+            - name: vNIC
+              enable_failover: true
+              ethernet_adapter_policy: WIN-AzureStack
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: MGMT
+              ethernet_qos_policy: Gold
+              mac_address_pool: vNIC
+              placement_pci_order: 3
+              placement_switch_id: A
+        - name: Virtualization
+          vnics:
+            - name: MGMT-A
+              enable_failover: true
+              ethernet_adapter_policy: VMware
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: MGMT
+              ethernet_qos_policy: Silver
+              mac_address_pool: vNIC-A
+              placement_pci_order: 3
+              placement_switch_id: A
+            - name: MGMT-B
+              enable_failover: true
+              ethernet_adapter_policy: VMware
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: MGMT
+              ethernet_qos_policy: Silver
+              mac_address_pool: vNIC-B
+              placement_pci_order: 4
+              placement_switch_id: B
+            - name: DATA-A
+              enable_failover: true
+              ethernet_adapter_policy: VMware
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: DATA
+              ethernet_qos_policy: Gold
+              mac_address_pool: vNIC-A
+              placement_pci_order: 5
+              placement_switch_id: A
+            - name: DATA-B
+              enable_failover: true
+              ethernet_adapter_policy: VMware
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: DATA
+              ethernet_qos_policy: Gold
+              mac_address_pool: vNIC-B
+              placement_pci_order: 6
+              placement_switch_id: B
+      link_aggregation:
+        - name: link_agg
+      link_control:
+        - name: link_ctrl
+      network_connectivity:
+        - name: wakanda_dns
+          dns_servers_v4: [208.67.220.220, 208.67.222.222]
+      ntp:
+        - name: wakanda_ntp
+          ntp_servers: [time-a-g.nist.gov, time-b-g.nist.gov]
+          timezone: "America/New_York"
+      multicast:
+        - name: mcast
+          description: default Multicast Policy.
+      power:
+        - name: 9508
+          power_allocation: 5600
+        - name: Server
+          power_restore: LastState
+      san_connectivity:
+        - name: Windows
+          vhbas:
+            - name: HBA-A
+              enable_failover: true
+              fibre_channel_adapter_policy: WindowsBoot
+              fibre_channel_network_policy: VSAN-A
+              fibre_channel_qos_policy: fc_qos
+              placement_pci_order: 0
+              placement_switch_id: A
+              wwpn_pool: vHBA-A
+            - name: HBA-B
+              enable_failover: true
+              fibre_channel_adapter_policy: WindowsBoot
+              fibre_channel_network_policy: VSAN-B
+              fibre_channel_qos_policy: fc_qos
+              placement_pci_order: 1
+              placement_switch_id: B
+              wwpn_pool: vHBA-B
+          wwnn_pool: Wakanda
+        - name: Virtualization
+          vhbas:
+            - name: HBA-A
+              enable_failover: true
+              fibre_channel_adapter_policy: VMware
+              fibre_channel_network_policy: VSAN-A
+              fibre_channel_qos_policy: fc_qos
+              placement_pci_order: 0
+              placement_switch_id: A
+              wwpn_pool: vHBA-A
+            - name: HBA-B
+              enable_failover: true
+              fibre_channel_adapter_policy: VMware
+              fibre_channel_network_policy: VSAN-B
+              fibre_channel_qos_policy: fc_qos
+              placement_pci_order: 1
+              placement_switch_id: B
+              wwpn_pool: vHBA-B
+          wwnn_pool: Wakanda
+      serial_over_lan:
+        - name: wakanda_sol
+      storage:
+        - name: M2
+          m2_configuration:
+            - controller_slot: MSTOR-RAID-1
+        - name: Raid1
+          drive_groups:
+            - name: Raid1
+              manual_drive_group:
+                - name: dg0
+                  drive_array_spans:
+                    - slots: 1,2
+              virtual_drives:
+                - name: VD0
+                  boot_drive: true
+          use_jbod_for_vd_creation: true
+      switch_control:
+        - name: wakanda_swctrl
+      thermal:
+        - name: 9508
+          fan_control_mode: Balanced
+      virtual_kvm:
+        - name: wakanda_vkvm
+          allow_tunneled_kvm: true
+      virtual_media:
+        - name: wakanda_vmedia
+          enable_virtual_media_encryption: true
+      vlan:
+        - name: wakanda_vlans
+          vlans:
+            - name: default
+              auto_allow_on_uplinks: true
+              multicast_policy: mcast
+              native_vlan: true
+              vlan_list: 1
+            - name: wakanda
+              auto_allow_on_uplinks: true
+              multicast_policy: mcast
+              vlan_list: "2-99"
+      vsan:
+        - name: wakanda-vsan-a
+          vsans:
+            - name: VSAN-A
+              vsan_id: 100
+        - name: wakanda-vsan-b
+          vsans:
+            - name: VSAN-B
+              vsan_id: 200

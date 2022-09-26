@@ -12,6 +12,6 @@ intersight:
           switch_control_policy: default
           syslog_policy: wakanda_syslog
           system_qos_policy: default
-          vlan_policies: [wakanda-vlans]
+          vlan_policies: [wakanda_vlans]
           vsan_policies: [wakanda-vsan-a, wakanda-vsan-b]   
       server:

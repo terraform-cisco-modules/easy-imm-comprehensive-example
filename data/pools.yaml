@@ -12,6 +12,10 @@ intersight:
               primary_dns: 208.67.220.220
               secondary_dns: 208.67.222.222
       mac:
+        - name: vNIC
+          mac_blocks:
+            - from: 00:25:B5:00:00:00
+              size: 1000
         - name: vNIC-A
           mac_blocks:
             - from: 00:25:B5:0A:00:00

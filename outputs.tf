@@ -1,5 +1,5 @@
 output "domain_profiles" {
-  value = module.domain_profiles
+  value = module.domain_profiles.domains
 }
 
 output "policies" {

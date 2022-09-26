@@ -453,6 +453,7 @@ defaults:
         name_suffix: ''
       device_connector:
         name_suffix: ''
+        configuration_lockout: false
       ethernet_adapter:
         name_suffix: ''
         completion_queue_count: 5
@@ -559,6 +560,7 @@ defaults:
       ipmi_over_lan:
         name_suffix: ''
         enabled: true
+        privilege: admin
       iscsi_adapter:
         name_suffix: ''
         dhcp_timeout: 60
@@ -566,6 +568,8 @@ defaults:
         tcp_connection_timeout: 15
       iscsi_boot:
         name_suffix: ''
+        authentication: ''
+        dhcp_vendor_id_iqn: ''
         initiator_ip_source: Pool
         target_source_type: Auto
       iscsi_static_target:
@@ -578,21 +582,54 @@ defaults:
         iqn_static_identifier: ''
         target_platform: FIAttached
         vnic_placement_mode: custom
+        vnics:
+          cdn_value: ''
+          enable_failover: false
+          ethernet_adapter_policy: ''
+          ethernet_network_control_policy: ''
+          ethernet_network_group_policy: ''
+          ethernet_network_policy: ''
+          ethernet_qos_policy: ''
+          iscsi_boot_policy: ''
+          mac_address_allocation_type: POOL
+          mac_address_pool: ''
+          mac_address_static: ''
+          placement_pci_link: 0
+          placement_pci_order: 0
+          placement_slot_id: MLOM
+          placement_switch_id: None
+          placement_uplink_port: 0
+          usnic_adapter_policy: ''
+          usnic_class_of_service: 5
+          usnic_number_of_usnics: 0
+          vmq_enable_virtual_machine_multi_queue: false
+          vmq_enabled: false
+          vmq_number_of_interrupts: 16
+          vmq_number_of_sub_vnics: 64
+          vmq_number_of_virtual_machine_queues: 4
+          vmq_vmmq_adapter_policy: ''
       ldap:
         name_suffix: ''
         timeout: 0
-      binding_parameters:
-        bind_dn: ''
-        bind_method: LoginCredentials
-      enable_encryption: false
-      enable_group_authorization: false
-      enable_ldap: true
-      nested_group_search_depth: 128
-      search_parameters:
-        attribute: CiscoAvPair
-        filter: samAccountName
-        group_attribute: memberOf
-      user_search_precedence: LocalUserDb
+        base_settings:
+          timeout: 0
+        binding_parameters:
+          bind_dn: ''
+          bind_method: LoginCredentials
+        enable_encryption: false
+        enable_group_authorization: false
+        enable_ldap: true
+        ldap_from_dns:
+          enable: false
+          search_domain: ''
+          search_forest: ''
+          source: Extracted
+        nested_group_search_depth: 128
+        search_parameters:
+          attribute: CiscoAvPair
+          filter: samAccountName
+          group_attribute: memberOf
+        user_search_precedence: LocalUserDb
       link_aggregation:
         name_suffix: ''
         lacp_rate: normal
@@ -635,6 +672,50 @@ defaults:
       port:
         name_suffix: ''
         device_model: UCS-FI-6454
+        port_channel_appliances:
+          admin_speed: Auto
+          ethernet_network_control_policy: ''
+          ethernet_network_group_policy: ''
+          mode: trunk
+          priority: Best Effort
+        port_channel_ethernet_uplinks:
+          admin_speed: Auto
+          ethernet_network_group_policy: ''
+          flow_control_policy: ''
+          link_aggregation_policy: ''
+          link_control_policy: ''
+        port_channel_fc_uplinks:
+          admin_speed: 32Gbps
+          fill_pattern: Arbff
+          vsan_id: 1
+        port_channel_fcoe_uplinks:
+          admin_speed: Auto
+          link_aggregation_policy: ''
+          link_control_policy: ''
+        port_role_appliances:
+          admin_speed: Auto
+          ethernet_network_control_policy: ''
+          ethernet_network_group_policy: ''
+          fec: Auto
+          mode: trunk
+          priority: Best Effort
+        port_role_ethernet_uplinks:
+          admin_speed: Auto
+          ethernet_network_group_policy: ''
+          fec: Auto
+          flow_control_policy: ''
+          link_control_policy: ''
+        port_role_fc_storage:
+          admin_speed: 16Gbps
+          vsan_id: 1
+        port_role_fc_uplinks:
+          admin_speed: 32Gbps
+          fill_pattern: Arbff
+          vsan_id: 1
+        port_role_fcoe_uplinks:
+          admin_speed: Auto
+          fec: Auto
+          link_control_policy: ''
       power:
         name_suffix: ''
         dynamic_power_rebalancing: Enabled
@@ -648,15 +729,28 @@ defaults:
         name_suffix: ''
         target_platform: FIAttached
         vhba_placement_mode: custom
+        vhbas:
+          fc_zone_policies: []
+          fibre_channel_adapter_policy: ''
+          fibre_channel_network_policy: ''
+          fibre_channel_qos_policy: ''
+          persistent_lun_bindings: false
+          placement_pci_link: 0
+          placement_pci_order: 0
+          placement_slot_id: MLOM
+          placement_switch_id: None
+          placement_uplink_port: 0
+          vhba_type: fc-initiator
+          wwpn_allocation_type: POOL
+          wwpn_pool: ''
         wwnn_allocation_type: POOL
         wwnn_pool: ''
-        wwnn_static_address: ''
       sd_card:
         name_suffix: ''
         enable_diagnostics: false
         enable_drivers: false
         enable_huu: false
-        enable_os: true
+        enable_os: false
         enable_scu: false
       serial_over_lan:
         name_suffix: ''
@@ -686,6 +780,7 @@ defaults:
         ssh_timeout: 1800
       storage:
         name_suffix: ''
+        global_hot_spares: ''
         unused_disks_state: NoChange
         use_jbod_for_vd_creation: false
       switch_control:
@@ -707,6 +802,7 @@ defaults:
         fan_control_mode: Balanced
       virtual_kvm:
         name_suffix: ''
+        allow_tunneled_vkvm: false
         enable_local_server_video: true
         enable_video_encryption: true
         enable_virtual_kvm: true
@@ -719,6 +815,10 @@ defaults:
         enable_virtual_media_encryption: true
       vlan:
         name_suffix: ''
+        vlans:
+          auto_allow_on_uplinks: false
+          multicast_policy: ''
+          native_vlan: false
       vsan:
         name_suffix: ''
         uplink_trunking: false
