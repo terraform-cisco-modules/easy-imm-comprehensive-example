@@ -1,0 +1,20 @@
+---
+intersight:
+    policies:
+      imc_access:
+        - name: KVM
+          out_of_band_ip_pool: KVM
+      ipmi_over_lan:
+        - name: ipmi
+      network_connectivity:
+        - name: wakanda_dns
+          dns_servers_v4: [208.67.220.220, 208.67.222.222]
+      ntp:
+        - name: wakanda_ntp
+          ntp_servers: [time-a-g.nist.gov, time-b-g.nist.gov]
+          timezone: "America/New_York"
+      serial_over_lan:
+        - name: wakanda_sol
+      virtual_kvm:
+        - name: wakanda_vkvm
+          allow_tunneled_kvm: true

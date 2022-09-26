@@ -1,0 +1,18 @@
+---
+intersight:
+    policies:
+      storage:
+        - name: M2
+          m2_configuration:
+            - controller_slot: MSTOR-RAID-1
+        - name: Raid1
+          drive_groups:
+            - name: Raid1
+              manual_drive_group:
+                - name: dg0
+                  drive_array_spans:
+                    - slots: 1,2
+              virtual_drives:
+                - name: VD0
+                  boot_drive: true
+          use_jbod_for_vd_creation: true

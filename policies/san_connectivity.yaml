@@ -1,0 +1,42 @@
+---
+intersight:
+    policies:
+      san_connectivity:
+        - name: Windows
+          vhbas:
+            - name: HBA-A
+              enable_failover: true
+              fibre_channel_adapter_policy: WindowsBoot
+              fibre_channel_network_policy: VSAN-A
+              fibre_channel_qos_policy: fc_qos
+              placement_pci_order: 0
+              placement_switch_id: A
+              wwpn_pool: vHBA-A
+            - name: HBA-B
+              enable_failover: true
+              fibre_channel_adapter_policy: WindowsBoot
+              fibre_channel_network_policy: VSAN-B
+              fibre_channel_qos_policy: fc_qos
+              placement_pci_order: 1
+              placement_switch_id: B
+              wwpn_pool: vHBA-B
+          wwnn_pool: Wakanda
+        - name: Virtualization
+          vhbas:
+            - name: HBA-A
+              enable_failover: true
+              fibre_channel_adapter_policy: VMware
+              fibre_channel_network_policy: VSAN-A
+              fibre_channel_qos_policy: fc_qos
+              placement_pci_order: 0
+              placement_switch_id: A
+              wwpn_pool: vHBA-A
+            - name: HBA-B
+              enable_failover: true
+              fibre_channel_adapter_policy: VMware
+              fibre_channel_network_policy: VSAN-B
+              fibre_channel_qos_policy: fc_qos
+              placement_pci_order: 1
+              placement_switch_id: B
+              wwpn_pool: vHBA-B
+          wwnn_pool: Wakanda

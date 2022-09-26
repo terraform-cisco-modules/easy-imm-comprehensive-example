@@ -1,7 +1,6 @@
 ---
 intersight:
     profiles:
-      chassis:
       domain:
         - name: wakanda-ucs
           network_connectivity_policy: wakanda_dns
@@ -14,4 +13,3 @@ intersight:
           system_qos_policy: default
           vlan_policies: [wakanda_vlans]
           vsan_policies: [wakanda-vsan-a, wakanda-vsan-b]   
-      server:

@@ -1,0 +1,5 @@
+---
+intersight:
+    policies:
+      switch_control:
+        - name: wakanda_swctrl

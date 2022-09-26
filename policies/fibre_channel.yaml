@@ -1,0 +1,17 @@
+---
+intersight:
+    policies:
+      fibre_channel_adapter:
+        - name: FCNVMeInitiator
+          adapter_template: FCNVMeInitiator
+        - name: VMware
+          adapter_template: VMware
+        - name: WindowsBoot
+          adapter_template: WindowsBoot
+      fibre_channel_network:
+        - name: VSAN-A
+          vsan_id: 100
+        - name: VSAN-B
+          vsan_id: 200
+      fibre_channel_qos:
+        - name: fc_qos

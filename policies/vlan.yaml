@@ -1,0 +1,15 @@
+---
+intersight:
+    policies:
+      vlan:
+        - name: wakanda_vlans
+          vlans:
+            - name: default
+              auto_allow_on_uplinks: true
+              multicast_policy: mcast
+              native_vlan: true
+              vlan_list: 1
+            - name: wakanda
+              auto_allow_on_uplinks: true
+              multicast_policy: mcast
+              vlan_list: "2-99"

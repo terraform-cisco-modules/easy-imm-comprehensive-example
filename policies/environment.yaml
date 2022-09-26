@@ -1,0 +1,11 @@
+---
+intersight:
+    policies:
+      power:
+        - name: 9508
+          power_allocation: 5600
+        - name: Server
+          power_restore: LastState
+      thermal:
+        - name: 9508
+          fan_control_mode: Balanced

@@ -1,0 +1,53 @@
+---
+intersight:
+    policies:
+      lan_connectivity:
+        - name: Win_single
+          vnics:
+            - name: vNIC
+              enable_failover: true
+              ethernet_adapter_policy: WIN-AzureStack
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: MGMT
+              ethernet_qos_policy: Gold
+              mac_address_pool: vNIC
+              placement_pci_order: 3
+              placement_switch_id: A
+        - name: Virtualization
+          vnics:
+            - name: MGMT-A
+              enable_failover: true
+              ethernet_adapter_policy: VMware
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: MGMT
+              ethernet_qos_policy: Silver
+              mac_address_pool: vNIC-A
+              placement_pci_order: 3
+              placement_switch_id: A
+            - name: MGMT-B
+              enable_failover: true
+              ethernet_adapter_policy: VMware
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: MGMT
+              ethernet_qos_policy: Silver
+              mac_address_pool: vNIC-B
+              placement_pci_order: 4
+              placement_switch_id: B
+            - name: DATA-A
+              enable_failover: true
+              ethernet_adapter_policy: VMware
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: DATA
+              ethernet_qos_policy: Gold
+              mac_address_pool: vNIC-A
+              placement_pci_order: 5
+              placement_switch_id: A
+            - name: DATA-B
+              enable_failover: true
+              ethernet_adapter_policy: VMware
+              ethernet_network_control_policy: LLDP
+              ethernet_network_group_policy: DATA
+              ethernet_qos_policy: Gold
+              mac_address_pool: vNIC-B
+              placement_pci_order: 6
+              placement_switch_id: B

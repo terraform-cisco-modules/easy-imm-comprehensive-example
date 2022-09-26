@@ -1,0 +1,47 @@
+---
+intersight:
+    policies:
+      ethernet_adapter:
+        - name: VMware
+          adapter_template: VMware
+        - name: WIN-AzureStack
+          adapter_template: WIN-AzureStack
+      ethernet_network_control:
+        - name: CDP
+          cdp_enable: true
+        - name: LLDP
+          lldp_enable_receive: true
+          lldp_enable_transmit: true
+      ethernet_network_group:
+        - name: Uplink
+          allowed_vlans: 1-99
+        - name: DATA
+          allowed_vlans: 1-99
+        - name: MGMT
+          allowed_vlans: 10
+          native_vlan: 10
+      ethernet_qos:
+        - name: Best_Effort
+          mtu: 9000
+          priority: Best Effort
+        - name: Bronze
+          mtu: 9000
+          priority: Bronze
+        - name: Gold
+          mtu: 9000
+          priority: Gold
+        - name: Platinum
+          mtu: 9000
+          priority: Platinum
+        - name: Silver
+          mtu: 9000
+          priority: Silver
+      flow_control:
+        - name: flow_ctrl
+      link_aggregation:
+        - name: link_agg
+      link_control:
+        - name: link_ctrl
+      multicast:
+        - name: mcast
+          description: default Multicast Policy.

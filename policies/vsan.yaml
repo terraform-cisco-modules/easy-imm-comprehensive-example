@@ -1,0 +1,12 @@
+---
+intersight:
+    policies:
+      vsan:
+        - name: wakanda-vsan-a
+          vsans:
+            - name: VSAN-A
+              vsan_id: 100
+        - name: wakanda-vsan-b
+          vsans:
+            - name: VSAN-B
+              vsan_id: 200
