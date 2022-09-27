@@ -3,7 +3,7 @@ intersight:
     policies:
       power:
         - name: 9508
-          power_allocation: 5600
+          power_allocation: 8400
         - name: Server
           power_restore: LastState
       thermal:

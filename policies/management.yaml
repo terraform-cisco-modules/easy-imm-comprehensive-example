@@ -15,6 +15,21 @@ intersight:
           timezone: "America/New_York"
       serial_over_lan:
         - name: wakanda_sol
+      snmp:
+        - name: wakanda_snmp
+          snmp_traps:
+            - hostname: 198.18.1.62
+              user: snmpuser
+          snmp_users:
+            - user: snmpuser
+              auth_password: 1
+      syslog:
+        - name: wakanda_syslog
+          remote_clients:
+            - hostname: 198.18.1.21
+              enabled: true
+            - hostname: 198.18.1.22
+              enabled: true
       virtual_kvm:
         - name: wakanda_vkvm
           allow_tunneled_kvm: true

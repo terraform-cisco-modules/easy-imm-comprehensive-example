@@ -1,8 +1,27 @@
 ---
 intersight:
     policies:
+      bios:
+        - name: Virtualization_M5
+          bios_template: Virtualization
+          # BIOS Customization
+          baud_rate: "115200"
+          console_redirection: "serial-port-a"
+          execute_disable_bit: "disabled"
+          lv_ddr_mode: "auto"
+          serial_port_aenable: "enabled"
+          terminal_type: "vt100"
+        - name: Virtualization_M6
+          bios_template: M6_Virtualization_tpm
+          # BIOS Customization
+          baud_rate: "115200"
+          console_redirection: "serial-port-a"
+          execute_disable_bit: "disabled"
+          lv_ddr_mode: "auto"
+          serial_port_aenable: "enabled"
+          terminal_type: "vt100"
       boot_order:
-        - name: "Wakanda_boot"
+        - name: "wakanda_boot"
           boot_devices:
             - name: "KVM-DVD"
               object_type: "boot.VirtualMedia"
