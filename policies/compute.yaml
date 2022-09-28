@@ -11,6 +11,7 @@ intersight:
           lv_ddr_mode: "auto"
           serial_port_aenable: "enabled"
           terminal_type: "vt100"
+
         - name: Virtualization_M6
           bios_template: M6_Virtualization_tpm
           # BIOS Customization
@@ -20,6 +21,7 @@ intersight:
           lv_ddr_mode: "auto"
           serial_port_aenable: "enabled"
           terminal_type: "vt100"
+
       boot_order:
         - name: "wakanda_boot"
           boot_devices:

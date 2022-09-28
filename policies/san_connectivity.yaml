@@ -4,19 +4,19 @@ intersight:
       san_connectivity:
         - name: Windows
           vhbas:
-            - name: [HBA-A, HBA-B]
+            - names: [HBA-A, HBA-B]
               fibre_channel_adapter_policy: WindowsBoot
-              fibre_channel_network_policy: [VSAN-A, VSAN-B]
+              fibre_channel_network_policies: [VSAN-A, VSAN-B]
               fibre_channel_qos_policy: fc_qos
               placement_pci_order: [0, 1]
-              wwpn_pool: [vHBA-A, vHBA-B]
+              wwpn_pools: [vHBA-A, vHBA-B]
           wwnn_pool: Wakanda
         - name: Virtualization
           vhbas:
-            - name: [HBA-A, HBA-B]
+            - names: [HBA-A, HBA-B]
               fibre_channel_adapter_policy: VMware
-              fibre_channel_network_policy: [VSAN-A, VSAN-B]
+              fibre_channel_network_policies: [VSAN-A, VSAN-B]
               fibre_channel_qos_policy: fc_qos
               placement_pci_order: [0, 1]
-              wwpn_pool: [vHBA-A, vHBA-B]
+              wwpn_pools: [vHBA-A, vHBA-B]
           wwnn_pool: Wakanda

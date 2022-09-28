@@ -5,7 +5,7 @@ intersight:
         - names: [wakanda-ucs-a, wakanda-ucs-b]
           device_model: UCS-FI-6536
           port_channel_ethernet_uplinks:
-            - pc_id: [31, 31]
+            - pc_ids: [31, 31]
               ethernet_network_group_policy: Uplink
               flow_control_policy: flow_ctrl
               interfaces:
@@ -14,14 +14,14 @@ intersight:
               link_aggregation_policy: link_agg
               link_control_policy: link_ctrl
           port_channel_fc_uplinks:
-            - pc_id: [133, 133]
+            - pc_ids: [133, 133]
               fill_pattern: Arbff
               interfaces:
                 - breakout_port_id: 33
                   port_id: 1
                 - breakout_port_id: 34
                   port_id: 1
-              vsan_id: [100, 200]
+              vsan_ids: [100, 200]
           port_modes:
             - port_list: [33, 36]
               custom_mode: BreakoutFibreChannel32G

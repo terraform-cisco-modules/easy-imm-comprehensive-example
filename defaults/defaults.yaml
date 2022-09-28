@@ -584,7 +584,8 @@ defaults:
         target_platform: FIAttached
         vnic_placement_mode: custom
         vnics:
-          cdn_value: ''
+          cdn_source: vnic
+          cdn_values: []
           enable_failover: false
           ethernet_adapter_policy: ''
           ethernet_network_control_policy: ''
@@ -593,13 +594,13 @@ defaults:
           ethernet_qos_policy: ''
           iscsi_boot_policy: ''
           mac_address_allocation_type: POOL
-          mac_address_pool: ''
-          mac_address_static: ''
-          placement_pci_link: 0
-          placement_pci_order: 0
-          placement_slot_id: MLOM
-          placement_switch_id: None
-          placement_uplink_port: 0
+          mac_address_pools: []
+          mac_address_static: []
+          placement_pci_link: [0]
+          placement_pci_order: [2, 3]
+          placement_slot_id: [MLOM]
+          placement_switch_id: ''
+          placement_uplink_port: [0]
           usnic_adapter_policy: ''
           usnic_class_of_service: 5
           usnic_number_of_usnics: 0
@@ -735,17 +736,17 @@ defaults:
         vhbas:
           fc_zone_policies: []
           fibre_channel_adapter_policy: ''
-          fibre_channel_network_policy: ''
+          fibre_channel_network_policies: ''
           fibre_channel_qos_policy: ''
           persistent_lun_bindings: false
-          placement_pci_link: 0
-          placement_pci_order: 0
-          placement_slot_id: MLOM
-          placement_switch_id: None
-          placement_uplink_port: 0
+          placement_pci_link: [0]
+          placement_pci_order: [0, 1]
+          placement_slot_id: [MLOM]
+          placement_switch_id: ''
+          placement_uplink_port: [0]
           vhba_type: fc-initiator
           wwpn_allocation_type: POOL
-          wwpn_pool: ''
+          wwpn_pools: []
         wwnn_allocation_type: POOL
         wwnn_pool: ''
       sd_card:
