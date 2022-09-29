@@ -860,6 +860,7 @@ defaults:
         name_suffix: ''
       domain:
         action: No-op
+        destroy: false
         domain_type: instance
         name_suffix: ''
       server:

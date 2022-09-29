@@ -2,9 +2,9 @@
 intersight:
     policies:
       switch_control:
-        - name: wakanda_swctrl
+        - name: switch-ctrl
       system_qos:
-        - name: system_qos
+        - name: system-qos
           classes:
             - class: Platinum
               bandwidth_percent: 20
@@ -28,14 +28,14 @@ intersight:
               state: "Enabled"
               weight: 10
             - class: Silver
-              bandwidth_percent: 16
+              bandwidth_percent: 18
               cos: 2
               mtu: 9216
               packet_drop: true
               state: "Enabled"
               weight: 8
             - class: Bronze
-              bandwidth_percent: 16
+              bandwidth_percent: 14
               cos: 1
               mtu: 9216
               packet_drop: true

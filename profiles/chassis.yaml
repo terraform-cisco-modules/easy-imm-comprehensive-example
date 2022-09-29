@@ -2,3 +2,17 @@
 intersight:
     profiles:
       chassis:
+        - names: [
+            wakanda-ucs-1,
+            wakanda-ucs-2,
+            wakanda-ucs-3
+          ]
+          imc_access_policy: KVM
+          power_policy: 9508
+          snmp_policy: wakanda_snmp
+          # serial_numbers: [
+          #   FDO1234567A,
+          #   FDO1234567A,
+          #   FDO1234567A
+          # ]
+          thermal_policy: 9508

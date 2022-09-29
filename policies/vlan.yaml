@@ -5,7 +5,7 @@ intersight:
         - name: mcast
           description: default Multicast Policy.
       vlan:
-        - name: wakanda_vlans
+        - name: wakanda-vlans
           vlans:
             - name: default
               auto_allow_on_uplinks: true

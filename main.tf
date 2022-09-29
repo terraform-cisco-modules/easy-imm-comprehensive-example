@@ -7,6 +7,7 @@ data "utils_yaml_merge" "model" {
     for file in fileset(path.module, "policies/*.yaml") : file(file)], [
     for file in fileset(path.module, "pools/*.yaml") : file(file)], [
     for file in fileset(path.module, "profiles/*.yaml") : file(file)], [
+    for file in fileset(path.module, "templates/*.yaml") : file(file)], [
     file("${path.module}/defaults/defaults.yaml"), file("${path.module}/modules/modules.yaml")]
   )
 }

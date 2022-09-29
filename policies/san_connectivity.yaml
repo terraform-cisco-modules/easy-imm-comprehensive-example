@@ -6,17 +6,17 @@ intersight:
           vhbas:
             - names: [HBA-A, HBA-B]
               fibre_channel_adapter_policy: WindowsBoot
-              fibre_channel_network_policies: [VSAN-A, VSAN-B]
-              fibre_channel_qos_policy: fc_qos
+              fibre_channel_network_policies: [vsan-a, vsan-b]
+              fibre_channel_qos_policy: fc-qos
               placement_pci_order: [0, 1]
-              wwpn_pools: [vHBA-A, vHBA-B]
-          wwnn_pool: Wakanda
+              wwpn_pools: [wwpn-a, wwpn-b]
+          wwnn_pool: wwnn
         - name: Virtualization
           vhbas:
             - names: [HBA-A, HBA-B]
               fibre_channel_adapter_policy: VMware
-              fibre_channel_network_policies: [VSAN-A, VSAN-B]
-              fibre_channel_qos_policy: fc_qos
+              fibre_channel_network_policies: [vsan-a, vsan-b]
+              fibre_channel_qos_policy: fc-qos
               placement_pci_order: [0, 1]
-              wwpn_pools: [vHBA-A, vHBA-B]
-          wwnn_pool: Wakanda
+              wwpn_pools: [wwpn-a, wwpn-b]
+          wwnn_pool: wwnn

@@ -2,21 +2,21 @@
 intersight:
     policies:
       imc_access:
-        - name: KVM
-          out_of_band_ip_pool: KVM
+        - name: imc
+          out_of_band_ip_pool: imc
       ipmi_over_lan:
         - name: ipmi
       network_connectivity:
-        - name: wakanda_dns
+        - name: dns
           dns_servers_v4: [208.67.220.220, 208.67.222.222]
       ntp:
-        - name: wakanda_ntp
+        - name: ntp
           ntp_servers: [time-a-g.nist.gov, time-b-g.nist.gov]
           timezone: "America/New_York"
       serial_over_lan:
-        - name: wakanda_sol
+        - name: sol
       snmp:
-        - name: wakanda_snmp
+        - name: snmp
           snmp_traps:
             - hostname: 198.18.1.62
               user: snmpuser
@@ -24,15 +24,15 @@ intersight:
             - user: snmpuser
               auth_password: 1
       syslog:
-        - name: wakanda_syslog
+        - name: syslog
           remote_clients:
             - hostname: 198.18.1.21
               enabled: true
             - hostname: 198.18.1.22
               enabled: true
       virtual_kvm:
-        - name: wakanda_vkvm
+        - name: vkvm
           allow_tunneled_kvm: true
       virtual_media:
-        - name: wakanda_vmedia
+        - name: vmedia
           enable_virtual_media_encryption: true

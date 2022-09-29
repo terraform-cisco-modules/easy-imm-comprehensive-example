@@ -2,7 +2,7 @@
 intersight:
     policies:
       bios:
-        - name: Virtualization_M5
+        - name: Virtualization-M5
           bios_template: Virtualization
           # BIOS Customization
           baud_rate: "115200"
@@ -12,7 +12,7 @@ intersight:
           serial_port_aenable: "enabled"
           terminal_type: "vt100"
 
-        - name: Virtualization_M6
+        - name: Virtualization-M6
           bios_template: M6_Virtualization_tpm
           # BIOS Customization
           baud_rate: "115200"
@@ -23,7 +23,59 @@ intersight:
           terminal_type: "vt100"
 
       boot_order:
-        - name: "wakanda_boot"
+        - name: "M2-pxe"
+          boot_devices:
+            - name: "KVM-DVD"
+              object_type: "boot.VirtualMedia"
+              sub_type: "kvm-mapped-dvd"
+            - name: "M2"
+              object_type: "boot.LocalDisk"
+              slot: "MSTOR-RAID"
+            - name: "PXE"
+              interface_name: "MGMT-A"
+              object_type: "boot.Pxe"
+              slot: "MLOM"
+          boot_mode: "Uefi"
+          # description: "Wakanda_boot Boot Policy."
+          enable_secure_boot: false
+        - name: "M2"
+          boot_devices:
+            - name: "KVM-DVD"
+              object_type: "boot.VirtualMedia"
+              sub_type: "kvm-mapped-dvd"
+            - name: "M2"
+              object_type: "boot.LocalDisk"
+              slot: "MSTOR-RAID"
+          boot_mode: "Uefi"
+          # description: "Wakanda_boot Boot Policy."
+          enable_secure_boot: true
+        - name: "Raid-pxe"
+          boot_devices:
+            - name: "KVM-DVD"
+              object_type: "boot.VirtualMedia"
+              sub_type: "kvm-mapped-dvd"
+            - name: "Raid1"
+              object_type: "boot.LocalDisk"
+              slot: "MRAID"
+            - name: "PXE"
+              interface_name: "MGMT-A"
+              object_type: "boot.Pxe"
+              slot: "MLOM"
+          boot_mode: "Uefi"
+          # description: "Wakanda_boot Boot Policy."
+          enable_secure_boot: false
+        - name: "Raid1"
+          boot_devices:
+            - name: "KVM-DVD"
+              object_type: "boot.VirtualMedia"
+              sub_type: "kvm-mapped-dvd"
+            - name: "Raid1"
+              object_type: "boot.LocalDisk"
+              slot: "MRAID"
+          boot_mode: "Uefi"
+          # description: "Wakanda_boot Boot Policy."
+          enable_secure_boot: true
+        - name: "examples"
           boot_devices:
             - name: "KVM-DVD"
               object_type: "boot.VirtualMedia"

@@ -3,13 +3,13 @@ intersight:
     profiles:
       domain:
         - name: wakanda-ucs
-          network_connectivity_policy: wakanda_dns
-          ntp_policy: wakanda_ntp
+          network_connectivity_policy: dns
+          ntp_policy: ntp
           port_policies: [wakanda-ucs-a, wakanda-ucs-b]
-          snmp_policy: wakanda_snmp
+          snmp_policy: snmp
           # serial_numbers: [FDO1234567A, FDO1234567B]
-          switch_control_policy: default
-          syslog_policy: wakanda_syslog
-          system_qos_policy: default
-          vlan_policies: [wakanda_vlans]
+          switch_control_policy: switch-ctrl
+          syslog_policy: syslog
+          system_qos_policy: system-qos
+          vlan_policies: [wakanda-vlans]
           vsan_policies: [wakanda-vsan-a, wakanda-vsan-b]   

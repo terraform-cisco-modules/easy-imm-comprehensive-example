@@ -9,9 +9,9 @@ intersight:
         - name: WindowsBoot
           adapter_template: WindowsBoot
       fibre_channel_network:
-        - name: VSAN-A
+        - name: vsan-a
           vsan_id: 100
-        - name: VSAN-B
+        - name: vsan-b
           vsan_id: 200
       fibre_channel_qos:
-        - name: fc_qos
+        - name: fc-qos

@@ -7,17 +7,17 @@ intersight:
         - name: WIN-AzureStack
           adapter_template: WIN-AzureStack
       ethernet_network_control:
-        - name: CDP
+        - name: cdp
           cdp_enable: true
-        - name: LLDP
+        - name: lldp
           lldp_enable_receive: true
           lldp_enable_transmit: true
       ethernet_network_group:
-        - name: Uplink
+        - name: uplink
           allowed_vlans: 1-99
-        - name: DATA
+        - name: data
           allowed_vlans: 1-99
-        - name: MGMT
+        - name: mgmt
           allowed_vlans: 10
           native_vlan: 10
       ethernet_qos:
@@ -37,8 +37,8 @@ intersight:
           mtu: 9000
           priority: Silver
       flow_control:
-        - name: flow_ctrl
+        - name: flow-ctrl
       link_aggregation:
-        - name: link_agg
+        - name: link-agg
       link_control:
-        - name: link_ctrl
+        - name: link-ctrl

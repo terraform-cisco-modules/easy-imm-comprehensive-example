@@ -6,13 +6,13 @@ intersight:
           device_model: UCS-FI-6536
           port_channel_ethernet_uplinks:
             - pc_ids: [31, 31]
-              ethernet_network_group_policy: Uplink
-              flow_control_policy: flow_ctrl
+              ethernet_network_group_policy: uplink
+              flow_control_policy: flow-ctrl
               interfaces:
                 - port_id: 31
                 - port_id: 32
-              link_aggregation_policy: link_agg
-              link_control_policy: link_ctrl
+              link_aggregation_policy: link-agg
+              link_control_policy: link-ctrl
           port_channel_fc_uplinks:
             - pc_ids: [133, 133]
               fill_pattern: Arbff

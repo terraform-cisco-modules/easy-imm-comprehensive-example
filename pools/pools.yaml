@@ -2,7 +2,7 @@
 intersight:
     pools:
       ip:
-        - name: KVM
+        - name: imc
           ipv4_blocks:
             - from: 198.18.0.10
               size: 240
@@ -12,35 +12,35 @@ intersight:
               primary_dns: 208.67.220.220
               secondary_dns: 208.67.222.222
       mac:
-        - name: vNIC
+        - name: mac
           mac_blocks:
             - from: 00:25:B5:00:00:00
               size: 1000
-        - name: vNIC-A
+        - name: mac-a
           mac_blocks:
             - from: 00:25:B5:0A:00:00
               size: 1000
-        - name: vNIC-B
+        - name: mac-b
           mac_blocks:
             - from: 00:25:B5:0B:00:00
               size: 1000
       uuid:
-        - name: Wakanda
+        - name: uuid
           prefix: 000025B5-0000-0000
           uuid_blocks:
             - from: 0000-000000000000
               size: 1000
       wwnn:
-        - name: Wakanda
+        - name: wwnn
           id_blocks:
             - from: 20:00:00:25:B5:00:00:00
               size: 1000
       wwpn:
-        - name: vHBA-A
+        - name: wwpn-a
           id_blocks:
             - from: 20:00:00:25:B5:0A:00:00
               size: 1000
-        - name: vHBA-B
+        - name: wwpn-b
           id_blocks:
             - from: 20:00:00:25:B5:0B:00:00
               size: 1000
