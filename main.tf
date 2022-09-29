@@ -94,14 +94,14 @@ module "policies" {
   vmedia_password_5 = var.vmedia_password_5
 }
 
-# module "profiles" {
-#   depends_on = [
-#     module.policies
-#   ]
-#   source = "../terraform-intersight-profiles"
-#   # source  = "terraform-cisco-modules/profiles/intersight"
-#   # version = ">= 1.0.1"
-#   model = local.model
-#   pools = module.pools
-#   policies = module.policies
-# }
+module "profiles" {
+  depends_on = [
+    module.policies
+  ]
+  source = "../terraform-intersight-profiles"
+  # source  = "terraform-cisco-modules/profiles/intersight"
+  # version = ">= 1.0.1"
+  model = local.model
+  pools = module.pools
+  policies = module.policies
+}

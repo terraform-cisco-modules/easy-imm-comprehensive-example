@@ -855,20 +855,26 @@ defaults:
         name_suffix: ''
     profiles:
       chassis:
+        name_suffix: ''
         action: No-op
         domain_type: instance
-        name_suffix: ''
+        target_platform: FIAttached
+        wait_for_completion: false
       domain:
+        name_suffix: ''
         action: No-op
         destroy: false
         domain_type: instance
-        name_suffix: ''
       server:
-        action: No-op
-        domain_type: instance
         name_suffix: ''
+        action: No-op
+        target_platform: FIAttached
+        wait_for_completion: false
     tags:
       - key: iac-intersight
         value: 1.0.1
     templates:
       server:
+        name_suffix: ''
+        target_platform: FIAttached
+        wait_for_completion: false

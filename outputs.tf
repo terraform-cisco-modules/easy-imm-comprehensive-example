@@ -10,6 +10,6 @@ output "pools" {
   value = module.pools
 }
 
-# output "profiles" {
-#   value = module.profiles
-# }
+output "profiles" {
+  value = module.profiles
+}

@@ -6,6 +6,12 @@ intersight:
           out_of_band_ip_pool: imc
       ipmi_over_lan:
         - name: ipmi
+      local_user:
+        - name: users
+          users:
+            - user: admin
+              password: 1
+              role: admin
       network_connectivity:
         - name: dns
           dns_servers_v4: [208.67.220.220, 208.67.222.222]

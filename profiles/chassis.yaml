@@ -7,9 +7,9 @@ intersight:
             wakanda-ucs-2,
             wakanda-ucs-3
           ]
-          imc_access_policy: KVM
+          imc_access_policy: imc
           power_policy: 9508
-          snmp_policy: wakanda_snmp
+          snmp_policy: snmp
           # serial_numbers: [
           #   FDO1234567A,
           #   FDO1234567A,

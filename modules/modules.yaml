@@ -56,4 +56,4 @@ modules:
     domain: true
     server: true
   templates:
-    server_profile: true
+    server: true
