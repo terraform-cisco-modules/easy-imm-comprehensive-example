@@ -13,9 +13,8 @@ data "utils_yaml_merge" "model" {
 }
 
 module "pools" {
-  source = "../terraform-intersight-pools"
-  # source  = "terraform-cisco-modules/pools/intersight"
-  # version = ">= 1.0.1"
+  source  = "terraform-cisco-modules/pools/intersight"
+  version = ">= 1.0.1"
   model = local.model
 }
 
@@ -23,9 +22,8 @@ module "domain_profiles" {
   depends_on = [
     module.pools
   ]
-  source = "../terraform-intersight-ucs-domain-profiles"
-  # source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
-  # version = ">= 1.0.1"
+  source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
+  version = ">= 1.0.1"
   model = local.model
   orgs  = module.pools.orgs
 }
@@ -34,9 +32,8 @@ module "policies" {
   depends_on = [
     module.domain_profiles
   ]
-  source = "../terraform-intersight-policies"
-  # source  = "terraform-cisco-modules/policies/intersight"
-  # version = ">= 1.0.1"
+  source  = "terraform-cisco-modules/policies/intersight"
+  version = ">= 1.0.1"
   model   = local.model
   domains = module.domain_profiles.domains
   pools   = module.pools

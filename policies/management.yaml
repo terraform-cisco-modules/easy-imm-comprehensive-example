@@ -29,8 +29,27 @@ intersight:
           snmp_users:
             - user: snmpuser
               auth_password: 1
+        # Because Domain is attached to the Policy And chassis/servers 
+        # are attached with policy bucket.  The snmp policy must be 
+        # different for domain versus chassis/servers
+        - name: snmp-domain
+          snmp_traps:
+            - hostname: 198.18.1.62
+              user: snmpuser
+          snmp_users:
+            - user: snmpuser
+              auth_password: 1
       syslog:
         - name: syslog
+          remote_clients:
+            - hostname: 198.18.1.21
+              enabled: true
+            - hostname: 198.18.1.22
+              enabled: true
+        # Because Domain is attached to the Policy And chassis/servers 
+        # are attached with policy bucket.  The syslog policy must be 
+        # different for domain versus chassis/servers
+        - name: syslog-domain
           remote_clients:
             - hostname: 198.18.1.21
               enabled: true
