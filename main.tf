@@ -33,7 +33,7 @@ module "policies" {
     module.domain_profiles
   ]
   source  = "terraform-cisco-modules/policies/intersight"
-  version = ">= 1.0.2"
+  version = ">= 1.0.4"
   model   = local.model
   domains = module.domain_profiles.domains
   pools   = module.pools
@@ -95,8 +95,8 @@ module "profiles" {
   depends_on = [
     module.policies
   ]
-  source  = "terraform-cisco-modules/profiles/intersight"
-  version = ">= 1.0.3"
+  source   = "terraform-cisco-modules/profiles/intersight"
+  version  = ">= 1.0.3"
   model    = local.model
   pools    = module.pools
   policies = module.policies

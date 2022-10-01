@@ -864,7 +864,6 @@ defaults:
       domain:
         name_suffix: ''
         action: No-op
-        destroy: false
         domain_type: instance
       server:
         name_suffix: ''
