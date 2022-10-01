@@ -2,17 +2,17 @@
 intersight:
     profiles:
       chassis:
-        - names: [
-            wakanda-ucs-1,
-            wakanda-ucs-2,
-            wakanda-ucs-3
+        - names_serials: [
+            # Assigning the Serial will Associate the Physical Server
+            # [wakanda-ucs-1,FDO1234565A,],
+            # [wakanda-ucs-2,FDO1234565B,],
+            # [wakanda-ucs-3,FDO1234565C]
+            # Not Assigning the Serial will just create the Profile
+            [wakanda-ucs-1],
+            [wakanda-ucs-2],
+            [wakanda-ucs-3]
           ]
           imc_access_policy: imc
           power_policy: 9508
           snmp_policy: snmp
-          # serial_numbers: [
-          #   FDO1234567A,
-          #   FDO1234567A,
-          #   FDO1234567A
-          # ]
           thermal_policy: 9508

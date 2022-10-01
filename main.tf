@@ -8,14 +8,14 @@ data "utils_yaml_merge" "model" {
     for file in fileset(path.module, "pools/*.yaml") : file(file)], [
     for file in fileset(path.module, "profiles/*.yaml") : file(file)], [
     for file in fileset(path.module, "templates/*.yaml") : file(file)], [
-    file("${path.module}/defaults/defaults.yaml"), file("${path.module}/modules/modules.yaml")]
+    file("${path.module}/defaults/defaults.yaml")]
   )
 }
 
 module "pools" {
   source  = "terraform-cisco-modules/pools/intersight"
-  version = ">= 1.0.1"
-  model = local.model
+  version = ">= 1.0.2"
+  model   = local.model
 }
 
 module "domain_profiles" {
@@ -23,9 +23,9 @@ module "domain_profiles" {
     module.pools
   ]
   source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
-  version = ">= 1.0.1"
-  model = local.model
-  orgs  = module.pools.orgs
+  version = ">= 1.0.3"
+  model   = local.model
+  orgs    = module.pools.orgs
 }
 
 module "policies" {
@@ -33,7 +33,7 @@ module "policies" {
     module.domain_profiles
   ]
   source  = "terraform-cisco-modules/policies/intersight"
-  version = ">= 1.0.1"
+  version = ">= 1.0.2"
   model   = local.model
   domains = module.domain_profiles.domains
   pools   = module.pools
@@ -95,10 +95,9 @@ module "profiles" {
   depends_on = [
     module.policies
   ]
-  source = "../terraform-intersight-profiles"
-  # source  = "terraform-cisco-modules/profiles/intersight"
-  # version = ">= 1.0.1"
-  model = local.model
-  pools = module.pools
+  source  = "terraform-cisco-modules/profiles/intersight"
+  version = ">= 1.0.3"
+  model    = local.model
+  pools    = module.pools
   policies = module.policies
 }

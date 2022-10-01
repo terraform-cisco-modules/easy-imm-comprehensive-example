@@ -1,6 +1,7 @@
 ---
 defaults:
   intersight:
+    moids: true
     organization: 'Wakanda'
     policies:
       adapter_configuration:
