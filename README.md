@@ -1,7 +1,7 @@
 <!-- BEGIN_TF_DOCS -->
 # Easy IMM - Comprehensive example for Intersight
 
-This example is part of the Cisco [*Easy IMM*](https://cisco.com/go/easy-imm) project. Its goal is to allow users to instantiate Infrastrcture in minutes using an easy to use, opinionated data model. It takes away the complexity of having to deal with references, dependencies or loops. By completely separating data (defining variables) from logic (infrastructure declaration), it allows the user to focus on describing the intended configuration while using a set of maintained and tested Terraform Modules without the need to understand the low-level Intersight object model. More information can be found here: <https://cisco.com/go/easy-imm>.
+[//]: # (This example is part of the Cisco [*Easy IMM*](https://cisco.com/go/easy-imm) project. Its goal is to allow users to instantiate Infrastrcture in minutes using an easy to use, opinionated data model. It takes away the complexity of having to deal with references, dependencies or loops. By completely separating data (defining variables) from logic (infrastructure declaration), it allows the user to focus on describing the intended configuration while using a set of maintained and tested Terraform Modules without the need to understand the low-level Intersight object model. More information can be found here: <https://cisco.com/go/easy-imm>.)
 
 ## Environment Variables
 
@@ -36,7 +36,7 @@ $env:TF_VAR_secretkey="<secret-key-file-location>"
 | <a name="provider_utils"></a> [utils](#provider\_utils) | 0.1.2 |
 
 ## NOTE:
-**Sensitive Variables cannot be added to a for_each loop, use the variables below to add sensitive values for policies.**
+**When the Data is merged from the YAML files it will run through modules in a for_each loop.  Sensitive Variables cannot be added to a for_each loop, use the variables below to add sensitive values for policies.**
 
 ## Inputs
 
