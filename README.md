@@ -91,10 +91,10 @@ $env:TF_VAR_secretkey="<secret-key-file-location>"
 
 | Name | Description |
 |------|-------------|
-| <a name="output_domain_profiles"></a> [domain\_profiles](#output\_domain\_profiles) | n/a |
-| <a name="output_policies"></a> [policies](#output\_policies) | n/a |
-| <a name="output_pools"></a> [pools](#output\_pools) | n/a |
-| <a name="output_profiles"></a> [profiles](#output\_profiles) | n/a |
+| <a name="output_domain_profiles"></a> [domain\_profiles](#output\_domain\_profiles) | Domain Profile Outputs: including cluster and switch Moids, policy assignments. |
+| <a name="output_policies"></a> [policies](#output\_policies) | The Name of Each Policy Created with it's respective Moid. |
+| <a name="output_pools"></a> [pools](#output\_pools) | The Name of Each Pool Created with it's respective Moid. |
+| <a name="output_profiles"></a> [profiles](#output\_profiles) | The Name of Each Profile Created with it's respective Moid. |
 ## Resources
 
 | Name | Type |
