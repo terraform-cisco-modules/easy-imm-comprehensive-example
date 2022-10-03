@@ -35,7 +35,8 @@ $env:TF_VAR_secretkey="<secret-key-file-location>"
 |------|---------|
 | <a name="provider_utils"></a> [utils](#provider\_utils) | 0.1.2 |
 
-## Sensitive Variables cannot be added to a for_each loop, use the variables below to add sensitive values for policies.
+## NOTE
+### Sensitive Variables cannot be added to a for_each loop, use the variables below to add sensitive values for policies.
 
 ## Inputs
 
