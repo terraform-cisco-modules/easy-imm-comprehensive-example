@@ -36,7 +36,7 @@ intersight:
               object_type: "boot.Pxe"
               slot: "MLOM"
           boot_mode: "Uefi"
-          # description: "Wakanda_boot Boot Policy."
+          # description: "M2-pxe Boot Policy."
           enable_secure_boot: false
         - name: "M2"
           boot_devices:
@@ -47,7 +47,7 @@ intersight:
               object_type: "boot.LocalDisk"
               slot: "MSTOR-RAID"
           boot_mode: "Uefi"
-          # description: "Wakanda_boot Boot Policy."
+          # description: "M2 Boot Policy."
           enable_secure_boot: true
         - name: "Raid-pxe"
           boot_devices:
@@ -62,7 +62,7 @@ intersight:
               object_type: "boot.Pxe"
               slot: "MLOM"
           boot_mode: "Uefi"
-          # description: "Wakanda_boot Boot Policy."
+          # description: "Raid-pxe Boot Policy."
           enable_secure_boot: false
         - name: "Raid1"
           boot_devices:
@@ -73,7 +73,7 @@ intersight:
               object_type: "boot.LocalDisk"
               slot: "MRAID"
           boot_mode: "Uefi"
-          # description: "Wakanda_boot Boot Policy."
+          # description: "Raid1 Boot Policy."
           enable_secure_boot: true
         - name: "examples"
           boot_devices:
@@ -122,5 +122,5 @@ intersight:
               slot: "MLOM"
               wwpn: "50:00:00:25:B5:0B:00:02"
           boot_mode: "Uefi"
-          # description: "Wakanda_boot Boot Policy."
+          # description: "examples Boot Policy."
           enable_secure_boot: false

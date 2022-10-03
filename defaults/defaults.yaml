@@ -2,7 +2,7 @@
 defaults:
   intersight:
     moids: true
-    organization: 'Wakanda'
+    organization: 'default'
     policies:
       adapter_configuration:
         name_suffix: ''

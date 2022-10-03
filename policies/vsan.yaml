@@ -2,11 +2,11 @@
 intersight:
     policies:
       vsan:
-        - name: wakanda-vsan-a
+        - name: test-vsan-a
           vsans:
             - name: VSAN-A
               vsan_id: 100
-        - name: wakanda-vsan-b
+        - name: test-vsan-b
           vsans:
             - name: VSAN-B
               vsan_id: 200

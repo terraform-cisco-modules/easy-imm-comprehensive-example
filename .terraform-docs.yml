@@ -1,0 +1,39 @@
+version: '>= 0.14.0'
+
+formatter: markdown table
+
+content: |-
+  # Easy IMM - Comprehensive example for Intersight
+
+  This example is part of the Cisco [*Easy IMM*](https://cisco.com/go/easy-imm) project. Its goal is to allow users to instantiate Infrastrcture in minutes using an easy to use, opinionated data model. It takes away the complexity of having to deal with references, dependencies or loops. By completely separating data (defining variables) from logic (infrastructure declaration), it allows the user to focus on describing the intended configuration while using a set of maintained and tested Terraform Modules without the need to understand the low-level Intersight object model. More information can be found here: <https://cisco.com/go/easy-imm>.
+
+  ## Environment Variables
+
+  ### Terraform Cloud/Enterprise - Workspace Variables
+  - Add variable apikey with value of [your-api-key]
+  - Add variable secretkey with value of [your-secret-file-content]
+
+  ### Linux
+  ```bash
+  export TF_VAR_apikey="<your-api-key>"
+  export TF_VAR_secretkey=`cat <secret-key-file-location>`
+  ```
+
+  ### Windows
+  ```bash
+  $env:TF_VAR_apikey="<your-api-key>"
+  $env:TF_VAR_secretkey="<secret-key-file-location>"
+  ```
+
+
+  {{ .Requirements }}
+  {{ .Providers }}
+  {{ .Inputs }}
+  {{ .Outputs }}
+  {{ .Resources }}
+output:
+  file: README.md
+  mode: replace
+
+sort:
+  enabled: false

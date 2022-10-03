@@ -2,7 +2,7 @@
 intersight:
     policies:
       port:
-        - names: [wakanda-ucs-a, wakanda-ucs-b]
+        - names: [test-ucs-a, test-ucs-b]
           device_model: UCS-FI-6536
           port_channel_ethernet_uplinks:
             - pc_ids: [31, 31]
