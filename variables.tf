@@ -63,35 +63,35 @@ variable "base64_certificate_5" {
 
 variable "base64_private_key_1" {
   default     = ""
-  description = "Private Key in Base64 Format."
+  description = "The Server Private Key in Base64 Format."
   sensitive   = true
   type        = string
 }
 
 variable "base64_private_key_2" {
   default     = ""
-  description = "Private Key in Base64 Format."
+  description = "The Server Private Key in Base64 Format."
   sensitive   = true
   type        = string
 }
 
 variable "base64_private_key_3" {
   default     = ""
-  description = "Private Key in Base64 Format."
+  description = "The Server Private Key in Base64 Format."
   sensitive   = true
   type        = string
 }
 
 variable "base64_private_key_4" {
   default     = ""
-  description = "Private Key in Base64 Format."
+  description = "The Server Private Key in Base64 Format."
   sensitive   = true
   type        = string
 }
 
 variable "base64_private_key_5" {
   default     = ""
-  description = "Private Key in Base64 Format."
+  description = "The Server Private Key in Base64 Format."
   sensitive   = true
   type        = string
 }
@@ -116,7 +116,7 @@ variable "ipmi_key_1" {
 
 variable "iscsi_boot_password" {
   default     = ""
-  description = "Password to Assign to the Policy if doing Authentication."
+  description = "Password to Assign to the iSCSI Boot Policy if doing Authentication."
   sensitive   = true
   type        = string
 }
@@ -128,7 +128,7 @@ variable "iscsi_boot_password" {
 
 variable "binding_parameters_password" {
   default     = ""
-  description = "The password of the user for initial bind process. It can be any string that adheres to the following constraints. It can have character except spaces, tabs, line breaks. It cannot be more than 254 characters."
+  description = "The password of the user for initial bind process with an LDAP Policy. It can be any string that adheres to the following constraints. It can have character except spaces, tabs, line breaks. It cannot be more than 254 characters."
   sensitive   = true
   type        = string
 }
@@ -140,35 +140,35 @@ variable "binding_parameters_password" {
 
 variable "local_user_password_1" {
   default     = ""
-  description = "Password to assign to a local user.  Sensitive Variables cannot be added to a for_each loop so these are added seperately."
+  description = "Password to assign to a Local User Policy -> user."
   sensitive   = true
   type        = string
 }
 
 variable "local_user_password_2" {
   default     = ""
-  description = "Password to assign to a local user.  Sensitive Variables cannot be added to a for_each loop so these are added seperately."
+  description = "Password to assign to a Local User Policy -> user."
   sensitive   = true
   type        = string
 }
 
 variable "local_user_password_3" {
   default     = ""
-  description = "Password to assign to a local user.  Sensitive Variables cannot be added to a for_each loop so these are added seperately."
+  description = "Password to assign to a Local User Policy -> user."
   sensitive   = true
   type        = string
 }
 
 variable "local_user_password_4" {
   default     = ""
-  description = "Password to assign to a local user.  Sensitive Variables cannot be added to a for_each loop so these are added seperately."
+  description = "Password to assign to a Local User Policy -> user."
   sensitive   = true
   type        = string
 }
 
 variable "local_user_password_5" {
   default     = ""
-  description = "Password to assign to a local user.  Sensitive Variables cannot be added to a for_each loop so these are added seperately."
+  description = "Password to assign to a Local User Policy -> user."
   sensitive   = true
   type        = string
 }
@@ -333,40 +333,6 @@ variable "snmp_trap_community_5" {
   type        = string
 }
 
-variable "trap_community_string_1" {
-  default     = ""
-  description = "The default SNMPv1, SNMPv2c community name or SNMPv3 username to include on any trap messages sent to the SNMP host. The name can be 18 characters long."
-  sensitive   = true
-  type        = string
-}
-
-variable "trap_community_string_2" {
-  default     = ""
-  description = "The default SNMPv1, SNMPv2c community name or SNMPv3 username to include on any trap messages sent to the SNMP host. The name can be 18 characters long."
-  sensitive   = true
-  type        = string
-}
-
-variable "trap_community_string_3" {
-  default     = ""
-  description = "The default SNMPv1, SNMPv2c community name or SNMPv3 username to include on any trap messages sent to the SNMP host. The name can be 18 characters long."
-  sensitive   = true
-  type        = string
-}
-
-variable "trap_community_string_4" {
-  default     = ""
-  description = "The default SNMPv1, SNMPv2c community name or SNMPv3 username to include on any trap messages sent to the SNMP host. The name can be 18 characters long."
-  sensitive   = true
-  type        = string
-}
-
-variable "trap_community_string_5" {
-  default     = ""
-  description = "The default SNMPv1, SNMPv2c community name or SNMPv3 username to include on any trap messages sent to the SNMP host. The name can be 18 characters long."
-  sensitive   = true
-  type        = string
-}
 
 #__________________________________________________________________
 #
@@ -375,35 +341,35 @@ variable "trap_community_string_5" {
 
 variable "vmedia_password_1" {
   default     = ""
-  description = "Password for vMedia "
+  description = "Password for a Virtual Media Policy -> mapping target."
   sensitive   = true
   type        = string
 }
 
 variable "vmedia_password_2" {
   default     = ""
-  description = "Password for vMedia "
+  description = "Password for a Virtual Media Policy -> mapping target."
   sensitive   = true
   type        = string
 }
 
 variable "vmedia_password_3" {
   default     = ""
-  description = "Password for vMedia "
+  description = "Password for a Virtual Media Policy -> mapping target."
   sensitive   = true
   type        = string
 }
 
 variable "vmedia_password_4" {
   default     = ""
-  description = "Password for vMedia "
+  description = "Password for a Virtual Media Policy -> mapping target."
   sensitive   = true
   type        = string
 }
 
 variable "vmedia_password_5" {
   default     = ""
-  description = "Password for vMedia "
+  description = "Password for a Virtual Media Policy -> mapping target."
   sensitive   = true
   type        = string
 }
