@@ -109,11 +109,8 @@ If you would like to enable Auto Completion in the Pools File for ip, mac, uuid,
 
 Click: `Edit in settings.json`
 
-Configure the following
+Configure the following in `yaml.schemas`
 ```bash
-"yaml.schemas": {
 "https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/schemas/pools.json": "pools.yaml"
-}
-
 ```
 <!-- END_TF_DOCS -->

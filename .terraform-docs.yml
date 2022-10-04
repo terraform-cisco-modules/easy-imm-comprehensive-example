@@ -42,12 +42,9 @@ content: |-
 
   Click: `Edit in settings.json`
 
-  Configure the following
+  Configure the following in `yaml.schemas`
   ```bash
-      "yaml.schemas": {
-        "https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/schemas/pools.json": "pools.yaml"
-    }
-
+    "https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/schemas/pools.json": "pools.yaml"
   ```
 output:
   file: README.md
