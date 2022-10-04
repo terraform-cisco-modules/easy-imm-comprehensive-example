@@ -33,6 +33,22 @@ content: |-
   {{ .Inputs }}
   {{ .Outputs }}
   {{ .Resources }}
+
+  ## Auto-completion Notes:
+
+  If you would like to enable Auto Completion in the Pools File for ip, mac, uuid, wwnn, and wwpn perform the following in Visual Studio Code.
+
+  `Settings` » `Settings`: Search for `YAML:Schemas`.
+
+  Click: `Edit in settings.json`
+
+  Configure the following
+  ```bash
+      "yaml.schemas": {
+        "https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/schemas/pools.json": "pools.yaml"
+    }
+
+  ```
 output:
   file: README.md
   mode: replace
