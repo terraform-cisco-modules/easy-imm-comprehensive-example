@@ -14,7 +14,7 @@ data "utils_yaml_merge" "model" {
 
 module "pools" {
   source  = "terraform-cisco-modules/pools/intersight"
-  version = ">= 1.0.2"
+  version = ">= 1.0.5"
   model   = local.model
 }
 

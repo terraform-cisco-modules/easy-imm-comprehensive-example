@@ -34,7 +34,7 @@ $env:TF_VAR_secretkey="<secret-key-file-location>"
 | <a name="provider_utils"></a> [utils](#provider\_utils) | 0.1.2 |
 
 ## NOTE:
-**When the Data is merged from the YAML files it will run through modules in a for_each loop.  Sensitive Variables cannot be added to a for_each loop, use the variables below to add sensitive values for policies.**
+**When the Data is merged from the YAML files, it will run through the modules using for_each loop(s).  Sensitive Variables cannot be added to a for_each loop, instead use the variables below to add sensitive values for policies.**
 
 ## Inputs
 
