@@ -6,6 +6,7 @@ intersight:
           vsans:
             - name: VSAN-A
               vsan_id: 100
+
         - name: test-vsan-b
           vsans:
             - name: VSAN-B

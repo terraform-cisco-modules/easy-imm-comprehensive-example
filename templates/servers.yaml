@@ -10,7 +10,7 @@ intersight:
           bios_policy: Virtualization-M6
           boot_order_policy: M2-pxe
           uuid_pool: uuid
-          power_policy: Server
+          power_policy: server
           virtual_media_policy: vmedia
           #___________________________
           #

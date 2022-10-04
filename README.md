@@ -23,6 +23,11 @@ $env:TF_VAR_secretkey="<secret-key-file-location>"
 
 If you would like to enable Auto Completion in the Pools File for ip, mac, uuid, wwnn, and wwpn perform the following in Visual Studio Code.
 
+###Install the YAML extension by Red Hat
+`Extensions`: Search for YAML and Select the 'YAML Language Support by Red Hat'
+
+###Add the YAML Schema's below to the Visual Studio Code Settings
+
 `Settings` » `Settings`: Search for `YAML:Schemas`.
 
 Click: `Edit in settings.json`

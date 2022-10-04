@@ -4,7 +4,7 @@ intersight:
       power:
         - name: 9508
           power_allocation: 8400
-        - name: Server
+        - name: server
           power_restore: LastState
       thermal:
         - name: 9508

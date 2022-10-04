@@ -11,6 +11,7 @@ intersight:
               placement_pci_order: [0, 1]
               wwpn_pools: [wwpn-a, wwpn-b]
           wwnn_pool: wwnn
+
         - name: Virtualization
           vhbas:
             - names: [HBA-A, HBA-B]

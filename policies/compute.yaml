@@ -38,6 +38,7 @@ intersight:
           boot_mode: "Uefi"
           # description: "M2-pxe Boot Policy."
           enable_secure_boot: false
+        
         - name: "M2"
           boot_devices:
             - name: "KVM-DVD"
@@ -49,6 +50,7 @@ intersight:
           boot_mode: "Uefi"
           # description: "M2 Boot Policy."
           enable_secure_boot: true
+        
         - name: "Raid-pxe"
           boot_devices:
             - name: "KVM-DVD"
@@ -75,6 +77,7 @@ intersight:
           boot_mode: "Uefi"
           # description: "Raid1 Boot Policy."
           enable_secure_boot: true
+        
         - name: "examples"
           boot_devices:
             - name: "KVM-DVD"

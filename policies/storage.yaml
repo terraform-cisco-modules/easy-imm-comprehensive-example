@@ -5,6 +5,7 @@ intersight:
         - name: M2
           m2_configuration:
             - controller_slot: MSTOR-RAID-1
+
         - name: Raid1
           drive_groups:
             - name: Raid1

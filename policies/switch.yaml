@@ -13,6 +13,7 @@ intersight:
               packet_drop: false
               state: "Enabled"
               weight: 10
+
             - class: Gold
               bandwidth_percent: 18
               cos: 4
@@ -20,6 +21,7 @@ intersight:
               packet_drop: true
               state: "Enabled"
               weight: 9
+
             - class: FC
               bandwidth_percent: 20
               cos: 3
@@ -27,6 +29,7 @@ intersight:
               packet_drop: false
               state: "Enabled"
               weight: 10
+
             - class: Silver
               bandwidth_percent: 18
               cos: 2
@@ -34,6 +37,7 @@ intersight:
               packet_drop: true
               state: "Enabled"
               weight: 8
+
             - class: Bronze
               bandwidth_percent: 14
               cos: 1
@@ -41,6 +45,7 @@ intersight:
               packet_drop: true
               state: "Enabled"
               weight: 7
+
             - class: Best Effort
               bandwidth_percent: 10
               cos: 255
