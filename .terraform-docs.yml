@@ -23,17 +23,6 @@ content: |-
   $env:TF_VAR_secretkey="<secret-key-file-location>"
   ```
 
-
-  {{ .Requirements }}
-  {{ .Providers }}
-  
-  ## NOTE:
-  **When the Data is merged from the YAML files, it will run through the modules using for_each loop(s).  Sensitive Variables cannot be added to a for_each loop, instead use the variables below to add sensitive values for policies.**
-
-  {{ .Inputs }}
-  {{ .Outputs }}
-  {{ .Resources }}
-
   ## Auto-completion Notes:
 
   If you would like to enable Auto Completion in the Pools File for ip, mac, uuid, wwnn, and wwpn perform the following in Visual Studio Code.
@@ -46,6 +35,17 @@ content: |-
   ```bash
     "https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/schemas/pools.json": "pools.yaml"
   ```
+
+  {{ .Requirements }}
+  {{ .Providers }}
+  
+  ## NOTE:
+  **When the Data is merged from the YAML files, it will run through the modules using for_each loop(s).  Sensitive Variables cannot be added to a for_each loop, instead use the variables below to add sensitive values for policies.**
+
+  {{ .Inputs }}
+  {{ .Outputs }}
+  {{ .Resources }}
+
 output:
   file: README.md
   mode: replace

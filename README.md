@@ -19,6 +19,18 @@ $env:TF_VAR_apikey="<your-api-key>"
 $env:TF_VAR_secretkey="<secret-key-file-location>"
 ```
 
+## Auto-completion Notes:
+
+If you would like to enable Auto Completion in the Pools File for ip, mac, uuid, wwnn, and wwpn perform the following in Visual Studio Code.
+
+`Settings` » `Settings`: Search for `YAML:Schemas`.
+
+Click: `Edit in settings.json`
+
+Configure the following in `yaml.schemas`
+```bash
+"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/schemas/pools.json": "pools.yaml"
+```
 
 ## Requirements
 
@@ -100,17 +112,4 @@ $env:TF_VAR_secretkey="<secret-key-file-location>"
 | Name | Type |
 |------|------|
 | [utils_yaml_merge.model](https://registry.terraform.io/providers/netascode/utils/latest/docs/data-sources/yaml_merge) | data source |
-
-## Auto-completion Notes:
-
-If you would like to enable Auto Completion in the Pools File for ip, mac, uuid, wwnn, and wwpn perform the following in Visual Studio Code.
-
-`Settings` » `Settings`: Search for `YAML:Schemas`.
-
-Click: `Edit in settings.json`
-
-Configure the following in `yaml.schemas`
-```bash
-"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/schemas/pools.json": "pools.yaml"
-```
 <!-- END_TF_DOCS -->
