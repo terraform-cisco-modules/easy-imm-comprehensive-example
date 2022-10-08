@@ -530,7 +530,7 @@ defaults:
         flogi_retries: 8
         flogi_timeout: 4000
         interrupt_mode: MSIx
-        io_throttle_count: 256
+        io_throttle_count: 512
         lun_queue_depth: 20
         max_luns_per_target: 1024
         plogi_retries: 8
@@ -724,10 +724,11 @@ defaults:
       power:
         name_suffix: ''
         dynamic_power_rebalancing: Enabled
+        extended_power_capacity: Enabled
         power_allocation: 0
         power_priority: Low
         power_profiling: Enabled
-        power_redunancy: Grid
+        power_redundancy: Grid
         power_restore: LastState
         power_save_mode: Enabled
       san_connectivity:
@@ -871,8 +872,8 @@ defaults:
         target_platform: FIAttached
         wait_for_completion: false
     tags:
-      - key: iac-intersight
-        value: 1.0.1
+      - key: easy-imm
+        value: 1.0.5
     templates:
       server:
         name_suffix: ''
