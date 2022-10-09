@@ -14,7 +14,7 @@ data "utils_yaml_merge" "model" {
 
 module "pools" {
   source  = "terraform-cisco-modules/pools/intersight"
-  version = ">= 1.0.5"
+  version = ">= 1.0.9"
   model   = local.model
 }
 
@@ -23,7 +23,7 @@ module "domain_profiles" {
     module.pools
   ]
   source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
-  version = ">= 1.0.3"
+  version = ">= 1.0.9"
   model   = local.model
   orgs    = module.pools.orgs
 }
@@ -33,7 +33,7 @@ module "policies" {
     module.domain_profiles
   ]
   source  = "terraform-cisco-modules/policies/intersight"
-  version = ">= 1.0.4"
+  version = ">= 1.0.10"
   model   = local.model
   domains = module.domain_profiles.domains
   pools   = module.pools
@@ -61,7 +61,7 @@ module "policies" {
   local_user_password_4 = var.local_user_password_4
   local_user_password_5 = var.local_user_password_5
   # Persistent Memory Sensitive Variable
-  secure_passphrase = var.secure_passphrase
+  persistent_passphrase = var.persistent_passphrase
   # SNMP Sensitive Variables
   access_community_string_1 = var.access_community_string_1
   access_community_string_2 = var.access_community_string_2
@@ -96,7 +96,7 @@ module "profiles" {
     module.policies
   ]
   source   = "terraform-cisco-modules/profiles/intersight"
-  version  = ">= 1.0.4"
+  version  = ">= 1.0.11"
   model    = local.model
   pools    = module.pools
   policies = module.policies

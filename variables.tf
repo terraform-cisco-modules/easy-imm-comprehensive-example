@@ -178,7 +178,7 @@ variable "local_user_password_5" {
 # Persistent Memory Sensitive Variable
 #__________________________________________________________________
 
-variable "secure_passphrase" {
+variable "persistent_passphrase" {
   default     = ""
   description = <<-EOT
   Secure passphrase to be applied on the Persistent Memory Modules on the server. The allowed characters are:

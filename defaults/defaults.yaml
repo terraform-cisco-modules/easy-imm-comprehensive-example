@@ -672,6 +672,16 @@ defaults:
         ntp_servers: [time-a-g.nist.gov, time-b-g.nist.gov]
         tags: []
         timezone: Etc/GMT
+      persistent_memory:
+        name_suffix: ''
+        management_mode: configured-from-intersight
+        memory_mode_percentage: 0
+        namespaces:
+          mode: raw
+          socket_id: 1
+          socket_memory_id: 'Not Applicable'
+        persistent_memory_type: app-direct
+        retain_namespaces: true
       port:
         name_suffix: ''
         device_model: UCS-FI-6454
