@@ -11,19 +11,13 @@ content: |-
   ## Environment Variables
 
   ### Terraform Cloud/Enterprise - Workspace Variables
-  - Add variable apikey with value of [your-api-key]
-  - Add variable secretkey with value of [your-secret-file-content]
+  - Add variable apikey with the value of [your-api-key]
+  - Add variable secretkey with the value of [your-secret-file-content]
 
-  ### Linux
+  ### Linux and Windows
   ```bash
   export TF_VAR_apikey="<your-api-key>"
-  export TF_VAR_secretkey=`cat <secret-key-file-location>`
-  ```
-
-  ### Windows
-  ```bash
-  $env:TF_VAR_apikey="<your-api-key>"
-  $env:TF_VAR_secretkey="<secret-key-file-location>"
+  export TF_VAR_secretkeyfile="<secret-key-file-location>"
   ```
 
   ## Auto-completion Notes:
