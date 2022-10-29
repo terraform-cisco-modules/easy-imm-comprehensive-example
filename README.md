@@ -53,7 +53,7 @@ Configure the following in `yaml.schemas`
 | <a name="module_pools"></a> [pools](#module\_pools) | terraform-cisco-modules/pools/intersight | >= 1.0.9 |
 | <a name="module_domain_profiles"></a> [domain\_profiles](#module\_domain\_profiles) | terraform-cisco-modules/ucs-domain-profiles/intersight | >= 1.0.9 |
 | <a name="module_policies"></a> [policies](#module\_policies) | terraform-cisco-modules/policies/intersight | >= 1.0.10 |
-| <a name="module_profiles"></a> [profiles](#module\_profiles) | terraform-cisco-modules/profiles/intersight | >= 1.0.11 |
+| <a name="module_profiles"></a> [profiles](#module\_profiles) | terraform-cisco-modules/profiles/intersight | >= 1.0.13 |
 
 ## NOTE:
 **When the Data is merged from the YAML files, it will run through the modules using for_each loop(s).  Sensitive Variables cannot be added to a for_each loop, instead use the variables below to add sensitive values for policies.**

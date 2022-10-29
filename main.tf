@@ -96,7 +96,7 @@ module "profiles" {
     module.policies
   ]
   source   = "terraform-cisco-modules/profiles/intersight"
-  version  = ">= 1.0.11"
+  version  = ">= 1.0.13"
   model    = local.model
   pools    = module.pools
   policies = module.policies
