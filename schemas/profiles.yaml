@@ -1,0 +1,58 @@
+---
+#=======================================
+#   Profiles -> Chassis - Variables
+#=======================================
+intersight:
+  profiles:
+    chassis:
+      - imc_access_policy: kvm
+        power_policy: '9508'
+        snmp_policy: snmp
+        targets:
+          - description: example-ucs-1 UCS Chassis Profile
+            name: example-ucs-1
+            serial_number: unknown
+          - name: example-ucs-2
+            serial_number: unknown
+          - name: example-ucs-3
+            serial_number: unknown
+        thermal_policy: '9508'
+    #======================================
+    #   Profiles -> Domain - Variables
+    #======================================
+    domain:
+      - description: example-ucs UCS Domain Profile
+        name: example-ucs
+        network_connectivity_policy: dns
+        ntp_policy: ntp
+        port_policies:
+          - example-ucs-a
+          - example-ucs-b
+        serial_numbers:
+          - unknown
+          - unknown
+        snmp_policy: snmp
+        switch_control_policy: sw-ctrl
+        syslog_policy: syslog
+        system_qos_policy: qos
+        vlan_policies:
+          - vlans
+        vsan_policies:
+          - vsan-200
+          - vsan-100
+    #======================================
+    #   Profiles -> Server - Variables
+    #======================================
+    server:
+      - targets:
+          - description: esx-1 UCS Server Profile
+            name: esx-1
+            serial_number: unknown
+          - description: esx-2 UCS Server Profile
+            name: esx-2
+            serial_number: unknown
+          - name: esx-3
+            serial_number: unknown
+          - name: esx-4
+            serial_number: unknown
+        ucs_server_profile_template: virtualization

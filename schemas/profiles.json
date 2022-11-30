@@ -1,0 +1,205 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome6",
+    "definitions": {
+        "Welcome6": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "intersight": {
+                    "$ref": "#/definitions/Intersight"
+                }
+            },
+            "required": [
+                "intersight"
+            ],
+            "title": "Welcome6"
+        },
+        "Intersight": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "profiles": {
+                    "$ref": "#/definitions/Profiles"
+                }
+            },
+            "required": [
+                "profiles"
+            ],
+            "title": "Intersight"
+        },
+        "Profiles": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "chassis": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Chassis"
+                    }
+                },
+                "domain": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Domain"
+                    }
+                },
+                "server": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Server"
+                    }
+                }
+            },
+            "required": [
+                "chassis",
+                "domain",
+                "server"
+            ],
+            "title": "Profiles"
+        },
+        "Chassis": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "imc_access_policy": {
+                    "type": "string"
+                },
+                "power_policy": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "snmp_policy": {
+                    "type": "string"
+                },
+                "targets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Target"
+                    }
+                },
+                "thermal_policy": {
+                    "type": "string",
+                    "format": "integer"
+                }
+            },
+            "required": [
+                "imc_access_policy",
+                "power_policy",
+                "snmp_policy",
+                "targets",
+                "thermal_policy"
+            ],
+            "title": "Chassis"
+        },
+        "Target": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "serial_number": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "name",
+                "serial_number"
+            ],
+            "title": "Target"
+        },
+        "Domain": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "network_connectivity_policy": {
+                    "type": "string"
+                },
+                "ntp_policy": {
+                    "type": "string"
+                },
+                "port_policies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "serial_numbers": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "snmp_policy": {
+                    "type": "string"
+                },
+                "switch_control_policy": {
+                    "type": "string"
+                },
+                "syslog_policy": {
+                    "type": "string"
+                },
+                "system_qos_policy": {
+                    "type": "string"
+                },
+                "vlan_policies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "vsan_policies": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            },
+            "required": [
+                "description",
+                "name",
+                "network_connectivity_policy",
+                "ntp_policy",
+                "port_policies",
+                "serial_numbers",
+                "snmp_policy",
+                "switch_control_policy",
+                "syslog_policy",
+                "system_qos_policy",
+                "vlan_policies",
+                "vsan_policies"
+            ],
+            "title": "Domain"
+        },
+        "Server": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "targets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Target"
+                    }
+                },
+                "ucs_server_profile_template": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "targets",
+                "ucs_server_profile_template"
+            ],
+            "title": "Server"
+        }
+    }
+}

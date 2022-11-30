@@ -1,0 +1,651 @@
+---
+#=======================================
+#   Policies -> compute - Variables
+#=======================================
+intersight:
+  policies:
+    bios:
+      - description: Virtualization_tpm BIOS Policy
+        name: Virtualization_tpm
+        policy_template: Virtualization_tpm
+      - description: M6_Virtualization_tpm BIOS Policy
+        name: M6_Virtualization_tpm
+        policy_template: M6_Virtualization_tpm
+    boot_order:
+      - boot_devices:
+          - object_type: boot.VirtualMedia
+            name: kvm
+            subtype: kvm-mapped-dvd
+          - object_type: boot.LocalDisk
+            name: M2
+            slot: MSTOR-RAID-1
+          - interface_name: mgmt-a
+            object_type: boot.Pxe
+            name: pxe
+        boot_mode: Uefi
+        description: M2 Boot Order Policy
+        enable_secure_boot: false
+        name: M2
+      - boot_devices:
+          - object_type: boot.VirtualMedia
+            name: kvm
+            subtype: kvm-mapped-dvd
+          - object_type: boot.LocalDisk
+            name: M2
+            slot: MSTOR-RAID-1
+          - object_type: boot.UefiShell
+            name: uefishell
+        boot_mode: Uefi
+        description: M2-secure Boot Order Policy
+        enable_secure_boot: true
+        name: M2-secure
+      - boot_devices:
+          - object_type: boot.VirtualMedia
+            name: kvm
+            subtype: kvm-mapped-dvd
+          - object_type: boot.LocalDisk
+            name: mraid
+            slot: MRAID
+          - object_type: boot.UefiShell
+            name: uefishell
+        boot_mode: Uefi
+        description: MRAID Boot Order Policy
+        enable_secure_boot: true
+        name: MRAID
+    persistent_memory:
+      - description: pmem Persistent Memory Policy
+        management_mode: configured-from-intersight
+        memory_mode_percentage: '50'
+        name: pmem
+        namespaces:
+          - capacity: 1024
+            mode: raw
+            name: cpu0
+            socket_id: 1
+            socket_memory_id: Not Applicable
+        persistent_memory_type: app-direct
+        retain_namespaces: true
+    virtual_media:
+      - add_virtual_media:
+          - device_type: cdd
+            file_location: https://198.18.1.1/vmware.iso
+            mount_options: noauto
+            name: https-map
+            protocol: https
+        description: vmedia Virtual Media Policy
+        enable_low_power_usb: true
+        enable_virtual_media_encryption: true
+        name: vmedia
+    #======================================
+    #   Policies -> domain - Variables
+    #======================================
+    flow_control:
+      - description: flow-ctrl Flow Control Policy
+        name: flow-ctrl
+    link_aggregation:
+      - description: link-agg Link Aggregation Policy
+        name: link-agg
+    link_control:
+      - description: link-ctrl Link Control Policy
+        name: link-ctrl
+    switch_control:
+      - description: sw-ctrl Switch Control Policy
+        ethernet_switching_mode: end-host
+        fc_switching_mode: end-host
+        name: sw-ctrl
+        vlan_port_count_optimization: false
+    system_qos:
+      - classes:
+          - bandwidth_percent: 20
+            cos: 20
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: false
+            priority: Platinum
+            state: Enabled
+            weight: 10
+          - bandwidth_percent: 18
+            cos: 18
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: true
+            priority: Gold
+            state: Enabled
+            weight: 9
+          - bandwidth_percent: 20
+            cos: 20
+            mtu: 2240
+            multicast_optimize: false
+            packet_drop: false
+            priority: FC
+            state: Enabled
+            weight: 10
+          - bandwidth_percent: 18
+            cos: 18
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: true
+            priority: Silver
+            state: Enabled
+            weight: 8
+          - bandwidth_percent: 14
+            cos: 14
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: true
+            priority: Bronze
+            state: Enabled
+            weight: 7
+          - bandwidth_percent: 10
+            cos: 10
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: false
+            priority: Best Effort
+            state: Enabled
+            weight: 5
+        description: qos System QoS Policy
+        name: qos
+    #===========================================
+    #   Policies -> environment - Variables
+    #===========================================
+    power:
+      - description: 5108 Power Policy
+        name: '5108'
+        power_redundancy: Grid
+      - description: 9508 Power Policy
+        dynamic_power_rebalancing: Enabled
+        name: '9508'
+        power_allocation: 8400
+        power_redundancy: Grid
+        power_save_mode: Enabled
+      - description: Server Power Policy
+        name: Server
+        power_priority: Low
+        power_profiling: Enabled
+        power_redundancy: Grid
+        power_restore: LastState
+    thermal:
+      - description: 5108 Thermal Policy
+        fan_control_mode: Balanced
+        name: '5108'
+      - description: 9508 Thermal Policy
+        fan_control_mode: Balanced
+        name: '9508'
+    #========================================
+    #   Policies -> ethernet - Variables
+    #========================================
+    adapter_configuration:
+      - description: adapter Adapter Configuration Policy
+        enable_fip: true
+        enable_lldp: true
+        enable_port_channel: true
+        fec_modes:
+          - cl91
+          - cl91
+          - cl91
+          - cl91
+        name: adapter
+    ethernet_adapter:
+      - description: VMware Ethernet Adapter
+        name: VMware
+    ethernet_network:
+      - default_vlan: '4'
+        description: network Ethernet Network Policy
+        name: network
+        vlan_mode: ACCESS
+    ethernet_network_control:
+      - action_on_uplink_fail: linkDown
+        cdp_enable: true
+        description: ntwk-ctrl Ethernet Network Control Policy
+        mac_register_mode: nativeVlanOnly
+        mac_security_forge: allow
+        name: ntwk-ctrl
+    ethernet_network_group:
+      - allowed_vlans: 1-99
+        description: dvs Ethernet Network Group Policy
+        name: dvs
+      - allowed_vlans: '5'
+        description: mgmt Ethernet Network Group Policy
+        name: mgmt
+        native_vlan: 5
+      - allowed_vlans: '6'
+        description: migration Ethernet Network Group Policy
+        name: migration
+        native_vlan: 6
+      - allowed_vlans: '7'
+        description: storage Ethernet Network Group Policy
+        name: storage
+        native_vlan: 7
+      - action_on_uplink_fail: linkDown
+        allowed_vlans: 1-99
+        description: Uplink Ethernet Network Group Policy
+        name: uplink
+        native_vlan: 1
+    ethernet_qos:
+      - burst: 10240
+        description: Bronze Ethernet QoS Policy
+        enable_trust_host_cos: false
+        mtu: 9000
+        name: Bronze
+        priority: Bronze
+        rate_limit: 0
+      - burst: 10240
+        description: Gold Ethernet QoS Policy
+        enable_trust_host_cos: false
+        mtu: 9000
+        name: Gold
+        priority: Gold
+        rate_limit: 0
+      - burst: 10240
+        description: Platinum Ethernet QoS Policy
+        enable_trust_host_cos: false
+        mtu: 9000
+        name: Platinum
+        priority: Platinum
+        rate_limit: 0
+      - burst: 10240
+        description: Silver Ethernet QoS Policy
+        enable_trust_host_cos: false
+        mtu: 9000
+        name: Silver
+        priority: Silver
+        rate_limit: 0
+    iscsi_adapter:
+      - description: adapter iSCSI Adapter Policy
+        dhcp_timeout: 60
+        lun_busy_retry_count: 15
+        name: adapter
+        tcp_connection_timeout: 15
+    iscsi_boot:
+      - authentication: chap
+        description: boot iSCSI Boot Policy
+        initiator_ip_source: DHCP
+        initiator_static_ipv4_config:
+        iscsi_adapter_policy: adapter
+        name: boot
+        primary_target_policy: target
+        secondary_target_policy: ''
+        target_source_type: Static
+        username: iscsiuser
+    iscsi_static_target:
+      - description: target iSCSI Static Target Policy
+        ip_address: 198.18.32.60
+        luns:
+          - bootable: true
+            lun_id: 0
+        name: target
+        port: 3260
+        target_name: iqn.1984-12.com.cisco:lnx1
+    #=============================================
+    #   Policies -> fibre_channel - Variables
+    #=============================================
+    fc_zone:
+      - description: vsan-a FC Zone Policy
+        fc_target_zoning_type: SIMT
+        name: vsan-a
+        targets:
+          - name: netapp01
+            switch_id: A
+            vsan_id: 100
+            wwpn: 50:00:00:25:B5:0A:00:01
+          - name: pure01
+            switch_id: A
+            vsan_id: 100
+            wwpn: 50:00:00:25:B5:0A:00:02
+      - description: vsan-b FC Zone Policy
+        fc_target_zoning_type: SIMT
+        name: vsan-b
+        targets:
+          - name: netapp01
+            switch_id: A
+            vsan_id: 200
+            wwpn: 50:00:00:25:B5:0B:00:01
+          - name: pure01
+            switch_id: B
+            vsan_id: 200
+            wwpn: 50:00:00:25:B5:0B:00:02
+    fibre_channel_adapter:
+      - description: VMware Fibre-Channel Adapter Policy
+        name: VMware
+    fibre_channel_network:
+      - description: vsan-a Fibre-Channel Network Policy
+        name: vsan-a
+        vsan_id: 100
+      - description: vsan-b Fibre-Channel Network Policy
+        name: vsan-b
+        vsan_id: 200
+    fibre_channel_qos:
+      - description: fc-qos Fibre-Channel QoS Policy
+        name: fc-qos
+    lan_connectivity:
+      - description: lcp LAN Connectivity Policy
+        enable_azure_stack_host_qos: false
+        name: lcp
+        target_platform: FIAttached
+        vnics:
+          - ethernet_adapter_policy: VMware
+            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_group_policy: mgmt
+            ethernet_qos_policy: Silver
+            mac_address_pools:
+              - mac-a
+              - mac-b
+            names:
+              - mgmt-a
+              - mgmt-b
+            placement_pci_order:
+              - 2
+              - 3
+          - ethernet_adapter_policy: VMware
+            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_group_policy: migration
+            ethernet_qos_policy: Bronze
+            mac_address_pools:
+              - mac-a
+              - mac-b
+            names:
+              - migration-a
+              - migration-b
+            placement_pci_order:
+              - 4
+              - 5
+          - ethernet_adapter_policy: VMware
+            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_group_policy: storage
+            ethernet_qos_policy: Platinum
+            mac_address_pools:
+              - mac-a
+              - mac-b
+            names:
+              - storage-a
+              - storage-b
+            placement_pci_order:
+              - 6
+              - 7
+          - ethernet_adapter_policy: VMware
+            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_group_policy: dvs
+            ethernet_qos_policy: Gold
+            mac_address_pools:
+              - mac-a
+              - mac-b
+            names:
+              - dvs-a
+              - dvs-b
+            placement_pci_order:
+              - 8
+              - 9
+    #==========================================
+    #   Policies -> management - Variables
+    #==========================================
+    device_connector:
+      - configuration_lockout: false
+        description: devcon Device Connector Policy
+        name: devcon
+    imc_access:
+      - description: kvm IMC Access Policy
+        inband_ip_pool: kvm-inband
+        inband_vlan_id: 4
+        ipv4_address_configuration: true
+        ipv6_address_configuration: true
+        name: kvm
+        out_of_band_ip_pool: kvm-oob
+    ipmi_over_lan:
+      - description: ipmi IPMI over LAN Policy
+        name: ipmi
+        privilege: admin
+    ldap:
+      - base_settings:
+          base_dn: DC=example,DC=com
+          domain: example.com
+          timeout: 0
+        binding_parameters:
+          bind_method: LoginCredentials
+        description: ldap LDAP Policy
+        enable_encryption: true
+        enable_group_authorization: true
+        enable_ldap: true
+        ldap_groups:
+          - name: ucs-admins
+            role: admin
+          - name: netops
+            role: user
+        ldap_servers:
+          - port: 636
+            server: 198.18.6.36
+        name: ldap
+        nested_group_search_depth: 128
+        search_parameters:
+          attribute: CiscoAvPair
+          filter: sAMAccountName
+          group_attribute: memberOf
+        user_search_precedence: LocalUserDb
+    local_user:
+      - description: users Local User Policy
+        local_users:
+          - enabled: true
+            password: 1
+            role: admin
+            username: admin
+        name: users
+        password_properties:
+          always_send_user_password: false
+          enable_password_expiry: true
+          enforce_strong_password: true
+          grace_period: 0
+          notification_period: 15
+          password_expiry_duration: 90
+          password_history: 0
+    network_connectivity:
+      - description: dns Network Connectivity Policy
+        dns_servers_v4:
+          - 208.67.220.220
+          - 208.67.222.222
+        dns_servers_v6:
+          - 2620:119:35::35
+          - 2620:119:53::53
+        enable_ipv6: true
+        name: dns
+    ntp:
+      - description: ntp NTP Policy
+        enabled: true
+        name: ntp
+        ntp_servers:
+          - 0.north-america.pool.ntp.org
+          - 1.north-america.pool.ntp.org
+        timezone: America/New_York
+    serial_over_lan:
+      - baud_rate: 115200
+        com_port: com0
+        description: sol Serial over LAN Policy
+        name: sol
+        ssh_port: 2400
+    smtp:
+      - description: smtp SMTP Policy
+        mail_alert_recipients:
+          - admin@example.com
+          - infra-ops@example.com
+        minimum_severity: critical
+        name: smtp
+        smtp_alert_sender_address: intersight@example.com
+        smtp_port: 25
+        smtp_server_address: mail.example.com
+    snmp:
+      - description: snmp SNMP Policy
+        name: snmp
+        port: 161
+        snmp_traps:
+          - destination_address: 198.18.1.61
+            port: 162
+            user: snmpadmin
+        snmp_users:
+          - auth_password: 1
+            auth_type: SHA
+            name: snmpadmin
+            privacy_password: 1
+            privacy_type: AES
+            security_level: AuthPriv
+        system_contact: admin@example.com
+        system_location: Example Corporation
+    ssh:
+      - description: ssh SSH Policy
+        name: ssh
+        ssh_port: 22
+        ssh_timeout: 1800
+    syslog:
+      - description: syslog Syslog Policy
+        local_min_severity: warning
+        name: syslog
+        remote_clients:
+          - enable: true
+            hostname: 198.18.5.14
+            min_severity: warning
+            port: 514
+            protocol: udp
+          - enable: true
+            hostname: 198.18.5.15
+            min_severity: warning
+            port: 514
+            protocol: udp
+    virtual_kvm:
+      - allow_tunneled_vkvm: false
+        description: vkvm Virtual KVM Policy
+        enable_local_server_video: true
+        enable_video_encryption: true
+        name: vkvm
+        remote_port: 2068
+    #====================================
+    #   Policies -> port - Variables
+    #====================================
+    port:
+      - description: default-ucs Port Policy
+        device_model: UCS-FI-6454
+        names:
+          - default-ucs-a
+          - default-ucs-b
+        port_channel_ethernet_uplinks:
+          - admin_speed: Auto
+            ethernet_network_group_policy: uplink
+            flow_control_policy: flow-ctrl
+            interfaces:
+              - port_id: 53
+              - port_id: 54
+            link_aggregation_policy: link-agg
+            link_control_policy: link-ctrl
+            pc_ids:
+              - 53
+              - 53
+        port_channel_fc_uplinks:
+          - admin_speed: 32Gbps
+            fill_pattern: Arbff
+            interfaces:
+              - port_id: 1
+              - port_id: 2
+            pc_ids:
+              - 1
+              - 1
+            vsan_ids:
+              - 100
+              - 200
+        port_modes:
+          - custom_mode: FibreChannel
+            port_list:
+              - 1
+              - 4
+        port_role_servers:
+          - port_list: 5-18
+    #================================================
+    #   Policies -> san_connectivity - Variables
+    #================================================
+    san_connectivity:
+      - description: scp SAN Connectivity Policy
+        name: scp
+        target_platform: FIAttached
+        vhbas:
+          - fibre_channel_adapter_policy: VMware
+            fibre_channel_network_policies:
+              - vsan-a
+              - vsan-b
+            fibre_channel_qos_policy: fc-qos
+            names:
+              - vhba-a
+              - vhba-b
+            placement_pci_order:
+              - 0
+              - 1
+            vhba_type: fc-initiator
+            wwpn_pools:
+              - wwpn-a
+              - wwpn-b
+        wwnn_pool: wwnn
+    #=======================================
+    #   Policies -> storage - Variables
+    #=======================================
+    sd_card:
+      - description: sdcard SD Card Policy
+        enable_diagnostics: false
+        enable_drivers: false
+        enable_huu: false
+        enable_os: true
+        name: sdcard
+    storage:
+      - description: M2 Storage Policy
+        m2_configuration:
+          - controller_slot: MSTOR-RAID-1
+            enable: true
+        name: M2
+        unused_disks_state: NoChange
+        use_jbod_for_vd_creation: false
+      - description: Raid1 Storage Policy
+        drive_groups:
+          - manual_drive_groups:
+              - drive_array_spans:
+                 - slots: 1-2
+            name: dg0
+            raid_level: Raid1
+            virtual_drives:
+              - boot_drive: true
+                expand_to_available: true
+                name: vd0
+        name: Raid1
+        unused_disks_state: Jbod
+        use_jbod_for_vd_creation: true
+    #====================================
+    #   Policies -> vlan - Variables
+    #====================================
+    multicast:
+      - description: mcast Multicast Policy
+        name: mcast
+    vlan:
+      - description: vlan VLAN Policy
+        name: vlan
+        vlans:
+          - auto_allow_on_uplinks: true
+            multicast_policy: mcast
+            name: default
+            native_vlan: true
+            vlan_list: '1'
+          - multicast_policy: mcast
+            name: default
+            vlan_list: 2-99
+    #====================================
+    #   Policies -> vsan - Variables
+    #====================================
+    vsan:
+      - auto_allow_on_uplinks: true
+        description: vsan-100 VSAN Policy
+        name: vsan-100
+        vsans:
+          - fcoe_vlan_id: 100
+            name: vsan-100
+            vsan_id: 100
+            vsan_scope: Uplink
+      - auto_allow_on_uplinks: true
+        description: vsan-200 VSAN Policy
+        name: vsan-200
+        vsans:
+          - fcoe_vlan_id: 200
+            name: vsan-200
+            vsan_id: 200
+            vsan_scope: Uplink
