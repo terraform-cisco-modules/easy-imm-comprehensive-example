@@ -1,13 +1,23 @@
 ---
+#====================================
+#   Policies -> vsan - Variables
+#====================================
 intersight:
-    policies:
-      vsan:
-        - name: test-vsan-a
-          vsans:
-            - name: VSAN-A
-              vsan_id: 100
-
-        - name: test-vsan-b
-          vsans:
-            - name: VSAN-B
-              vsan_id: 200
+  policies:
+    vsan:
+      - auto_allow_on_uplinks: true
+        description: vsan-100 VSAN Policy
+        name: vsan-100
+        vsans:
+          - fcoe_vlan_id: 100
+            name: vsan-100
+            vsan_id: 100
+            vsan_scope: Uplink
+      - auto_allow_on_uplinks: true
+        description: vsan-200 VSAN Policy
+        name: vsan-200
+        vsans:
+          - fcoe_vlan_id: 200
+            name: vsan-200
+            vsan_id: 200
+            vsan_scope: Uplink

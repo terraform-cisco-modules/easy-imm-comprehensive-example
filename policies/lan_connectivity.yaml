@@ -1,30 +1,64 @@
 ---
+#================================================
+#   Policies -> lan_connectivity - Variables
+#================================================
 intersight:
-    policies:
-      lan_connectivity:
-        - name: Win_single
-          vnics:
-            - names: [vNIC]
-              ethernet_adapter_policy: WIN-AzureStack
-              ethernet_network_control_policy: lldp
-              ethernet_network_group_policy: mgmt
-              ethernet_qos_policy: Gold
-              mac_address_pools: [mac]
-              placement_pci_order: [2]
-        - name: Virtualization
-          vnics:
-            - names: [MGMT-A, MGMT-B]
-              ethernet_adapter_policy: VMware
-              ethernet_network_control_policy: cdp
-              ethernet_network_group_policy: mgmt
-              ethernet_qos_policy: Silver
-              mac_address_pools: [mac-a, mac-b]
-              placement_pci_order: [2, 3]
-
-            - names: [DATA-A, DATA-B]
-              ethernet_adapter_policy: VMware
-              ethernet_network_control_policy: lldp
-              ethernet_network_group_policy: data
-              ethernet_qos_policy: Gold
-              mac_address_pools: [mac-a, mac-b]
-              placement_pci_order: [4, 5]
+  policies:
+    lan_connectivity:
+      - description: lcp LAN Connectivity Policy
+        enable_azure_stack_host_qos: false
+        name: lcp
+        target_platform: FIAttached
+        vnics:
+          - ethernet_adapter_policy: VMware
+            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_group_policy: mgmt
+            ethernet_qos_policy: Silver
+            mac_address_pools:
+              - mac-a
+              - mac-b
+            names:
+              - mgmt-a
+              - mgmt-b
+            placement_pci_order:
+              - 2
+              - 3
+          - ethernet_adapter_policy: VMware
+            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_group_policy: migration
+            ethernet_qos_policy: Bronze
+            mac_address_pools:
+              - mac-a
+              - mac-b
+            names:
+              - migration-a
+              - migration-b
+            placement_pci_order:
+              - 4
+              - 5
+          - ethernet_adapter_policy: VMware
+            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_group_policy: storage
+            ethernet_qos_policy: Platinum
+            mac_address_pools:
+              - mac-a
+              - mac-b
+            names:
+              - storage-a
+              - storage-b
+            placement_pci_order:
+              - 6
+              - 7
+          - ethernet_adapter_policy: VMware
+            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_group_policy: dvs
+            ethernet_qos_policy: Gold
+            mac_address_pools:
+              - mac-a
+              - mac-b
+            names:
+              - dvs-a
+              - dvs-b
+            placement_pci_order:
+              - 8
+              - 9

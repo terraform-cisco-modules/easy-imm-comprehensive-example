@@ -1,23 +1,27 @@
 ---
+#================================================
+#   Policies -> san_connectivity - Variables
+#================================================
 intersight:
-    policies:
-      san_connectivity:
-        - name: Windows
-          vhbas:
-            - names: [HBA-A, HBA-B]
-              fibre_channel_adapter_policy: WindowsBoot
-              fibre_channel_network_policies: [vsan-a, vsan-b]
-              fibre_channel_qos_policy: fc-qos
-              placement_pci_order: [0, 1]
-              wwpn_pools: [wwpn-a, wwpn-b]
-          wwnn_pool: wwnn
-
-        - name: Virtualization
-          vhbas:
-            - names: [HBA-A, HBA-B]
-              fibre_channel_adapter_policy: VMware
-              fibre_channel_network_policies: [vsan-a, vsan-b]
-              fibre_channel_qos_policy: fc-qos
-              placement_pci_order: [0, 1]
-              wwpn_pools: [wwpn-a, wwpn-b]
-          wwnn_pool: wwnn
+  policies:
+    san_connectivity:
+      - description: scp SAN Connectivity Policy
+        name: scp
+        target_platform: FIAttached
+        vhbas:
+          - fibre_channel_adapter_policy: VMware
+            fibre_channel_network_policies:
+              - vsan-a
+              - vsan-b
+            fibre_channel_qos_policy: fc-qos
+            names:
+              - vhba-a
+              - vhba-b
+            placement_pci_order:
+              - 0
+              - 1
+            vhba_type: fc-initiator
+            wwpn_pools:
+              - wwpn-a
+              - wwpn-b
+        wwnn_pool: wwnn

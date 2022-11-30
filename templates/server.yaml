@@ -1,0 +1,24 @@
+---
+#=======================================
+#   Templates -> Server - Variables
+#=======================================
+intersight:
+  templates:
+    server:
+      - bios_policy: M6_Virtualization_tpm
+        boot_order_policy: M2-secure
+        description: virtualization UCS Server Profile Template
+        imc_access_policy: kvm
+        ipmi_over_lan_policy: ipmi
+        lan_connectivity_policy: lcp
+        local_user_policy: users
+        name: virtualization
+        power_policy: Server
+        san_connectivity_policy: scp
+        serial_over_lan_policy: sol
+        snmp_policy: snmp
+        storage_policy: M2
+        syslog_policy: syslog
+        uuid_pool: uuid
+        virtual_kvm_policy: vkvm
+        virtual_media_policy: vmedia

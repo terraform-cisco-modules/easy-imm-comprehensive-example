@@ -1,44 +1,108 @@
 ---
+#========================================
+#   Policies -> ethernet - Variables
+#========================================
 intersight:
-    policies:
-      ethernet_adapter:
-        - name: VMware
-          adapter_template: VMware
-        - name: WIN-AzureStack
-          adapter_template: WIN-AzureStack
-      ethernet_network_control:
-        - name: cdp
-          cdp_enable: true
-        - name: lldp
-          lldp_enable_receive: true
-          lldp_enable_transmit: true
-      ethernet_network_group:
-        - name: uplink
-          allowed_vlans: 1-99
-        - name: data
-          allowed_vlans: 1-99
-        - name: mgmt
-          allowed_vlans: 10
-          native_vlan: 10
-      ethernet_qos:
-        - name: Best_Effort
-          mtu: 9000
-          priority: Best Effort
-        - name: Bronze
-          mtu: 9000
-          priority: Bronze
-        - name: Gold
-          mtu: 9000
-          priority: Gold
-        - name: Platinum
-          mtu: 9000
-          priority: Platinum
-        - name: Silver
-          mtu: 9000
-          priority: Silver
-      flow_control:
-        - name: flow-ctrl
-      link_aggregation:
-        - name: link-agg
-      link_control:
-        - name: link-ctrl
+  policies:
+    adapter_configuration:
+      - description: adapter Adapter Configuration Policy
+        enable_fip: true
+        enable_lldp: true
+        enable_port_channel: true
+        fec_modes:
+          - cl91
+          - cl91
+          - cl91
+          - cl91
+        name: adapter
+    ethernet_adapter:
+      - description: VMware Ethernet Adapter
+        name: VMware
+    ethernet_network:
+      - default_vlan: '4'
+        description: network Ethernet Network Policy
+        name: network
+        vlan_mode: ACCESS
+    ethernet_network_control:
+      - action_on_uplink_fail: linkDown
+        cdp_enable: true
+        description: ntwk-ctrl Ethernet Network Control Policy
+        mac_register_mode: nativeVlanOnly
+        mac_security_forge: allow
+        name: ntwk-ctrl
+    ethernet_network_group:
+      - allowed_vlans: 1-99
+        description: dvs Ethernet Network Group Policy
+        name: dvs
+      - allowed_vlans: '5'
+        description: mgmt Ethernet Network Group Policy
+        name: mgmt
+        native_vlan: 5
+      - allowed_vlans: '6'
+        description: migration Ethernet Network Group Policy
+        name: migration
+        native_vlan: 6
+      - allowed_vlans: '7'
+        description: storage Ethernet Network Group Policy
+        name: storage
+        native_vlan: 7
+      - action_on_uplink_fail: linkDown
+        allowed_vlans: 1-99
+        description: Uplink Ethernet Network Group Policy
+        name: uplink
+        native_vlan: 1
+    ethernet_qos:
+      - burst: 10240
+        description: Bronze Ethernet QoS Policy
+        enable_trust_host_cos: false
+        mtu: 9000
+        name: Bronze
+        priority: Bronze
+        rate_limit: 0
+      - burst: 10240
+        description: Gold Ethernet QoS Policy
+        enable_trust_host_cos: false
+        mtu: 9000
+        name: Gold
+        priority: Gold
+        rate_limit: 0
+      - burst: 10240
+        description: Platinum Ethernet QoS Policy
+        enable_trust_host_cos: false
+        mtu: 9000
+        name: Platinum
+        priority: Platinum
+        rate_limit: 0
+      - burst: 10240
+        description: Silver Ethernet QoS Policy
+        enable_trust_host_cos: false
+        mtu: 9000
+        name: Silver
+        priority: Silver
+        rate_limit: 0
+    iscsi_adapter:
+      - description: adapter iSCSI Adapter Policy
+        dhcp_timeout: 60
+        lun_busy_retry_count: 15
+        name: adapter
+        tcp_connection_timeout: 15
+    #iscsi_boot:
+    #  - authentication: chap
+    #    description: boot iSCSI Boot Policy
+    #    initiator_ip_source: DHCP
+    #    initiator_static_ipv4_config:
+    #    iscsi_adapter_policy: adapter
+    #    name: boot
+    #    primary_target_policy: target
+    #    secondary_target_policy: ''
+    #    target_source_type: Static
+    #    username: iscsiuser
+    iscsi_static_target:
+      - description: target iSCSI Static Target Policy
+        ip_address: 198.18.32.60
+        luns:
+          - bootable: true
+            lun_id: 0
+        name: target
+        port: 3260
+        target_name: iqn.1984-12.com.cisco:lnx1

@@ -10,8 +10,14 @@ variable "apikey" {
 }
 
 variable "endpoint" {
-  default     = "https://intersight.com"
-  description = "Intersight URL."
+  default     = "intersight.com"
+  description = "Intersight Endpoint Hostname."
+  type        = string
+}
+
+variable "organization" {
+  default     = "default"
+  description = "Name of the default intersight Organization."
   type        = string
 }
 
@@ -27,6 +33,12 @@ variable "secretkeyfile" {
   description = "Intersight Secret Key File Location."
   sensitive   = true
   type        = string
+}
+
+variable "tags" {
+  default     = []
+  description = "List of Key/Value Pairs to Assign as Attributes to the Policy."
+  type        = list(map(string))
 }
 
 
@@ -111,7 +123,7 @@ variable "base64_private_key_5" {
 # IPMI Sensitive Variables
 #__________________________________________________________________
 
-variable "ipmi_key_1" {
+variable "ipmi_key" {
   default     = ""
   description = "Encryption key 1 to use for IPMI communication. It should have an even number of hexadecimal characters and not exceed 40 characters."
   sensitive   = true

@@ -1,46 +1,78 @@
 ---
+#=========================
+#   Pools - Variables
+#=========================
 intersight:
   pools:
     ip:
-    - name: imc
-      ipv4_blocks:
-        - from: 198.18.0.10
-          size: 240
-      ipv4_config:
-        - gateway: 198.18.0.1
-          netmask: 255.255.255.0
-          primary_dns: 208.67.220.220
-          secondary_dns: 208.67.222.222
+      - assignment_order: sequential
+        description: kvm IP Pool
+        ipv4_blocks:
+          - from: 198.18.1.10
+            size: 244
+        ipv4_config:
+          - gateway: 198.18.1.1
+            netmask: 255.255.255.0
+            primary_dns: 208.67.220.220
+            secondary_dns: ''
+        ipv6_blocks:
+          - from: 2001:db8::a
+            size: 1024
+        ipv6_config:
+          - gateway: 2001:db8::1
+            prefix: 64
+            primary_dns: 2620:119:53::53
+            secondary_dns: 2620:119:35::35
+        name: kvm-inband
+      - assignment_order: sequential
+        description: kvm IP Pool
+        ipv4_blocks:
+          - from: 198.18.2.10
+            size: 244
+        ipv4_config:
+          - gateway: 198.18.2.1
+            netmask: 255.255.255.0
+            primary_dns: 208.67.220.220
+            secondary_dns: 208.67.222.222
+        name: kvm-oob
     mac:
-      - name: mac
-        mac_blocks:
-          - from: 00:25:B5:00:00:00
-            size: 1000
-      - name: mac-a
+      - assignment_order: sequential
+        description: mac-a MAC Pool
         mac_blocks:
           - from: 00:25:B5:0A:00:00
-            size: 1000
-      - name: mac-b
+            size: 1024
+        name: mac-a
+      - assignment_order: sequential
+        description: mac-b MAC Pool
         mac_blocks:
           - from: 00:25:B5:0B:00:00
-            size: 1000
+            size: 1024
+        name: mac-b
     uuid:
-      - name: uuid
+      - assignment_order: sequential
+        description: uuid UUID Pool
+        name: uuid
         prefix: 000025B5-0000-0000
         uuid_blocks:
           - from: 0000-000000000000
-            size: 1000
+            size: 1024
     wwnn:
-      - name: wwnn
+      - assignment_order: sequential
+        description: wwnn WWNN Pool
+        name: wwnn
         id_blocks:
           - from: 20:00:00:25:B5:00:00:00
-            size: 1000
+            size: 1024
     wwpn:
-      - name: wwpn-a
+      - assignment_order: sequential
+        description: wwpn-a WWPN Pool
+        name: wwpn-a
         id_blocks:
           - from: 20:00:00:25:B5:0A:00:00
-            size: 1000
-      - name: wwpn-b
+            size: 1024
+      - assignment_order: sequential
+        description: wwpn-b WWPN Pool
+        name: wwpn-b
         id_blocks:
           - from: 20:00:00:25:B5:0B:00:00
-            size: 1000
+            size: 1024

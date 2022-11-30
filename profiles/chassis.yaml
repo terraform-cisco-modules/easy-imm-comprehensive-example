@@ -1,18 +1,19 @@
 ---
+#=======================================
+#   Profiles -> Chassis - Variables
+#=======================================
 intersight:
-    profiles:
-      chassis:
-        - names_serials: [
-            # Assigning the Serial will Associate the Physical Server
-            # [test-ucs-1,FDO1234565A,],
-            # [test-ucs-2,FDO1234565B,],
-            # [test-ucs-3,FDO1234565C]
-            # Not Assigning the Serial will just create the Profile
-            [test-ucs-1],
-            [test-ucs-2],
-            [test-ucs-3]
-          ]
-          imc_access_policy: imc
-          power_policy: 9508
-          snmp_policy: snmp
-          thermal_policy: 9508
+  profiles:
+    chassis:
+      - imc_access_policy: kvm
+        power_policy: '9508'
+        snmp_policy: snmp
+        targets:
+          - description: example-ucs-1 UCS Chassis Profile
+            name: example-ucs-1
+            serial_number: unknown
+          - name: example-ucs-2
+            serial_number: unknown
+          - name: example-ucs-3
+            serial_number: unknown
+        thermal_policy: '9508'

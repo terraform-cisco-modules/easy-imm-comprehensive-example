@@ -1,129 +1,78 @@
 ---
+#=======================================
+#   Policies -> compute - Variables
+#=======================================
 intersight:
-    policies:
-      bios:
-        - name: Virtualization-M5
-          bios_template: Virtualization
-          # BIOS Customization
-          baud_rate: "115200"
-          console_redirection: "serial-port-a"
-          execute_disable_bit: "disabled"
-          lv_ddr_mode: "auto"
-          serial_port_aenable: "enabled"
-          terminal_type: "vt100"
-
-        - name: Virtualization-M6
-          bios_template: M6_Virtualization_tpm
-          # BIOS Customization
-          baud_rate: "115200"
-          console_redirection: "serial-port-a"
-          execute_disable_bit: "disabled"
-          lv_ddr_mode: "auto"
-          serial_port_aenable: "enabled"
-          terminal_type: "vt100"
-
-      boot_order:
-        - name: "M2-pxe"
-          boot_devices:
-            - name: "KVM-DVD"
-              object_type: "boot.VirtualMedia"
-              sub_type: "kvm-mapped-dvd"
-            - name: "M2"
-              object_type: "boot.LocalDisk"
-              slot: "MSTOR-RAID"
-            - name: "PXE"
-              interface_name: "MGMT-A"
-              object_type: "boot.Pxe"
-              slot: "MLOM"
-          boot_mode: "Uefi"
-          # description: "M2-pxe Boot Policy."
-          enable_secure_boot: false
-        
-        - name: "M2"
-          boot_devices:
-            - name: "KVM-DVD"
-              object_type: "boot.VirtualMedia"
-              sub_type: "kvm-mapped-dvd"
-            - name: "M2"
-              object_type: "boot.LocalDisk"
-              slot: "MSTOR-RAID"
-          boot_mode: "Uefi"
-          # description: "M2 Boot Policy."
-          enable_secure_boot: true
-        
-        - name: "Raid-pxe"
-          boot_devices:
-            - name: "KVM-DVD"
-              object_type: "boot.VirtualMedia"
-              sub_type: "kvm-mapped-dvd"
-            - name: "Raid1"
-              object_type: "boot.LocalDisk"
-              slot: "MRAID"
-            - name: "PXE"
-              interface_name: "MGMT-A"
-              object_type: "boot.Pxe"
-              slot: "MLOM"
-          boot_mode: "Uefi"
-          # description: "Raid-pxe Boot Policy."
-          enable_secure_boot: false
-        - name: "Raid1"
-          boot_devices:
-            - name: "KVM-DVD"
-              object_type: "boot.VirtualMedia"
-              sub_type: "kvm-mapped-dvd"
-            - name: "Raid1"
-              object_type: "boot.LocalDisk"
-              slot: "MRAID"
-          boot_mode: "Uefi"
-          # description: "Raid1 Boot Policy."
-          enable_secure_boot: true
-        
-        - name: "examples"
-          boot_devices:
-            - name: "KVM-DVD"
-              object_type: "boot.VirtualMedia"
-              sub_type: "kvm-mapped-dvd"
-            - name: "CIMC-DVD"
-              object_type: "boot.VirtualMedia"
-              sub_type: "cimc-mapped-dvd"
-            - name: "M2"
-              object_type: "boot.LocalDisk"
-              slot: "MSTOR-RAID"
-            - name: "Raid1"
-              object_type: "boot.LocalDisk"
-              slot: "MRAID"
-            - name: "PXE"
-              interface_name: "MGMT-A"
-              object_type: "boot.Pxe"
-              slot: "MLOM"
-            - name: "iSCSI"
-              interface_name: "iSCSI-A"
-              object_type: "boot.Iscsi"
-              slot: "MLOM"
-            - name: "Primary-A"
-              interface_name: "vHBA-A"
-              lun: 0
-              object_type: "boot.San"
-              slot: "MLOM"
-              wwpn: "50:00:00:25:B5:0A:00:01"
-            - name: "Primary-B"
-              interface_name: "vHBA-B"
-              lun: 0
-              object_type: "boot.San"
-              slot: "MLOM"
-              wwpn: "50:00:00:25:B5:0B:00:01"
-            - name: "Secondary-A"
-              interface_name: "vHBA-A"
-              lun: 0
-              object_type: "boot.San"
-              slot: "MLOM"
-              wwpn: "50:00:00:25:B5:0A:00:02"
-            - name: "Secondary-B"
-              interface_name: "vHBA-B"
-              lun: 0
-              object_type: "boot.San"
-              slot: "MLOM"
-              wwpn: "50:00:00:25:B5:0B:00:02"
-          boot_mode: "Uefi"
-          # description: "examples Boot Policy."
-          enable_secure_boot: false
+  policies:
+    bios:
+      - description: Virtualization_tpm BIOS Policy
+        name: Virtualization_tpm
+        policy_template: Virtualization_tpm
+      - description: M6_Virtualization_tpm BIOS Policy
+        name: M6_Virtualization_tpm
+        policy_template: M6_Virtualization_tpm
+    boot_order:
+      - boot_devices:
+          - object_type: boot.VirtualMedia
+            name: kvm
+            subtype: kvm-mapped-dvd
+          - object_type: boot.LocalDisk
+            name: M2
+            slot: MSTOR-RAID-1
+          - interface_name: mgmt-a
+            object_type: boot.Pxe
+            name: pxe
+        boot_mode: Uefi
+        description: M2 Boot Order Policy
+        enable_secure_boot: false
+        name: M2
+      - boot_devices:
+          - object_type: boot.VirtualMedia
+            name: kvm
+            subtype: kvm-mapped-dvd
+          - object_type: boot.LocalDisk
+            name: M2
+            slot: MSTOR-RAID-1
+          - object_type: boot.UefiShell
+            name: uefishell
+        boot_mode: Uefi
+        description: M2-secure Boot Order Policy
+        enable_secure_boot: true
+        name: M2-secure
+      - boot_devices:
+          - object_type: boot.VirtualMedia
+            name: kvm
+            subtype: kvm-mapped-dvd
+          - object_type: boot.LocalDisk
+            name: mraid
+            slot: MRAID
+          - object_type: boot.UefiShell
+            name: uefishell
+        boot_mode: Uefi
+        description: MRAID Boot Order Policy
+        enable_secure_boot: true
+        name: MRAID
+    persistent_memory:
+      - description: pmem Persistent Memory Policy
+        management_mode: configured-from-intersight
+        memory_mode_percentage: '50'
+        name: pmem
+        namespaces:
+          - capacity: 1024
+            mode: raw
+            name: cpu0
+            socket_id: 1
+            socket_memory_id: Not Applicable
+        persistent_memory_type: app-direct
+        retain_namespaces: true
+    virtual_media:
+      - add_virtual_media:
+          - device_type: cdd
+            file_location: https://198.18.1.1/vmware.iso
+            mount_options: noauto
+            name: https-map
+            protocol: https
+        description: vmedia Virtual Media Policy
+        enable_low_power_usb: true
+        enable_virtual_media_encryption: true
+        name: vmedia

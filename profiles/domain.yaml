@@ -1,15 +1,26 @@
 ---
+#======================================
+#   Profiles -> Domain - Variables
+#======================================
 intersight:
-    profiles:
-      domain:
-        - name: test-ucs
-          network_connectivity_policy: dns
-          ntp_policy: ntp
-          port_policies: [test-ucs-a, test-ucs-b]
-          snmp_policy: snmp-domain
-          # serial_numbers: [FDO1234567A, FDO1234567B]
-          switch_control_policy: switch-ctrl
-          syslog_policy: syslog-domain
-          system_qos_policy: system-qos
-          vlan_policies: [test-vlans]
-          vsan_policies: [test-vsan-a, test-vsan-b]   
+  profiles:
+    domain:
+      - description: example-ucs UCS Domain Profile
+        name: example-ucs
+        network_connectivity_policy: dns
+        ntp_policy: ntp
+        port_policies:
+          - example-ucs-a
+          - example-ucs-b
+        serial_numbers:
+          - unknown
+          - unknown
+        snmp_policy: snmp
+        switch_control_policy: sw-ctrl
+        syslog_policy: syslog
+        system_qos_policy: qos
+        vlan_policies:
+          - vlans
+        vsan_policies:
+          - vsan-200
+          - vsan-100

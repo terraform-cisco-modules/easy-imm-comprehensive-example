@@ -1,29 +1,43 @@
 ---
+#====================================
+#   Policies -> port - Variables
+#====================================
 intersight:
-    policies:
-      port:
-        - names: [test-ucs-a, test-ucs-b]
-          device_model: UCS-FI-6536
-          port_channel_ethernet_uplinks:
-            - pc_ids: [31, 31]
-              ethernet_network_group_policy: uplink
-              flow_control_policy: flow-ctrl
-              interfaces:
-                - port_id: 31
-                - port_id: 32
-              link_aggregation_policy: link-agg
-              link_control_policy: link-ctrl
-          port_channel_fc_uplinks:
-            - pc_ids: [133, 133]
-              fill_pattern: Arbff
-              interfaces:
-                - breakout_port_id: 33
-                  port_id: 1
-                - breakout_port_id: 34
-                  port_id: 1
-              vsan_ids: [100, 200]
-          port_modes:
-            - port_list: [33, 36]
-              custom_mode: BreakoutFibreChannel32G
-          port_role_servers:
-            - port_list: 1-28
+  policies:
+    port:
+      - description: default-ucs Port Policy
+        device_model: UCS-FI-6454
+        names:
+          - default-ucs-a
+          - default-ucs-b
+        port_channel_ethernet_uplinks:
+          - admin_speed: Auto
+            ethernet_network_group_policy: uplink
+            flow_control_policy: flow-ctrl
+            interfaces:
+              - port_id: 53
+              - port_id: 54
+            link_aggregation_policy: link-agg
+            link_control_policy: link-ctrl
+            pc_ids:
+              - 53
+              - 53
+        port_channel_fc_uplinks:
+          - admin_speed: 32Gbps
+            fill_pattern: Arbff
+            interfaces:
+              - port_id: 1
+              - port_id: 2
+            pc_ids:
+              - 1
+              - 1
+            vsan_ids:
+              - 100
+              - 200
+        port_modes:
+          - custom_mode: FibreChannel
+            port_list:
+              - 1
+              - 4
+        port_role_servers:
+          - port_list: 5-18

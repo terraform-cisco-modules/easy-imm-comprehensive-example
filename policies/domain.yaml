@@ -1,0 +1,73 @@
+---
+#======================================
+#   Policies -> domain - Variables
+#======================================
+intersight:
+  policies:
+    flow_control:
+      - description: flow-ctrl Flow Control Policy
+        name: flow-ctrl
+    link_aggregation:
+      - description: link-agg Link Aggregation Policy
+        name: link-agg
+    link_control:
+      - description: link-ctrl Link Control Policy
+        name: link-ctrl
+    switch_control:
+      - description: sw-ctrl Switch Control Policy
+        ethernet_switching_mode: end-host
+        fc_switching_mode: end-host
+        name: sw-ctrl
+        vlan_port_count_optimization: false
+    system_qos:
+      - classes:
+          - bandwidth_percent: 20
+            cos: 20
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: false
+            priority: Platinum
+            state: Enabled
+            weight: 10
+          - bandwidth_percent: 18
+            cos: 18
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: true
+            priority: Gold
+            state: Enabled
+            weight: 9
+          - bandwidth_percent: 20
+            cos: 20
+            mtu: 2240
+            multicast_optimize: false
+            packet_drop: false
+            priority: FC
+            state: Enabled
+            weight: 10
+          - bandwidth_percent: 18
+            cos: 18
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: true
+            priority: Silver
+            state: Enabled
+            weight: 8
+          - bandwidth_percent: 14
+            cos: 14
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: true
+            priority: Bronze
+            state: Enabled
+            weight: 7
+          - bandwidth_percent: 10
+            cos: 10
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: false
+            priority: Best Effort
+            state: Enabled
+            weight: 5
+        description: qos System QoS Policy
+        name: qos

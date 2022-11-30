@@ -12,7 +12,7 @@ terraform {
     }
     utils = {
       source  = "netascode/utils"
-      version = ">= 0.1.2"
+      version = ">= 0.1.3"
     }
   }
   required_version = ">=1.3.0"
@@ -20,6 +20,6 @@ terraform {
 
 provider "intersight" {
   apikey    = var.apikey
-  endpoint  = var.endpoint
+  endpoint  = "https://${var.endpoint}"
   secretkey = fileexists(var.secretkeyfile) ? file(var.secretkeyfile) : var.secretkey
 }

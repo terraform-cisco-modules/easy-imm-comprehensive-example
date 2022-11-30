@@ -576,6 +576,8 @@ defaults:
         target_source_type: Auto
       iscsi_static_target:
         name_suffix: ''
+        luns:
+          bootable: false
       lan_connectivity:
         name_suffix: ''
         enable_azure_stack_host_qos: false
@@ -596,12 +598,12 @@ defaults:
           iscsi_boot_policy: ''
           mac_address_allocation_type: POOL
           mac_address_pools: []
-          mac_address_static: []
-          placement_pci_link: [0]
+          mac_addresses_static: []
+          placement_pci_links: [0]
           placement_pci_order: [2, 3]
-          placement_slot_id: [MLOM]
+          placement_slot_ids: [MLOM]
           placement_switch_id: ''
-          placement_uplink_port: [0]
+          placement_uplink_ports: [0]
           usnic_adapter_policy: ''
           usnic_class_of_service: 5
           usnic_number_of_usnics: 0
@@ -748,7 +750,7 @@ defaults:
         vhbas:
           fc_zone_policies: []
           fibre_channel_adapter_policy: ''
-          fibre_channel_network_policies: ''
+          fibre_channel_network_policies: []
           fibre_channel_qos_policy: ''
           persistent_lun_bindings: false
           placement_pci_link: [0]
@@ -784,7 +786,7 @@ defaults:
       snmp:
         name_suffix: ''
         enable_snmp: true
-        snmp_community_access: Full
+        snmp_community_access: Disabled
         snmp_engine_input_id: ''
         snmp_port: 161
         system_contact: ''
@@ -806,11 +808,17 @@ defaults:
         mac_address_table_aging: Default
         mac_aging_time: 14500
         udld_message_interval: 15
-        udld_recovery_action: none
+        udld_recovery_action: reset
         vlan_port_count_optimization: false
       syslog:
         name_suffix: ''
         local_min_severity: warning
+        remote_logging:
+          enable: false
+          hostname: 0.0.0.0
+          minimum_severity: warning
+          port: 514
+          protocol: udp
       system_qos:
         name_suffix: ''
       thermal:
@@ -838,6 +846,10 @@ defaults:
       vsan:
         name_suffix: ''
         uplink_trunking: false
+        vsans:
+          default_zoning: Disabled
+          fc_zone_sharing_mode: ''
+          vsan_scope: Uplink
     pools:
       assignment_order: 'sequential'
       ip:

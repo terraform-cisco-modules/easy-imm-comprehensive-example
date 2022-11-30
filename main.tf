@@ -10,33 +10,40 @@ data "utils_yaml_merge" "model" {
     for file in fileset(path.module, "templates/*.yaml") : file(file)], [
     file("${path.module}/defaults/defaults.yaml")]
   )
+  merge_list_items = false
 }
 
 module "pools" {
-  source  = "terraform-cisco-modules/pools/intersight"
-  version = ">= 1.0.9"
-  model   = local.model
+  source       = "terraform-cisco-modules/pools/intersight"
+  version      = ">= 1.0.9"
+  model        = local.model
+  organization = var.organization
+  tags         = var.tags
 }
 
 module "domain_profiles" {
   depends_on = [
     module.pools
   ]
-  source  = "terraform-cisco-modules/ucs-domain-profiles/intersight"
-  version = ">= 1.0.9"
-  model   = local.model
-  orgs    = module.pools.orgs
+  source       = "terraform-cisco-modules/ucs-domain-profiles/intersight"
+  version      = ">= 1.0.9"
+  model        = local.model
+  organization = var.organization
+  orgs         = module.pools.orgs
+  tags         = var.tags
 }
 
 module "policies" {
   depends_on = [
     module.domain_profiles
   ]
-  source  = "terraform-cisco-modules/policies/intersight"
-  version = ">= 1.0.10"
-  model   = local.model
-  domains = module.domain_profiles.domains
-  pools   = module.pools
+  source       = "terraform-cisco-modules/policies/intersight"
+  version      = ">= 1.0.10"
+  domains      = module.domain_profiles.domains
+  model        = local.model
+  organization = var.organization
+  pools        = module.pools
+  tags         = var.tags
   # Certificate Management Sensitive Variables
   base64_certificate_1 = var.base64_certificate_1
   base64_certificate_2 = var.base64_certificate_2
@@ -49,7 +56,7 @@ module "policies" {
   base64_private_key_4 = var.base64_private_key_4
   base64_private_key_5 = var.base64_private_key_5
   # IPMI Sensitive Variables
-  ipmi_key_1 = var.ipmi_key_1
+  ipmi_key_1 = var.ipmi_key
   # iSCSI Boot Sensitive Variable
   iscsi_boot_password = var.iscsi_boot_password
   # LDAP Sensitive Variable
@@ -95,9 +102,11 @@ module "profiles" {
   depends_on = [
     module.policies
   ]
-  source   = "terraform-cisco-modules/profiles/intersight"
-  version  = ">= 1.0.13"
-  model    = local.model
-  pools    = module.pools
-  policies = module.policies
+  source       = "terraform-cisco-modules/profiles/intersight"
+  version      = ">= 1.0.13"
+  model        = local.model
+  organization = var.organization
+  policies     = module.policies
+  pools        = module.pools
+  tags         = var.tags
 }
