@@ -30,7 +30,8 @@ intersight:
             vsan_id: 200
             wwpn: 50:00:00:25:B5:0B:00:02
     fibre_channel_adapter:
-      - description: VMware Fibre-Channel Adapter Policy
+      - adapter_template: VMware
+        description: VMware Fibre-Channel Adapter Policy
         name: VMware
     fibre_channel_network:
       - description: vsan-a Fibre-Channel Network Policy

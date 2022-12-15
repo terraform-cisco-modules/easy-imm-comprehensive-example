@@ -733,6 +733,13 @@ defaults:
           admin_speed: Auto
           fec: Auto
           link_control_policy: ''
+        port_role_servers:
+          auto_negotiation: false
+          breakout_port_id: 0
+          connected_device_type: Auto
+          device_number: null
+          fec: Auto
+          slot_id: 1
       power:
         name_suffix: ''
         dynamic_power_rebalancing: Enabled

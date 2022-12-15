@@ -5,12 +5,12 @@
 intersight:
   policies:
     bios:
-      - description: Virtualization_tpm BIOS Policy
+      - bios_template: Virtualization_tpm
+        description: Virtualization_tpm BIOS Policy
         name: Virtualization_tpm
-        policy_template: Virtualization_tpm
-      - description: M6_Virtualization_tpm BIOS Policy
+      - bios_template: M6_Virtualization_tpm
+        description: M6_Virtualization_tpm BIOS Policy
         name: M6_Virtualization_tpm
-        policy_template: M6_Virtualization_tpm
     boot_order:
       - boot_devices:
           - object_type: boot.VirtualMedia

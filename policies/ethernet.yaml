@@ -16,7 +16,8 @@ intersight:
           - cl91
         name: adapter
     ethernet_adapter:
-      - description: VMware Ethernet Adapter
+      - adapter_template: VMware
+        description: VMware Ethernet Adapter
         name: VMware
     ethernet_network:
       - default_vlan: '4'

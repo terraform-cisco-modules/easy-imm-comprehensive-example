@@ -5,6 +5,7 @@
 
 # Begin Variables
 endpoint     = "intersight.com"
+moids        = true
 organization = "default"
 tags = [
   {

@@ -9,9 +9,21 @@ variable "apikey" {
   type        = string
 }
 
+variable "deploy_profiles" {
+  default     = false
+  description = "Flag to Determine if Profiles Should be deployed."
+  type        = string
+}
+
 variable "endpoint" {
   default     = "intersight.com"
   description = "Intersight Endpoint Hostname."
+  type        = string
+}
+
+variable "moids" {
+  default     = false
+  description = "Flag to Determine if Policies Should be associated using data object or resource."
   type        = string
 }
 

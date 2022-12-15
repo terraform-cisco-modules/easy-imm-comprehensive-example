@@ -15,7 +15,37 @@
             ],
             "title": "Welcome10"
         },
-        "Intersight": {
+        "serial_over_lan": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/SerialOverLAN"
+            }
+        },
+        "smtp": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/SMTP"
+            }
+        },
+        "snmp": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/SNMP"
+            }
+        },
+        "ssh": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/SSH"
+            }
+        },
+        "syslog": {
+            "type": "array",
+            "items": {
+                "$ref": "#/definitions/Syslog"
+            }
+        },
+"Intersight": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
@@ -35,25 +65,13 @@
                 "bios": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Bio"
+                        "$ref": "#/definitions/Bios"
                     }
                 },
                 "boot_order": {
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/BootOrder"
-                    }
-                },
-                "persistent_memory": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PersistentMemory"
-                    }
-                },
-                "virtual_media": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/VirtualMedia"
                     }
                 },
                 "flow_control": {
@@ -224,40 +242,16 @@
                         "$ref": "#/definitions/NTP"
                     }
                 },
-                "serial_over_lan": {
+                "multicast": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/SerialOverLAN"
+                        "$ref": "#/definitions/EthernetAdapter"
                     }
                 },
-                "smtp": {
+                "persistent_memory": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/SMTP"
-                    }
-                },
-                "snmp": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/SNMP"
-                    }
-                },
-                "ssh": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/SSH"
-                    }
-                },
-                "syslog": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Syslog"
-                    }
-                },
-                "virtual_kvm": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/VirtualKVM"
+                        "$ref": "#/definitions/PersistentMemory"
                     }
                 },
                 "port": {
@@ -284,10 +278,16 @@
                         "$ref": "#/definitions/Storage"
                     }
                 },
-                "multicast": {
+                "virtual_kvm": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/EthernetAdapter"
+                        "$ref": "#/definitions/VirtualKVM"
+                    }
+                },
+                "virtual_media": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/VirtualMedia"
                     }
                 },
                 "vlan": {
@@ -304,51 +304,6 @@
                 }
             },
             "required": [
-                "adapter_configuration",
-                "bios",
-                "boot_order",
-                "device_connector",
-                "ethernet_adapter",
-                "ethernet_network",
-                "ethernet_network_control",
-                "ethernet_network_group",
-                "ethernet_qos",
-                "fc_zone",
-                "fibre_channel_adapter",
-                "fibre_channel_network",
-                "fibre_channel_qos",
-                "flow_control",
-                "imc_access",
-                "ipmi_over_lan",
-                "iscsi_adapter",
-                "iscsi_boot",
-                "iscsi_static_target",
-                "lan_connectivity",
-                "ldap",
-                "link_aggregation",
-                "link_control",
-                "local_user",
-                "multicast",
-                "network_connectivity",
-                "ntp",
-                "persistent_memory",
-                "port",
-                "power",
-                "san_connectivity",
-                "sd_card",
-                "serial_over_lan",
-                "smtp",
-                "snmp",
-                "ssh",
-                "storage",
-                "switch_control",
-                "syslog",
-                "system_qos",
-                "thermal",
-                "virtual_kvm",
-                "virtual_media",
-                "vlan",
-                "vsan"
             ],
             "title": "Policies"
         },
@@ -388,26 +343,34 @@
             ],
             "title": "AdapterConfiguration"
         },
-        "Bio": {
+        "Bios": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "description": {
+                    "description": "Description for the BIOS Policy.",
+                    "description_kind": "plain",
+                    "optional": true,
                     "type": "string"
                 },
                 "name": {
+                    "description": "Name for the BIOS Policy.",
+                    "description_kind": "plain",
+                    "optional": false,
                     "type": "string"
                 },
-                "policy_template": {
+                "bios_template": {
+                    "description": "Description for the Pool.",
+                    "description_kind": "plain",
+                    "optional": true,
                     "type": "string"
                 }
             },
             "required": [
-                "description",
                 "name",
-                "policy_template"
+                "bios_template"
             ],
-            "title": "Bio"
+            "title": "Bios"
         },
         "BootOrder": {
             "type": "object",
