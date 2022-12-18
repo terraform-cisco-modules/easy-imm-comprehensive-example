@@ -5,8 +5,8 @@
 
 variable "apikey" {
   description = "Intersight API Key."
-  sensitive   = true
-  type        = string
+  #sensitive   = true
+  type = string
 }
 
 variable "deploy_profiles" {
@@ -27,6 +27,16 @@ variable "moids" {
   type        = bool
 }
 
+variable "operating_system" {
+  default     = "Linux"
+  description = <<-EOF
+    Type of Operating System.
+    * Linux
+    * Windows
+  EOF
+  type        = string
+}
+
 variable "organization" {
   default     = "default"
   description = "Name of the default intersight Organization."
@@ -42,15 +52,15 @@ variable "name_prefix" {
 variable "secretkey" {
   default     = ""
   description = "Intersight Secret Key."
-  sensitive   = true
-  type        = string
+  #sensitive   = true
+  type = string
 }
 
 variable "secretkeyfile" {
   default     = "blah.txt"
   description = "Intersight Secret Key File Location."
-  sensitive   = true
-  type        = string
+  #sensitive   = true
+  type = string
 }
 
 variable "tags" {

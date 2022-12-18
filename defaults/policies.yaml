@@ -700,7 +700,7 @@ defaults:
           link_control_policy: ''
         port_channel_fc_uplinks:
           admin_speed: 32Gbps
-          fill_pattern: Arbff
+          fill_pattern: Idle
           vsan_id: 1
         port_channel_fcoe_uplinks:
           admin_speed: Auto
@@ -726,7 +726,7 @@ defaults:
           vsan_id: 1
         port_role_fc_uplinks:
           admin_speed: 32Gbps
-          fill_pattern: Arbff
+          fill_pattern: Idle
           vsan_id: 1
         port_role_fcoe_uplinks:
           admin_speed: Auto

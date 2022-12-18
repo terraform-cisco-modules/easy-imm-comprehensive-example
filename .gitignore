@@ -417,6 +417,7 @@ site/
 
 # key
 key
+*.key
 
 # Test results
 tests/results/

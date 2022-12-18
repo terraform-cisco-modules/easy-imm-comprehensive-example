@@ -14,9 +14,9 @@ data "utils_yaml_merge" "model" {
 }
 
 module "pools" {
-  source = "../terraform-intersight-pools"
-  #source       = "terraform-cisco-modules/pools/intersight"
-  #version      = ">= 1.0.11"
+  #source = "../terraform-intersight-pools"
+  source       = "terraform-cisco-modules/pools/intersight"
+  version      = "= 1.0.12"
   model        = local.model
   organization = var.organization
   tags         = var.tags
@@ -27,25 +27,21 @@ module "domain_profiles" {
     #module.policies,
     module.pools
   ]
-  source = "../terraform-intersight-profiles-domain"
-  #source       = "terraform-cisco-modules/profiles-domain/intersight"
-  #version      = ">= 1.0.9"
+  #source = "../terraform-intersight-profiles-domain"
+  source       = "terraform-cisco-modules/profiles-domain/intersight"
+  version      = "1.0.10"
   model        = local.model
   moids        = var.moids
   organization = var.organization
   #policies     = module.policies
-  pools        = module.pools
-  tags         = var.tags
+  pools = module.pools
+  tags  = var.tags
 }
 
 module "policies" {
-  #depends_on = [
-  #  module.domain_profiles,
-  #  module.pools
-  #]
-  source = "../terraform-intersight-policies"
-  #source       = "terraform-cisco-modules/policies/intersight"
-  #version      = ">= 1.0.11"
+  #source = "../terraform-intersight-policies"
+  source       = "terraform-cisco-modules/policies/intersight"
+  version      = "1.0.12"
   domains      = module.domain_profiles.domains
   model        = local.model
   organization = var.organization
@@ -105,36 +101,53 @@ module "policies" {
   vmedia_password_5 = var.vmedia_password_5
 }
 
-#locals {
-#  tag_complete_script = <<-EOF
-#  #!/bin/bash
-#  EOF
-#  #instance_id="${TOKEN=`curl -X PUT \\"http://169.254.169.254/latest/api/token\\" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"` && curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/instance-id}" aws ec2 create-tags --resources "$instance_id" --tags 'Key=trajano/terraform-docker-swarm-aws/cloudinit-complete,Value=true'
-#}
+resource "null_resource" "chmod_intersight" {
+  depends_on = [
+    module.domain_profiles
+  ]
+  for_each = { for v in ["intersight.sh"] : v => v if var.operating_system == "Linux" && length(
+    module.domain_profiles.depoy_switch_profiles
+  ) > 0 }
+  provisioner "local-exec" {
+    command    = "chmod 755 intersight.sh"
+    on_failure = continue
+  }
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+}
 
-#resource "null_resource" "deploy_domain_profile" {
-#  depends_on = [
-#    module.domain_profiles
-#  ]
-#  for_each = module.domain_profiles.switch_profiles
-#  provisioner "local-exec" {
-#    command = <<-EOF
-#    ./intersight.sh ${var.endpoint} ${var.apikey} ${var.secretkey} 'POST' ${each.value.moid} {"Action": "Deploy"}
-#    EOF
-#  }
-#}
+resource "null_resource" "deploy_domain_profiles" {
+  depends_on = [
+    module.domain_profiles
+  ]
+  for_each = {
+    for k, v in module.domain_profiles.depoy_switch_profiles : k => v if var.operating_system == "Linux"
+  }
+  provisioner "local-exec" {
+    command    = "./intersight.sh ${var.endpoint} 'PATCH' '/api/v1/fabric/SwitchProfiles/${each.value.moid}'"
+    on_failure = continue
+  }
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+}
 
 #resource "null_resource" "wait_for_domain_profile" {
 #  depends_on = [
 #    module.domain_profiles
 #  ]
-#  for_each = module.domain_profiles.switch_profiles
+#  for_each = module.domain_profiles.deploy_switch_profiles
 #  provisioner "local-exec" {
 #    command = <<-EOF
-#    #!/bin/bash
-#    json_results=./intersight.sh ${var.endpoint} ${var.apikey} ${var.secretkey} 'POST' ${each.value.moid} {"Action": "Deploy"}
-#    config_state=grep
-#    while [[ ]]
+#    #/bin/bash
+#    json_results=./intersight.sh ${var.endpoint} 'GET' '/api/v1/fabric/SwitchProfiles/${each.value.moid}'
+#    config_state="$(grep ConfigState json_results)"
+#    control_action="$(grep controlAction json_results)"
+#    action="      "ControlAction": "No-op","
+#    state="      "ConfigState": "Associated","
+#    while (( "$control_action" != "$action" || "$config_state" != "$state")) ; do
+#      $json_=
 #    poll_tags="aws ec2 describe-tags --filters 'Name=resource-id,Values=${join(",", aws_instance.managers[*].id)}' 'Name=key,Values=trajano/terraform-docker-swarm-aws/cloudinit-complete' --output text --query 'Tags[*].Value'"
 #    expected='${join(",", formatlist("true", aws_instance.managers[*].id))}'
 #    $tags="$($poll_tags)"
@@ -149,13 +162,61 @@ module "profiles" {
   depends_on = [
     module.policies
   ]
-  source = "../terraform-intersight-profiles"
-  #source       = "terraform-cisco-modules/profiles/intersight"
-  #version      = ">= 1.0.15"
+  #source = "../terraform-intersight-profiles"
+  source       = "terraform-cisco-modules/profiles/intersight"
+  version      = "1.0.18"
   model        = local.model
   moids        = var.moids
   organization = var.organization
   policies     = module.policies
   pools        = module.pools
   tags         = var.tags
+}
+
+resource "null_resource" "chmod_intersight2" {
+  depends_on = [
+    module.domain_profiles
+  ]
+  for_each = { for v in ["intersight.sh"] : v => v if var.operating_system == "Linux" && length(
+    module.profiles.deploy_chassis) + length(module.profiles.deploy_servers
+  ) > 0 }
+  provisioner "local-exec" {
+    command    = "chmod 755 intersight.sh"
+    on_failure = continue
+  }
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+}
+
+resource "null_resource" "deploy_chassis_profiles" {
+  depends_on = [
+    module.profiles
+  ]
+  for_each = {
+    for k, v in module.profiles.deploy_chassis : k => v if var.operating_system == "Linux"
+  }
+  provisioner "local-exec" {
+    command    = "./intersight.sh ${var.endpoint} 'PATCH' '/api/v1/chassis/Profiles/${each.value}'"
+    on_failure = continue
+  }
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+}
+
+resource "null_resource" "deploy_server_profiles" {
+  depends_on = [
+    module.profiles
+  ]
+  for_each = {
+    for k, v in module.profiles.deploy_servers : k => v if var.operating_system == "Linux"
+  }
+  provisioner "local-exec" {
+    command    = "./intersight.sh ${var.endpoint} 'PATCH' '/api/v1/server/Profiles/${each.value}'"
+    on_failure = continue
+  }
+  triggers = {
+    always_run = "${timestamp()}"
+  }
 }
