@@ -4,31 +4,48 @@ locals {
 
 data "utils_yaml_merge" "model" {
   input = concat([
+    for file in fileset(path.module, "defaults/*.yaml") : file(file)], [
     for file in fileset(path.module, "policies/*.yaml") : file(file)], [
     for file in fileset(path.module, "pools/*.yaml") : file(file)], [
     for file in fileset(path.module, "profiles/*.yaml") : file(file)], [
-    for file in fileset(path.module, "templates/*.yaml") : file(file)], [
-    file("${path.module}/defaults/defaults_policies.yaml")], [
-    file("${path.module}/defaults/defaults_pools.yaml")], [
-    file("${path.module}/defaults/defaults_profiles.yaml")]
+    for file in fileset(path.module, "templates/*.yaml") : file(file)]
   )
   merge_list_items = false
 }
 
 module "pools" {
-  source       = "terraform-cisco-modules/pools/intersight"
-  version      = ">= 1.0.11"
+  source = "../terraform-intersight-pools"
+  #source       = "terraform-cisco-modules/pools/intersight"
+  #version      = ">= 1.0.11"
   model        = local.model
   organization = var.organization
   tags         = var.tags
 }
 
-module "policies" {
+module "domain_profiles" {
   depends_on = [
+    #module.policies,
     module.pools
   ]
-  source       = "terraform-cisco-modules/policies/intersight"
-  version      = ">= 1.0.11"
+  source = "../terraform-intersight-profiles-domain"
+  #source       = "terraform-cisco-modules/profiles-domain/intersight"
+  #version      = ">= 1.0.9"
+  model        = local.model
+  moids        = var.moids
+  organization = var.organization
+  #policies     = module.policies
+  pools        = module.pools
+  tags         = var.tags
+}
+
+module "policies" {
+  #depends_on = [
+  #  module.domain_profiles,
+  #  module.pools
+  #]
+  source = "../terraform-intersight-policies"
+  #source       = "terraform-cisco-modules/policies/intersight"
+  #version      = ">= 1.0.11"
   domains      = module.domain_profiles.domains
   model        = local.model
   organization = var.organization
@@ -88,20 +105,6 @@ module "policies" {
   vmedia_password_5 = var.vmedia_password_5
 }
 
-module "domain_profiles" {
-  depends_on = [
-    module.policies
-  ]
-  source = "../terraform-cisco-modules/terraform-intersight-profiles-domain"
-  #source       = "terraform-cisco-modules/profiles-domain/intersight"
-  #version      = ">= 1.0.9"
-  model        = local.model
-  organization = var.organization
-  orgs         = module.pools.orgs
-  policies     = module.policies
-  tags         = var.tags
-}
-
 #locals {
 #  tag_complete_script = <<-EOF
 #  #!/bin/bash
@@ -146,8 +149,9 @@ module "profiles" {
   depends_on = [
     module.policies
   ]
-  source       = "terraform-cisco-modules/profiles/intersight"
-  version      = ">= 1.0.15"
+  source = "../terraform-intersight-profiles"
+  #source       = "terraform-cisco-modules/profiles/intersight"
+  #version      = ">= 1.0.15"
   model        = local.model
   moids        = var.moids
   organization = var.organization

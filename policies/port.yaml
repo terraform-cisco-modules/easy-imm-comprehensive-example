@@ -5,11 +5,11 @@
 intersight:
   policies:
     port:
-      - description: default-ucs Port Policy
+      - description: example-ucs Port Policy
         device_model: UCS-FI-6454
         names:
-          - default-ucs-a
-          - default-ucs-b
+          - example-ucs-a
+          - example-ucs-b
         port_channel_ethernet_uplinks:
           - admin_speed: Auto
             ethernet_network_group_policy: uplink

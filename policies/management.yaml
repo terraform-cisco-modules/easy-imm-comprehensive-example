@@ -113,6 +113,22 @@ intersight:
             security_level: AuthPriv
         system_contact: admin@example.com
         system_location: Example Corporation
+      - description: snmp SNMP Policy
+        name: snmp-domain
+        port: 161
+        snmp_traps:
+          - destination_address: 198.18.1.61
+            port: 162
+            user: snmpadmin
+        snmp_users:
+          - auth_password: 1
+            auth_type: SHA
+            name: snmpadmin
+            privacy_password: 1
+            privacy_type: AES
+            security_level: AuthPriv
+        system_contact: admin@example.com
+        system_location: Example Corporation
     ssh:
       - description: ssh SSH Policy
         name: ssh
@@ -122,6 +138,20 @@ intersight:
       - description: syslog Syslog Policy
         local_min_severity: warning
         name: syslog
+        remote_clients:
+          - enable: true
+            hostname: 198.18.5.14
+            min_severity: warning
+            port: 514
+            protocol: udp
+          - enable: true
+            hostname: 198.18.5.15
+            min_severity: warning
+            port: 514
+            protocol: udp
+      - description: syslog Syslog Policy
+        local_min_severity: warning
+        name: syslog-domain
         remote_clients:
           - enable: true
             hostname: 198.18.5.14

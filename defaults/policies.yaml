@@ -656,6 +656,7 @@ defaults:
         querier_ip_address_peer: ''
         querier_state: Disabled
         snooping_state: Enabled
+      name_prefix: ''
       network_connectivity:
         name_suffix: ''
         dns_servers_v4: [208.67.220.220, 208.67.222.222]
@@ -735,7 +736,7 @@ defaults:
           auto_negotiation: false
           breakout_port_id: 0
           connected_device_type: Auto
-          device_number: null
+          device_number: 0
           fec: Auto
           slot_id: 1
       power:
