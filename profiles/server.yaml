@@ -5,7 +5,8 @@
 intersight:
   profiles:
     server:
-      - targets:
+      - action: No-op
+        targets:
           - description: esx-1 UCS Server Profile
             name: esx-1
             serial_number: unknown

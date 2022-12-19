@@ -5,7 +5,8 @@
 intersight:
   profiles:
     chassis:
-      - imc_access_policy: kvm
+      - action: No-op
+        imc_access_policy: kvm
         power_policy: '9508'
         snmp_policy: snmp
         targets:

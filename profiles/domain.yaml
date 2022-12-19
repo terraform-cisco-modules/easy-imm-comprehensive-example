@@ -5,7 +5,8 @@
 intersight:
   profiles:
     domain:
-      - description: example-ucs UCS Domain Profile
+      - action: No-op
+        description: example-ucs UCS Domain Profile
         name: example-ucs
         network_connectivity_policy: dns
         ntp_policy: ntp
