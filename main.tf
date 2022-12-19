@@ -188,11 +188,6 @@ resource "intersight_fabric_switch_profile" "switch_profiles" {
 #    state="      "ConfigState": "Associated","
 #    while (( "$control_action" != "$action" || "$config_state" != "$state")) ; do
 #      $json_=
-#    poll_tags="aws ec2 describe-tags --filters 'Name=resource-id,Values=${join(",", aws_instance.managers[*].id)}' 'Name=key,Values=trajano/terraform-docker-swarm-aws/cloudinit-complete' --output text --query 'Tags[*].Value'"
-#    expected='${join(",", formatlist("true", aws_instance.managers[*].id))}'
-#    $tags="$($poll_tags)"
-#    while [[ "$tags" != "$expected" ]] ; do
-#      $tags="$($poll_tags)"
 #    done
 #    EOF
 #  }
