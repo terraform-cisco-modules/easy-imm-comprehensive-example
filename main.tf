@@ -27,9 +27,9 @@ module "domain_profiles" {
     #module.policies,
     module.pools
   ]
-  #source = "../terraform-intersight-profiles-domain"
-  source       = "terraform-cisco-modules/profiles-domain/intersight"
-  version      = "1.0.10"
+  source = "../terraform-intersight-profiles-domain"
+  #source       = "terraform-cisco-modules/profiles-domain/intersight"
+  #version      = "1.0.10"
   model        = local.model
   moids        = var.moids
   organization = var.organization
@@ -42,7 +42,7 @@ module "policies" {
   #source = "../terraform-intersight-policies"
   source       = "terraform-cisco-modules/policies/intersight"
   version      = "1.0.12"
-  domains      = module.domain_profiles.domains
+  domains      = module.domain_profiles.switch_profiles
   model        = local.model
   organization = var.organization
   pools        = module.pools
@@ -101,37 +101,77 @@ module "policies" {
   vmedia_password_5 = var.vmedia_password_5
 }
 
-resource "null_resource" "chmod_intersight" {
+resource "intersight_fabric_switch_profile" "switch_profiles" {
   depends_on = [
-    module.domain_profiles
+    module.policies
   ]
-  for_each = { for v in ["intersight.sh"] : v => v if var.operating_system == "Linux" && length(
-    module.domain_profiles.depoy_switch_profiles
-  ) > 0 }
-  provisioner "local-exec" {
-    command    = "chmod 755 intersight.sh"
-    on_failure = continue
+  for_each = module.domain_profiles.switch_profiles
+  action = length(regexall(
+    "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][1-3])[\\dA-Z]{4}$", each.value.serial_number)
+  ) > 0 ? each.value.action : "No-op"
+  lifecycle {
+    ignore_changes = [
+      action_params,
+      ancestors,
+      assigned_switch,
+      config_change_details,
+      config_changes,
+      config_context,
+      config_result,
+      create_time,
+      description,
+      domain_group_moid,
+      mod_time,
+      owners,
+      parent,
+      permission_resources,
+      policy_bucket,
+      running_workflows,
+      shared_scope,
+      src_template,
+      tags,
+      version_context
+    ]
   }
-  triggers = {
-    always_run = "${timestamp()}"
+  name = each.value.name
+  switch_cluster_profile {
+    moid = module.domain_profiles.domains[each.value.domain_profile]
   }
+  wait_for_completion = module.domain_profiles.switch_profiles[
+    element(keys(module.domain_profiles.switch_profiles), length(keys(module.domain_profiles.switch_profiles)
+  ) - 1)].name == each.value.name ? true : false
 }
+#resource "null_resource" "chmod_intersight" {
+#  depends_on = [
+#    module.domain_profiles
+#  ]
+#  for_each = { for v in ["intersight.sh"] : v => v if var.operating_system == "Linux" && length(
+#    module.domain_profiles.depoy_switch_profiles
+#  ) > 0 }
+#  provisioner "local-exec" {
+#    command    = "chmod 755 intersight.sh"
+#    on_failure = continue
+#  }
+#  triggers = {
+#    always_run = "${timestamp()}"
+#  }
+#}
 
-resource "null_resource" "deploy_domain_profiles" {
-  depends_on = [
-    module.domain_profiles
-  ]
-  for_each = {
-    for k, v in module.domain_profiles.depoy_switch_profiles : k => v if var.operating_system == "Linux"
-  }
-  provisioner "local-exec" {
-    command    = "./intersight.sh ${var.endpoint} 'PATCH' '/api/v1/fabric/SwitchProfiles/${each.value.moid}'"
-    on_failure = continue
-  }
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-}
+#resource "null_resource" "deploy_domain_profiles" {
+#  depends_on = [
+#    module.domain_profiles
+#  ]
+#  for_each = {
+#    for k, v in module.domain_profiles.depoy_switch_profiles : k => v if var.operating_system == "Linux"
+#  }
+#  provisioner "local-exec" {
+#    command    = "./intersight.sh ${var.endpoint} 'PATCH' '/api/v1/fabric/SwitchProfiles/${each.value.moid}'"
+#    on_failure = continue
+#  }
+#  triggers = {
+#    always_run = "${timestamp()}"
+#  }
+#}
 
 #resource "null_resource" "wait_for_domain_profile" {
 #  depends_on = [
