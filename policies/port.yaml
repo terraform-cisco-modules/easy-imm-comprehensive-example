@@ -24,7 +24,7 @@ intersight:
               - 53
         port_channel_fc_uplinks:
           - admin_speed: 32Gbps
-            fill_pattern: Arbff
+            fill_pattern: Idle
             interfaces:
               - port_id: 1
               - port_id: 2

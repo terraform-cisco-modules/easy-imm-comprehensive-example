@@ -803,6 +803,26 @@ defaults:
         ssh_port: 22
         ssh_timeout: 1800
       storage:
+        drive_groups:
+          automatic_drive_groups:
+            drives_per_span: 2
+            drive_type: Any
+            minimum_drive_size: 50
+            num_dedicated_hot_spares: ''
+            number_of_spans: 1
+            use_remaining_drives: false
+          manual_drive_groups:
+            dedicated_hot_spares: ''
+          virtual_drives:
+            boot_drive: false
+            expand_to_available: true
+            size: 50
+            virtual_drive_policy:
+              access_policy: Default
+              drive_cache: Default
+              read_policy: Default
+              strip_size: 64
+              write_policy: Default
         name_suffix: ''
         global_hot_spares: ''
         unused_disks_state: NoChange

@@ -54,15 +54,16 @@ Configure the following in `yaml.schemas`
 | Name | Version |
 |------|---------|
 | <a name="provider_utils"></a> [utils](#provider\_utils) | 0.2.2 |
-| <a name="provider_null"></a> [null](#provider\_null) | 3.2.1 |
+| <a name="provider_time"></a> [time](#provider\_time) | 0.9.1 |
+| <a name="provider_intersight"></a> [intersight](#provider\_intersight) | 1.0.34 |
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_pools"></a> [pools](#module\_pools) | terraform-cisco-modules/pools/intersight | = 1.0.12 |
-| <a name="module_domain_profiles"></a> [domain\_profiles](#module\_domain\_profiles) | terraform-cisco-modules/profiles-domain/intersight | 1.0.10 |
-| <a name="module_policies"></a> [policies](#module\_policies) | terraform-cisco-modules/policies/intersight | 1.0.12 |
-| <a name="module_profiles"></a> [profiles](#module\_profiles) | terraform-cisco-modules/profiles/intersight | 1.0.18 |
+| <a name="module_pools"></a> [pools](#module\_pools) | terraform-cisco-modules/pools/intersight | 1.0.12 |
+| <a name="module_domain_profiles"></a> [domain\_profiles](#module\_domain\_profiles) | terraform-cisco-modules/profiles-domain/intersight | 1.0.11 |
+| <a name="module_policies"></a> [policies](#module\_policies) | terraform-cisco-modules/policies/intersight | 1.0.13 |
+| <a name="module_profiles"></a> [profiles](#module\_profiles) | terraform-cisco-modules/profiles/intersight | 1.0.19 |
 
 ## NOTE:
 **When the Data is merged from the YAML files, it will run through the modules using for_each loop(s).  Sensitive Variables cannot be added to a for_each loop, instead use the variables below to add sensitive values for policies.**

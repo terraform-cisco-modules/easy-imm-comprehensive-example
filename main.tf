@@ -1,3 +1,7 @@
+#_________________________________________________________________________________________
+#
+# Data Model Merge Process - Merge YAML Files into HCL Format
+#_________________________________________________________________________________________
 locals {
   model = yamldecode(data.utils_yaml_merge.model.output)
 }
@@ -13,23 +17,27 @@ data "utils_yaml_merge" "model" {
   merge_list_items = false
 }
 
+#_________________________________________________________________________________________
+#
+# Intersight:Pools
+# GUI Location: Infrastructure Service > Configure > Pools
+#_________________________________________________________________________________________
 module "pools" {
-  #source = "../terraform-intersight-pools"
   source       = "terraform-cisco-modules/pools/intersight"
-  version      = "= 1.0.12"
+  version      = "1.0.12"
   model        = local.model
   organization = var.organization
   tags         = var.tags
 }
 
+#_________________________________________________________________________________________
+#
+# Intersight:UCS Domain Profiles
+# GUI Location: Infrastructure Service > Configure > Profiles : UCS Domain Profiles
+#_________________________________________________________________________________________
 module "domain_profiles" {
-  depends_on = [
-    #module.policies,
-    module.pools
-  ]
-  source = "../terraform-intersight-profiles-domain"
-  #source       = "terraform-cisco-modules/profiles-domain/intersight"
-  #version      = "1.0.10"
+  source       = "terraform-cisco-modules/profiles-domain/intersight"
+  version      = "1.0.11"
   model        = local.model
   moids        = var.moids
   organization = var.organization
@@ -38,10 +46,14 @@ module "domain_profiles" {
   tags  = var.tags
 }
 
+#_________________________________________________________________________________________
+#
+# Intersight:Policies
+# GUI Location: Infrastructure Service > Configure > Policies
+#_________________________________________________________________________________________
 module "policies" {
-  #source = "../terraform-intersight-policies"
   source       = "terraform-cisco-modules/policies/intersight"
-  version      = "1.0.12"
+  version      = "1.0.13"
   domains      = module.domain_profiles.switch_profiles
   model        = local.model
   organization = var.organization
@@ -101,6 +113,11 @@ module "policies" {
   vmedia_password_5 = var.vmedia_password_5
 }
 
+#_________________________________________________________________________________________
+#
+# Intersight: UCS Domain Profiles
+# GUI Location: Infrastructure Service > Configure > Profiles : UCS Domain Profiles
+#_________________________________________________________________________________________
 resource "intersight_fabric_switch_profile" "switch_profiles" {
   depends_on = [
     module.policies
@@ -114,10 +131,6 @@ resource "intersight_fabric_switch_profile" "switch_profiles" {
       action_params,
       ancestors,
       assigned_switch,
-      config_change_details,
-      config_changes,
-      config_context,
-      config_result,
       create_time,
       description,
       domain_group_moid,
@@ -141,117 +154,123 @@ resource "intersight_fabric_switch_profile" "switch_profiles" {
     element(keys(module.domain_profiles.switch_profiles), length(keys(module.domain_profiles.switch_profiles)
   ) - 1)].name == each.value.name ? true : false
 }
-#resource "null_resource" "chmod_intersight" {
-#  depends_on = [
-#    module.domain_profiles
-#  ]
-#  for_each = { for v in ["intersight.sh"] : v => v if var.operating_system == "Linux" && length(
-#    module.domain_profiles.depoy_switch_profiles
-#  ) > 0 }
-#  provisioner "local-exec" {
-#    command    = "chmod 755 intersight.sh"
-#    on_failure = continue
-#  }
-#  triggers = {
-#    always_run = "${timestamp()}"
-#  }
-#}
 
-#resource "null_resource" "deploy_domain_profiles" {
-#  depends_on = [
-#    module.domain_profiles
-#  ]
-#  for_each = {
-#    for k, v in module.domain_profiles.depoy_switch_profiles : k => v if var.operating_system == "Linux"
-#  }
-#  provisioner "local-exec" {
-#    command    = "./intersight.sh ${var.endpoint} 'PATCH' '/api/v1/fabric/SwitchProfiles/${each.value.moid}'"
-#    on_failure = continue
-#  }
-#  triggers = {
-#    always_run = "${timestamp()}"
-#  }
-#}
+#_________________________________________________________________________________________
+#
+# Sleep Timer between Deploying the Domain and Waiting for Server Discovery
+#_________________________________________________________________________________________
+resource "time_sleep" "wait_for_server_discovery" {
+  depends_on = [intersight_fabric_switch_profile.switch_profiles]
+  create_duration = length([
+    for v in keys(module.domain_profiles.switch_profiles) : 1 if module.domain_profiles.switch_profiles[v
+  ].action == "Deploy"]) > 0 ? "30m" : "1s"
+  triggers = {
+    always_run = "${timestamp()}"
+  }
+}
 
-#resource "null_resource" "wait_for_domain_profile" {
-#  depends_on = [
-#    module.domain_profiles
-#  ]
-#  for_each = module.domain_profiles.deploy_switch_profiles
-#  provisioner "local-exec" {
-#    command = <<-EOF
-#    #/bin/bash
-#    json_results=./intersight.sh ${var.endpoint} 'GET' '/api/v1/fabric/SwitchProfiles/${each.value.moid}'
-#    config_state="$(grep ConfigState json_results)"
-#    control_action="$(grep controlAction json_results)"
-#    action="      "ControlAction": "No-op","
-#    state="      "ConfigState": "Associated","
-#    while (( "$control_action" != "$action" || "$config_state" != "$state")) ; do
-#      $json_=
-#    done
-#    EOF
-#  }
-#}
-
+#_________________________________________________________________________________________
+#
+# Intersight:UCS Chassis and Server Profiles
+# GUI Location: Infrastructure Service > Configure > Profiles
+#_________________________________________________________________________________________
 module "profiles" {
-  depends_on = [
-    module.policies
-  ]
-  #source = "../terraform-intersight-profiles"
   source       = "terraform-cisco-modules/profiles/intersight"
-  version      = "1.0.18"
+  version      = "1.0.19"
   model        = local.model
   moids        = var.moids
   organization = var.organization
   policies     = module.policies
   pools        = module.pools
   tags         = var.tags
+  time_sleep   = time_sleep.wait_for_server_discovery.id
 }
 
-resource "null_resource" "chmod_intersight2" {
-  depends_on = [
-    module.domain_profiles
-  ]
-  for_each = { for v in ["intersight.sh"] : v => v if var.operating_system == "Linux" && length(
-    module.profiles.deploy_chassis) + length(module.profiles.deploy_servers
-  ) > 0 }
-  provisioner "local-exec" {
-    command    = "chmod 755 intersight.sh"
-    on_failure = continue
-  }
-  triggers = {
-    always_run = "${timestamp()}"
-  }
-}
-
-resource "null_resource" "deploy_chassis_profiles" {
+#_________________________________________________________________________________________
+#
+# Intersight: UCS Chassis Profiles
+# GUI Location: Infrastructure Service > Configure > Profiles : UCS Chassis Profiles
+#_________________________________________________________________________________________
+resource "intersight_chassis_profile" "chassis" {
   depends_on = [
     module.profiles
   ]
-  for_each = {
-    for k, v in module.profiles.deploy_chassis : k => v if var.operating_system == "Linux"
+  for_each = module.profiles.chassis
+  action = length(regexall(
+    "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][1-3])[\\dA-Z]{4}$", each.value.serial_number)
+  ) > 0 ? each.value.action : "No-op"
+  lifecycle {
+    ignore_changes = [
+      action_params,
+      ancestors,
+      create_time,
+      description,
+      domain_group_moid,
+      mod_time,
+      owners,
+      parent,
+      permission_resources,
+      policy_bucket,
+      running_workflows,
+      shared_scope,
+      src_template,
+      tags,
+      version_context
+    ]
   }
-  provisioner "local-exec" {
-    command    = "./intersight.sh ${var.endpoint} 'PATCH' '/api/v1/chassis/Profiles/${each.value}'"
-    on_failure = continue
-  }
-  triggers = {
-    always_run = "${timestamp()}"
+  name            = each.value.name
+  target_platform = each.value.target_platform
+  organization {
+    moid = module.pools.orgs[each.value.organization]
   }
 }
 
-resource "null_resource" "deploy_server_profiles" {
+#_________________________________________________________________________________________
+#
+# Intersight: UCS Server Profiles
+# GUI Location: Infrastructure Service > Configure > Profiles : UCS Server Profiles
+#_________________________________________________________________________________________
+resource "intersight_server_profile" "server" {
   depends_on = [
     module.profiles
   ]
-  for_each = {
-    for k, v in module.profiles.deploy_servers : k => v if var.operating_system == "Linux"
+  for_each = module.profiles.server
+  action = length(regexall(
+    "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][1-3])[\\dA-Z]{4}$", each.value.serial_number)
+  ) > 0 ? each.value.action : "No-op"
+  lifecycle {
+    ignore_changes = [
+      action_params,
+      ancestors,
+      assigned_server,
+      associated_server,
+      associated_server_pool,
+      create_time,
+      description,
+      domain_group_moid,
+      mod_time,
+      owners,
+      parent,
+      permission_resources,
+      policy_bucket,
+      reservation_references,
+      running_workflows,
+      server_assignment_mode,
+      server_pool,
+      shared_scope,
+      src_template,
+      tags,
+      uuid,
+      uuid_address_type,
+      uuid_lease,
+      uuid_pool,
+      version_context
+    ]
   }
-  provisioner "local-exec" {
-    command    = "./intersight.sh ${var.endpoint} 'PATCH' '/api/v1/server/Profiles/${each.value}'"
-    on_failure = continue
-  }
-  triggers = {
-    always_run = "${timestamp()}"
+  name            = each.value.name
+  target_platform = each.value.target_platform
+  organization {
+    moid = module.pools.orgs[each.value.organization]
   }
 }
+
