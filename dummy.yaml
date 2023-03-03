@@ -1,5 +1,5 @@
 policies:
-  default:
+  default: # Org for creating SAN Policy
     san_connectivity:
       - name: scp
         target_platform: FIAttached

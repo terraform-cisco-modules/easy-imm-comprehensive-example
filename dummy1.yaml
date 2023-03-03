@@ -1,5 +1,5 @@
 policies:
-  sub_org:
+  sub_org: # Org for creating SAN Policy
     san_connectivity:
       - name: scp
         policies_org: default
