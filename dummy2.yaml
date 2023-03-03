@@ -1,0 +1,29 @@
+policies:
+  sub_org:
+    san_connectivity:
+      - name: scp
+        target_platform: FIAttached
+        vhbas:
+          - fibre_channel_adapter_policy:
+              name: VMware
+              org: default
+            fibre_channel_network_policies:
+              - vsan-a
+              - vsan-b
+            fibre_channel_qos_policy: 
+              name: fc-qos
+              org: default
+            names:
+              - vhba-a
+              - vhba-b
+            placement_pci_order:
+              - 0
+              - 1
+            wwpn_allocation_type: POOL
+            wwpn_pools:
+              - wwpn-a
+              - wwpn-b
+        wwnn_allocation_type: POOL
+        wwnn_pool:
+          name: wwnn
+          org: default
