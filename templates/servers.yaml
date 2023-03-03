@@ -1,6 +1,6 @@
 ---
-intersight:
-    templates:
+templates:
+    default:
       server:
         - name: Virtualization-M2-pxe
           #___________________________

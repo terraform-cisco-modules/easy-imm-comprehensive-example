@@ -1,6 +1,6 @@
 ---
-defaults:
-  intersight:
+intersight:
+  defaults:
     profiles:
       chassis:
         name_suffix: ''

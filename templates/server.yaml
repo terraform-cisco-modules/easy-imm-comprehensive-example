@@ -2,8 +2,8 @@
 #=======================================
 #   Templates -> Server - Variables
 #=======================================
-intersight:
-  templates:
+templates:
+  default:
     server:
       - bios_policy: M6_Virtualization_tpm
         boot_order_policy: M2-secure

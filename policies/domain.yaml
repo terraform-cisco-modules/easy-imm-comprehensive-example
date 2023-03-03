@@ -2,8 +2,8 @@
 #======================================
 #   Policies -> domain - Variables
 #======================================
-intersight:
-  policies:
+policies:
+  default:
     flow_control:
       - description: flow-ctrl Flow Control Policy
         name: flow-ctrl

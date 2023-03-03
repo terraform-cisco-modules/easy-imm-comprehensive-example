@@ -2,8 +2,8 @@
 #=======================================
 #   Profiles -> Chassis - Variables
 #=======================================
-intersight:
-  profiles:
+profiles:
+  default:
     chassis:
       - action: No-op
         imc_access_policy: kvm

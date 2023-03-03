@@ -2,8 +2,8 @@
 #======================================
 #   Profiles -> Domain - Variables
 #======================================
-intersight:
-  profiles:
+profiles:
+  default:
     domain:
       - action: No-op
         description: example-ucs UCS Domain Profile

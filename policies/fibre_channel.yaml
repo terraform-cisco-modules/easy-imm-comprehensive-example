@@ -2,8 +2,8 @@
 #=============================================
 #   Policies -> fibre_channel - Variables
 #=============================================
-intersight:
-  policies:
+policies:
+  default:
     fc_zone:
       - description: vsan-a FC Zone Policy
         fc_target_zoning_type: SIMT

@@ -2,8 +2,8 @@
 #=======================================
 #   Policies -> compute - Variables
 #=======================================
-intersight:
-  policies:
+policies:
+  default:
     bios:
       - bios_template: Virtualization_tpm
         description: Virtualization_tpm BIOS Policy

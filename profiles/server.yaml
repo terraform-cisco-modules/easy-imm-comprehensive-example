@@ -2,8 +2,8 @@
 #======================================
 #   Profiles -> Server - Variables
 #======================================
-intersight:
-  profiles:
+profiles:
+  default:
     server:
       - action: No-op
         targets:

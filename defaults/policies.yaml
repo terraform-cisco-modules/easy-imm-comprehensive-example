@@ -1,17 +1,28 @@
 ---
-defaults:
-  intersight:
+intersight:
+  defaults:
     policies:
       adapter_configuration:
         name_suffix: ''
-        adapter_ports: 4
-        enable_fip: true
-        enable_lldp: true
-        enable_port_channel: true
-        fec_modes: [cl91]
-        pci_slot: MLOM
+        add_vic_adapter_configuration:
+          dce_interface_settings: # If you put just one it will do the same for all 4 Interfaces or list all 4
+            dce_interface_fec_modes: [cl91] # Options are cl74, cl91, Off
+          description: ''
+          enable_fip: true
+          enable_lldp: true
+          enable_port_channel: true
+          pci_slot: MLOM # Supported values are 1-15 or MLOM
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       bios:
         name_suffix: ''
+        description: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         #+++++++++++++++++++++++++++++++
         # Boot Options Section
         #+++++++++++++++++++++++++++++++
@@ -377,12 +388,10 @@ defaults:
         #+++++++++++++++++++++++++++++++
         qpi_link_frequency: platform-default
         qpi_snoop_mode: platform-default
-
         #+++++++++++++++++++++++++++++++
         # Serial Port Section
         #+++++++++++++++++++++++++++++++
         serial_port_aenable: platform-default
-
         #+++++++++++++++++++++++++++++++
         # Server Management Section
         #+++++++++++++++++++++++++++++++
@@ -447,17 +456,51 @@ defaults:
         usb_xhci_support: platform-default
       boot_order:
         name_suffix: ''
+        boot_devices: # Optional List of Map
+          bootloader_description: '' # Optional for Uefi
+          bootloader_name: 'BOOTx64.EFI' # Optional for Uefi
+          bootloader_path: '\\EFI\\BOOT\\' # Optional for Uefi, used by boot.Iscsi, boot.LocalDisk, boot.Nvme, boot.PchStorage, boot.San, boot.SdCard
+          enabled: true #Optional
+          interface_name: '' # Used by boot.Iscsi, boot.Pxe, boot.San
+          interface_source: name # Used only by boot.Pxe. Options are name, mac, port
+          ip_type: None # Used only by boot.Pxe.  Options are None, IPv4, IPv6
+          lun: 0 # Used by the following: boot.PchStorage, boot.San, boot.SdCard
+          mac_ddress: '' # Used by boot.Pxe if Interface_Source is mac
+          name: '**REQUIRED**'
+          object_type: '**REQUIRED**' # Options are boot.Iscsi, boot.LocalCdd, boot.LocalDisk, boot.Nvme, boot.PchStorage, boot.Pxe, boot.San, boot.SdCard, boot.UefiShell, boot.Usb, boot.VirtualMedia
+          port: -1 # boot.Iscsi can be 0-255.  boot.Pxe is the Port ID of the adapter and values can be between -1 (not defined) and 255.
+          slot: MLOM # Options for boot.Iscsi, boot.Pxe and boot.San are 1-255, MLOM, L1, L2.  boot.Iscsi and boot.Pxe also support L and OCP.  For boot.LocalDisk values can be 1-205, FMEZZ1-SAS, HBA, M, MRAID, MRAID1, MRAID2, MSTOR-RAID, SAS, RAID.
+          sub_type: None # Options for boot.VirtualMedia: None, cimc-mapped-dvd, cimc-mapped-hdd, kvm-mapped-dvd, kvm-mapped-hdd, kvm-mapped-fdd. Options are boot.SdCard: None, flex-util, flex-flash, SDCARD.  Options for boot.Usb: None, usb-cd, usb-fdd, usb-hdd
+          wwpn: '' # Used only by boot.San
         boot_mode: Uefi
+        description: ''
         enable_secure_boot: false
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       certificate_management:
         name_suffix: ''
+        certificate: 0 # Value between 1 and 5 to define the TF_VAR_base64_certificate_[1-5]
+        description: ''
+        name: '**REQUIRED**'
+        private_key: 0 # Value between 1 and 5 to define the TF_VAR_base64_private_key_[1-5]
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       device_connector:
         name_suffix: ''
         configuration_lockout: false
+        description: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       ethernet_adapter:
         name_suffix: ''
         completion_queue_count: 5
         completion_ring_size: 1
+        description: ''
         enable_accelerated_receive_flow_steering: false
         enable_advanced_filter: false
         enable_geneve_offload: false
@@ -468,6 +511,7 @@ defaults:
         interrupt_mode: MSIx
         interrupt_timer: 125
         interrupts: 8
+        name: '**REQUIRED**'
         receive_side_scaling_enable: true
         roce_cos: 6
         roce_enable: false
@@ -485,6 +529,9 @@ defaults:
         rss_enable_udp_and_ipv6_hash: false
         receive_queue_count: 4
         receive_ring_size: 512
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         tcp_offload_large_recieve: true
         tcp_offload_large_send: true
         tcp_offload_rx_checksum: true
@@ -495,30 +542,61 @@ defaults:
       ethernet_network:
         name_suffix: ''
         default_vlan: 0
+        description: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         vlan_mode: ACCESS
       ethernet_network_control:
         name_suffix: ''
         action_on_uplink_fail: linkDown
         cdp_enable: false
+        description: ''
         lldp_enable_receive: false
         lldp_enable_transmit: false
         mac_register_mode: nativeVlanOnly
         mac_security_forge: allow
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       ethernet_network_group:
         name_suffix: ''
+        description: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       ethernet_qos:
         name_suffix: ''
-        burst: 1024
+        burst: 10240
         cos: 0
+        description: ''
         enable_trust_host_cos: false
         mtu: 1500
+        name: '**REQUIRED**'
         priority: Best Effort
         rate_limit: 0
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       fc_zone:
         name_suffix: ''
-        fc_target_zoning_type: SIMT
+        description: ''
+        fc_target_members: # This is a list of target_members
+          name: '**REQUIRED**'
+          switch_id: A # A or B
+          vsan_id: '**REQUIRED**'
+          wwpn: '**REQUIRED**'
+        fc_target_zoning_type: SIMT # None, SIST (Single Initiator, Single Target), SIMT (Single Initiator, Multiple Target)
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       fibre_channel_adapter:
         name_suffix: ''
+        description: ''
         error_detection_timeout: 2000
         enable_fcp_error_recovery: false
         error_recovery_io_retry_timeout: 5
@@ -531,57 +609,106 @@ defaults:
         io_throttle_count: 512
         lun_queue_depth: 20
         max_luns_per_target: 1024
+        name: '**REQUIRED**'
         plogi_retries: 8
         plogi_timeout: 20000
         receive_ring_size: 64
         resource_allocation_timeout: 10000
         scsi_io_queue_count: 1
         scsi_io_ring_size: 512
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         transmit_ring_size: 64
       fibre_channel_network:
         name_suffix: ''
         default_vlan_id: 0
+        description: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       fibre_channel_qos:
         name_suffix: ''
-        burst: 1024
+        burst: 10240
         cos: 3
+        description: ''
         max_data_field_size: 2112
+        name: '**REQUIRED**'
         rate_limit: 0
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       flow_control:
         name_suffix: ''
+        description: ''
+        name: '**REQUIRED**'
         priority: auto
         receive: Disabled
         send: Disabled
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       imc_access:
         name_suffix: ''
+        description: ''
         inband_vlan_id: 4
         ipv4_address_configuration: true
         ipv6_address_configuration: false
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       ipmi_over_lan:
         name_suffix: ''
+        description: ''
         enabled: true
+        name: '**REQUIRED**'
         privilege: admin
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       iscsi_adapter:
         name_suffix: ''
+        description: ''
         dhcp_timeout: 60
         lun_busy_retry_count: 15
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         tcp_connection_timeout: 15
       iscsi_boot:
         name_suffix: ''
         authentication: ''
+        description: ''
         dhcp_vendor_id_iqn: ''
         initiator_ip_source: Pool
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         target_source_type: Auto
       iscsi_static_target:
         name_suffix: ''
+        description: ''
         luns:
           bootable: false
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       lan_connectivity:
         name_suffix: ''
+        description: ''
         enable_azure_stack_host_qos: false
         iqn_allocation_type: None
         iqn_pool: ''
+        name: '**REQUIRED**'
         iqn_static_identifier: ''
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         target_platform: FIAttached
         vnic_placement_mode: custom
         vnics:
@@ -613,12 +740,12 @@ defaults:
           vmq_vmmq_adapter_policy: ''
       ldap:
         name_suffix: ''
-        timeout: 0
         base_settings:
           timeout: 0
         binding_parameters:
           bind_dn: ''
           bind_method: LoginCredentials
+        description: ''
         enable_encryption: false
         enable_group_authorization: false
         enable_ldap: true
@@ -627,65 +754,106 @@ defaults:
           search_domain: ''
           search_forest: ''
           source: Extracted
+        name: '**REQUIRED**'
         nested_group_search_depth: 128
         search_parameters:
           attribute: CiscoAvPair
           filter: samAccountName
           group_attribute: memberOf
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
+        timeout: 0
         user_search_precedence: LocalUserDb
       link_aggregation:
         name_suffix: ''
+        description: ''
         lacp_rate: normal
+        name: '**REQUIRED**'
         suspend_individual: false
-      link_control:
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
+      link_control: 
         name_suffix: ''
         admin_state: Enabled
+        description: ''
         mode: normal
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       local_user:
         name_suffix: ''
         always_send_user_password: false
+        description: ''
         enable_password_expiry: false
         enforce_strong_password: true
         grace_period: 0
+        name: '**REQUIRED**'
         notification_period: 15
         password_expiry_duration: 90
         password_history: 5
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       multicast:
         name_suffix: ''
+        description: ''
+        name: '**REQUIRED**'
         querier_ip_address: ''
         querier_ip_address_peer: ''
         querier_state: Disabled
         snooping_state: Enabled
+        source_ip_proxy_state: Enabled
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       name_prefix: ''
       network_connectivity:
         name_suffix: ''
+        description: ''
         dns_servers_v4: [208.67.220.220, 208.67.222.222]
         dns_servers_v6: []
         enable_dynamic_dns: false
         enable_ipv6: false
+        name: '**REQUIRED**'
         obtain_ipv4_dns_from_dhcp: false
         obtain_ipv6_dns_from_dhcp: false
-        tags: []
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         update_domain: ''
       ntp:
         name_suffix: ''
+        description: ''
         enabled: true
+        name: '**REQUIRED**'
         ntp_servers: [time-a-g.nist.gov, time-b-g.nist.gov]
-        tags: []
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         timezone: Etc/GMT
       persistent_memory:
         name_suffix: ''
+        description: ''
         management_mode: configured-from-intersight
         memory_mode_percentage: 0
+        name: '**REQUIRED**'
         namespaces:
           mode: raw
           socket_id: 1
           socket_memory_id: 'Not Applicable'
         persistent_memory_type: app-direct
         retain_namespaces: true
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       port:
         name_suffix: ''
+        description: ''
         device_model: UCS-FI-6454
+        name: '**REQUIRED**'
         port_channel_appliances:
           admin_speed: Auto
           ethernet_network_control_policy: ''
@@ -739,18 +907,31 @@ defaults:
           device_number: 0
           fec: Auto
           slot_id: 1
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       power:
         name_suffix: ''
+        description: ''
         dynamic_power_rebalancing: Enabled
         extended_power_capacity: Enabled
+        name: '**REQUIRED**'
         power_allocation: 0
         power_priority: Low
         power_profiling: Enabled
         power_redundancy: Grid
         power_restore: LastState
         power_save_mode: Enabled
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       san_connectivity:
         name_suffix: ''
+        description: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         target_platform: FIAttached
         vhba_placement_mode: custom
         vhbas:
@@ -767,42 +948,86 @@ defaults:
           vhba_type: fc-initiator
           wwpn_allocation_type: POOL
           wwpn_pools: []
+          wwpn_static_addresses: []
         wwnn_allocation_type: POOL
         wwnn_pool: ''
       sd_card:
         name_suffix: ''
+        description: ''
         enable_diagnostics: false
         enable_drivers: false
         enable_huu: false
         enable_os: false
         enable_scu: false
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       serial_over_lan:
         name_suffix: ''
         baud_rate: 115200
         com_port: com0
+        description: ''
         enabled: true
+        name: '**REQUIRED**'
         ssh_port: 2400
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       smtp:
         name_suffix: ''
+        description: ''
         enable_smtp: true
         mail_alert_recipients: []
         minimum_severity: critical
+        name: '**REQUIRED**'
         smtp_alert_sender_address: ''
         smtp_port: 25
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       snmp:
         name_suffix: ''
+        access_community_string: 0 # value between 1 and 5 to specify the TF_VAR_snmp_access_community_string_[1-5]
         enable_snmp: true
-        snmp_community_access: Disabled
+        description: ''
+        name: '**REQUIRED**'
+        snmp_community_access: Disabled # Disabled, Full, Limited
         snmp_engine_input_id: ''
         snmp_port: 161
+        snmp_trap_destinations: # Optional List of Maps
+          community_string: 0 # value between 1 and 5 to specify the TF_VAR_snmp_trap_community_string_[1-5] for snmpv2c
+          destination_address: '**REQUIRED**'
+          enable: true
+          port: 162
+          trap_type: Trap # Inform or Trap
+          user: '**REQUIRED for snmpv3**'
+        snmp_users: # Optional List of Maps
+          auth_password: 0 # value between 1 and 5 to specify the TF_VAR_snmp_auth_password_[1-5]
+          auth_type: SHA # MD5 or SHA
+          name: '**REQUIRED**' # Name of snmp user.
+          privacy_password: 0 # Required for AuthPriv.  value between 1 and 5 to specify the TF_VAR_snmp_privacy_password_[1-5]
+          privacy_type: AES # Optional. AES or DES if privacy password is defined
+          security_level: AuthPriv # AuthNoPriv, AuthPriv, NoAuthPriv
         system_contact: ''
         system_location: ''
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
+        trap_community_string: 0 # value between 1 and 5 to specify the TF_VAR_snmp_auth_password_[1-5]
       ssh:
         name_suffix: ''
+        description: ''
         enable_ssh: true
+        name: '**REQUIRED**'
         ssh_port: 22
         ssh_timeout: 1800
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       storage:
+        name_suffix: ''
+        description: ''
         drive_groups:
           automatic_drive_groups:
             drives_per_span: 2
@@ -823,54 +1048,98 @@ defaults:
               read_policy: Default
               strip_size: 64
               write_policy: Default
-        name_suffix: ''
         global_hot_spares: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         unused_disks_state: NoChange
         use_jbod_for_vd_creation: false
       switch_control:
         name_suffix: ''
+        description: ''
         ethernet_switching_mode: end-host
         fc_switching_mode: end-host
         mac_address_table_aging: Default
         mac_aging_time: 14500
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         udld_message_interval: 15
         udld_recovery_action: reset
         vlan_port_count_optimization: false
       syslog:
         name_suffix: ''
-        local_min_severity: warning
-        remote_logging:
+        description: ''
+        local_logging:
+          minimum_severity: warning
+        name: '**REQUIRED**'
+        remote_logging: # Defined as server1: and server2:
           enable: false
           hostname: 0.0.0.0
           minimum_severity: warning
           port: 514
           protocol: udp
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       system_qos:
         name_suffix: ''
+        description: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       thermal:
         name_suffix: ''
+        description: ''
         fan_control_mode: Balanced
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       virtual_kvm:
         name_suffix: ''
         allow_tunneled_vkvm: false
+        description: ''
         enable_local_server_video: true
         enable_video_encryption: true
         enable_virtual_kvm: true
         maximum_sessions: 4
+        name: '**REQUIRED**'
         remote_port: 2068
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       virtual_media:
         name_suffix: ''
+        description: ''
         enable_low_power_usb: true
         enable_virtual_media: true
         enable_virtual_media_encryption: true
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
       vlan:
         name_suffix: ''
+        description: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         vlans:
           auto_allow_on_uplinks: false
           multicast_policy: ''
           native_vlan: false
       vsan:
         name_suffix: ''
+        description: ''
+        name: '**REQUIRED**'
+        tags: # Optional List of Map of String
+          key: ''
+          value: ''
         uplink_trunking: false
         vsans:
           default_zoning: Disabled

@@ -2,8 +2,8 @@
 #========================================
 #   Policies -> ethernet - Variables
 #========================================
-intersight:
-  policies:
+policies:
+  default:
     adapter_configuration:
       - description: adapter Adapter Configuration Policy
         enable_fip: true

@@ -2,8 +2,8 @@
 #====================================
 #   Policies -> vsan - Variables
 #====================================
-intersight:
-  policies:
+policies:
+  default:
     vsan:
       - auto_allow_on_uplinks: true
         description: vsan-100 VSAN Policy

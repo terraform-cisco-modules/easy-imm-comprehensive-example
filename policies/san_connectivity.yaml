@@ -2,8 +2,8 @@
 #================================================
 #   Policies -> san_connectivity - Variables
 #================================================
-intersight:
-  policies:
+policies:
+  default:
     san_connectivity:
       - description: scp SAN Connectivity Policy
         name: scp

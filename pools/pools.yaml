@@ -2,8 +2,8 @@
 #=========================
 #   Pools - Variables
 #=========================
-intersight:
-  pools:
+pools:
+  default:
     ip:
       - assignment_order: sequential
         description: kvm IP Pool

@@ -2,8 +2,8 @@
 #=======================================
 #   Policies -> storage - Variables
 #=======================================
-intersight:
-  policies:
+policies:
+  default:
     sd_card:
       - description: sdcard SD Card Policy
         enable_diagnostics: false

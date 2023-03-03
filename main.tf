@@ -25,8 +25,10 @@ data "utils_yaml_merge" "model" {
 module "pools" {
   source       = "terraform-cisco-modules/pools/intersight"
   version      = "1.0.12"
-  model        = local.model
-  organization = var.organization
+  for_each     = { for k, v in lookup(local.model, "pools", {}) : k => v }
+  defaults     = local.model.intersight.defaults.pools
+  pools        = each.value
+  organization = each.key
   tags         = var.tags
 }
 
@@ -38,12 +40,14 @@ module "pools" {
 module "domain_profiles" {
   source       = "terraform-cisco-modules/profiles-domain/intersight"
   version      = "1.0.11"
-  model        = local.model
+  for_each     = { for k, v in lookup(local.model, "profiles", {}) : k => v }
+  defaults     = local.model.intersight.defaults.profiles
   moids        = var.moids
-  organization = var.organization
+  organization = each.key
+  pools        = module.pools
+  profiles     = each.value
+  tags         = var.tags
   #policies     = module.policies
-  pools = module.pools
-  tags  = var.tags
 }
 
 #_________________________________________________________________________________________
@@ -54,9 +58,11 @@ module "domain_profiles" {
 module "policies" {
   source       = "terraform-cisco-modules/policies/intersight"
   version      = "1.0.13"
-  domains      = module.domain_profiles.switch_profiles
-  model        = local.model
-  organization = var.organization
+  for_each     = { for k, v in lookup(local.model, "policies", {}) : k => v }
+  defaults     = local.model.intersight.defaults.policies
+  domains      = module.domain_profiles
+  organization = each.key
+  policies     = each.value
   pools        = module.pools
   tags         = var.tags
   # Certificate Management Sensitive Variables

@@ -2,8 +2,8 @@
 #===========================================
 #   Policies -> environment - Variables
 #===========================================
-intersight:
-  policies:
+policies:
+  default:
     power:
       - description: 5108 Power Policy
         name: '5108'

@@ -2,8 +2,8 @@
 #====================================
 #   Policies -> vlan - Variables
 #====================================
-intersight:
-  policies:
+policies:
+  default:
     multicast:
       - description: mcast Multicast Policy
         name: mcast

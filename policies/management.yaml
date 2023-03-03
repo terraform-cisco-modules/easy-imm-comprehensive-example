@@ -2,8 +2,8 @@
 #==========================================
 #   Policies -> management - Variables
 #==========================================
-intersight:
-  policies:
+policies:
+  default:
     device_connector:
       - configuration_lockout: false
         description: devcon Device Connector Policy

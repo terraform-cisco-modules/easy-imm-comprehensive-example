@@ -1,6 +1,6 @@
 ---
-defaults:
-  intersight:
+intersight:
+  defaults:
     pools:
       assignment_order: 'sequential'
       ip:
