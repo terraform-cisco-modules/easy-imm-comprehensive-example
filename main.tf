@@ -1,11 +1,14 @@
+#____________________________________________________________
+#
+# Moid Data Source
+#____________________________________________________________
+
+data "intersight_organization_organization" "orgs" {
+}
 #_________________________________________________________________________________________
 #
 # Data Model Merge Process - Merge YAML Files into HCL Format
 #_________________________________________________________________________________________
-locals {
-  model = yamldecode(data.utils_yaml_merge.model.output)
-}
-
 data "utils_yaml_merge" "model" {
   input = concat([
     for file in fileset(path.module, "defaults/*.yaml") : file(file)], [
@@ -17,18 +20,71 @@ data "utils_yaml_merge" "model" {
   merge_list_items = false
 }
 
+locals {
+  chassis = { for i in flatten([for key, value in module.profiles : [
+    for k, v in value.chassis : {
+      action          = v.action
+      moid            = v.moid
+      name            = k
+      organization    = key
+      serial_number   = v.serial_number
+      target_platform = v.target_platform
+    }
+    ]
+  ]) : "${i.organization}:${i.name}" => i }
+  model = yamldecode(data.utils_yaml_merge.model.output)
+  orgs  = { for k, v in data.intersight_organization_organization.orgs.results : v.name => v.moid }
+  server = { for i in flatten([for key, value in module.profiles : [
+    for k, v in value.server : {
+      action               = v.action
+      create_from_template = v.create_from_template
+      moid                 = v.moid
+      name                 = k
+      organization         = key
+      serial_number        = v.serial_number
+      target_platform      = v.target_platform
+    }
+    ]
+  ]) : "${i.organization}:${i.name}" => i }
+  switch_profiles = { for i in flatten([for key, value in module.domain_profiles : [
+    for k, v in value.switch_profiles : {
+      action        = v.action
+      domain_moid   = module.domain_profiles[key].domains[v.domain_profile]
+      moid          = v.moid
+      name          = k
+      organization  = key
+      serial_number = v.serial_number
+    }
+    ]
+  ]) : "${i.organization}:${i.name}" => i }
+  wait_for_domain = distinct(compact([for i in local.switch_profiles : i.action if i.action != "No-op"]))
+  template = { for i in flatten([for key, value in module.profiles : [
+    for k, v in value.template : {
+      create_template = v.create_template
+      moid            = v.moid
+      name            = k
+      organization    = key
+      target_platform = v.target_platform
+    }
+    ]
+  ]) : "${i.organization}:${i.name}" => i }
+  create_template = [for v in local.template : true if v.create_template == true]
+}
+
 #_________________________________________________________________________________________
 #
 # Intersight:Pools
 # GUI Location: Infrastructure Service > Configure > Pools
 #_________________________________________________________________________________________
 module "pools" {
+  #source = "../../../../terraform-cisco-modules/terraform-intersight-pools"
   source       = "terraform-cisco-modules/pools/intersight"
-  version      = "1.0.12"
+  version      = "2.0.1"
   for_each     = { for k, v in lookup(local.model, "pools", {}) : k => v }
   defaults     = local.model.intersight.defaults.pools
   pools        = each.value
   organization = each.key
+  orgs         = local.orgs
   tags         = var.tags
 }
 
@@ -38,15 +94,17 @@ module "pools" {
 # GUI Location: Infrastructure Service > Configure > Profiles : UCS Domain Profiles
 #_________________________________________________________________________________________
 module "domain_profiles" {
+  #source = "../../../../terraform-cisco-modules/terraform-intersight-profiles-domain"
   source       = "terraform-cisco-modules/profiles-domain/intersight"
-  version      = "1.0.11"
-  for_each     = { for k, v in lookup(local.model, "profiles", {}) : k => v }
-  defaults     = local.model.intersight.defaults.profiles
-  moids        = var.moids
-  organization = each.key
-  pools        = module.pools
-  profiles     = each.value
-  tags         = var.tags
+  version      = "2.0.1"
+  for_each       = { for k, v in lookup(local.model, "profiles", {}) : k => v }
+  defaults       = local.model.intersight.defaults.profiles
+  moids_policies = var.moids_policies
+  moids_pools    = var.moids_pools
+  organization   = each.key
+  orgs           = local.orgs
+  profiles       = each.value
+  tags           = var.tags
   #policies     = module.policies
 }
 
@@ -56,15 +114,19 @@ module "domain_profiles" {
 # GUI Location: Infrastructure Service > Configure > Policies
 #_________________________________________________________________________________________
 module "policies" {
+  #source = "../../../../terraform-cisco-modules/terraform-intersight-policies"
   source       = "terraform-cisco-modules/policies/intersight"
-  version      = "1.0.13"
-  for_each     = { for k, v in lookup(local.model, "policies", {}) : k => v }
-  defaults     = local.model.intersight.defaults.policies
-  domains      = module.domain_profiles
-  organization = each.key
-  policies     = each.value
-  pools        = module.pools
-  tags         = var.tags
+  version      = "2.0.1"
+  for_each       = { for k, v in lookup(local.model, "policies", {}) : k => v }
+  defaults       = local.model.intersight.defaults.policies
+  domains        = module.domain_profiles
+  moids_policies = var.moids_policies
+  moids_pools    = var.moids_pools
+  organization   = each.key
+  orgs           = local.orgs
+  policies       = each.value
+  pools          = module.pools
+  tags           = var.tags
   # Certificate Management Sensitive Variables
   base64_certificate_1 = var.base64_certificate_1
   base64_certificate_2 = var.base64_certificate_2
@@ -128,7 +190,7 @@ resource "intersight_fabric_switch_profile" "switch_profiles" {
   depends_on = [
     module.policies
   ]
-  for_each = module.domain_profiles.switch_profiles
+  for_each = local.switch_profiles
   action = length(regexall(
     "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][1-3])[\\dA-Z]{4}$", each.value.serial_number)
   ) > 0 ? each.value.action : "No-op"
@@ -154,10 +216,10 @@ resource "intersight_fabric_switch_profile" "switch_profiles" {
   }
   name = each.value.name
   switch_cluster_profile {
-    moid = module.domain_profiles.domains[each.value.domain_profile]
+    moid = each.value.domain_moid
   }
-  wait_for_completion = module.domain_profiles.switch_profiles[
-    element(keys(module.domain_profiles.switch_profiles), length(keys(module.domain_profiles.switch_profiles)
+  wait_for_completion = local.switch_profiles[
+    element(keys(local.switch_profiles), length(keys(local.switch_profiles)
   ) - 1)].name == each.value.name ? true : false
 }
 
@@ -166,14 +228,17 @@ resource "intersight_fabric_switch_profile" "switch_profiles" {
 # Sleep Timer between Deploying the Domain and Waiting for Server Discovery
 #_________________________________________________________________________________________
 resource "time_sleep" "wait_for_server_discovery" {
-  depends_on = [intersight_fabric_switch_profile.switch_profiles]
+  depends_on = [
+    intersight_fabric_switch_profile.switch_profiles
+  ]
   create_duration = length([
-    for v in keys(module.domain_profiles.switch_profiles) : 1 if module.domain_profiles.switch_profiles[v
+    for v in keys(local.switch_profiles) : 1 if local.switch_profiles[v
   ].action == "Deploy"]) > 0 ? "30m" : "1s"
   triggers = {
-    always_run = "${timestamp()}"
+    always_run = length(local.wait_for_domain) > 0 ? "${timestamp()}" : 1
   }
 }
+
 
 #_________________________________________________________________________________________
 #
@@ -181,15 +246,21 @@ resource "time_sleep" "wait_for_server_discovery" {
 # GUI Location: Infrastructure Service > Configure > Profiles
 #_________________________________________________________________________________________
 module "profiles" {
+  #source = "../../../../terraform-cisco-modules/terraform-intersight-profiles"
   source       = "terraform-cisco-modules/profiles/intersight"
-  version      = "1.0.19"
-  model        = local.model
-  moids        = var.moids
-  organization = var.organization
-  policies     = module.policies
-  pools        = module.pools
-  tags         = var.tags
-  time_sleep   = time_sleep.wait_for_server_discovery.id
+  version      = "2.0.1"
+  for_each       = { for k, v in lookup(local.model, "profiles", {}) : k => v }
+  defaults       = local.model.intersight.defaults
+  moids_policies = var.moids_policies
+  moids_pools    = var.moids_pools
+  organization   = each.key
+  orgs           = local.orgs
+  policies       = module.policies
+  pools          = module.pools
+  profiles       = each.value
+  model          = local.model
+  tags           = var.tags
+  time_sleep     = time_sleep.wait_for_server_discovery.id
 }
 
 #_________________________________________________________________________________________
@@ -201,7 +272,7 @@ resource "intersight_chassis_profile" "chassis" {
   depends_on = [
     module.profiles
   ]
-  for_each = module.profiles.chassis
+  for_each = local.chassis
   action = length(regexall(
     "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][1-3])[\\dA-Z]{4}$", each.value.serial_number)
   ) > 0 ? each.value.action : "No-op"
@@ -227,7 +298,7 @@ resource "intersight_chassis_profile" "chassis" {
   name            = each.value.name
   target_platform = each.value.target_platform
   organization {
-    moid = module.pools.orgs[each.value.organization]
+    moid = local.orgs[each.value.organization]
   }
 }
 
@@ -240,7 +311,7 @@ resource "intersight_server_profile" "server" {
   depends_on = [
     module.profiles
   ]
-  for_each = module.profiles.server
+  for_each = { for k, v in local.server : k => v if v.create_from_template == false }
   action = length(regexall(
     "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][1-3])[\\dA-Z]{4}$", each.value.serial_number)
   ) > 0 ? each.value.action : "No-op"
@@ -266,6 +337,7 @@ resource "intersight_server_profile" "server" {
       shared_scope,
       src_template,
       tags,
+      target_platform,
       uuid,
       uuid_address_type,
       uuid_lease,
@@ -273,10 +345,9 @@ resource "intersight_server_profile" "server" {
       version_context
     ]
   }
-  name            = each.value.name
-  target_platform = each.value.target_platform
+  name = each.value.name
   organization {
-    moid = module.pools.orgs[each.value.organization]
+    moid = local.orgs[each.value.organization]
   }
 }
 

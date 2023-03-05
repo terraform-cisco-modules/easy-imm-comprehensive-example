@@ -10,11 +10,13 @@ profiles:
           - description: esx-1 UCS Server Profile
             name: esx-1
             serial_number: unknown
-          - description: esx-2 UCS Server Profile
-            name: esx-2
+          - name: esx-2
             serial_number: unknown
           - name: esx-3
             serial_number: unknown
+        ucs_server_profile_template: M2-pxe
+      - create_from_template: true
+        targets:
           - name: esx-4
             serial_number: unknown
-        ucs_server_profile_template: virtualization
+        ucs_server_profile_template: M2-pxe

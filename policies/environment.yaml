@@ -5,19 +5,19 @@
 policies:
   default:
     power:
-      - description: 5108 Power Policy
+      - allocated_budget: 0
+        description: 5108 Power Policy
         name: '5108'
         power_redundancy: Grid
-      - description: 9508 Power Policy
-        dynamic_power_rebalancing: Enabled
+      - allocated_budget: 0
+        description: 9508 Power Policy
         name: '9508'
         power_allocation: 8400
         power_redundancy: Grid
-        power_save_mode: Enabled
-      - description: Server Power Policy
+      - allocated_budget: 0
+        description: Server Power Policy
         name: Server
-        power_priority: Low
-        power_profiling: Enabled
+        power_allocation: 8400
         power_redundancy: Grid
         power_restore: LastState
     thermal:

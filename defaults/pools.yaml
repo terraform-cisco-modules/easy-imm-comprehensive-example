@@ -4,10 +4,24 @@ intersight:
     pools:
       assignment_order: 'sequential'
       ip:
-        ipv4_config:
+        ipv4_block:
+          from: '**REQUIRED**'
+          size: 0 # Must define either size or to, but only define one
+          to: ''
+        ipv4_configuration:
+          gateway: '**REQUIRED**'
+          netmask: '**REQUIRED**'
           primary_dns: 208.67.220.220
-        ipv6_config:
+          secondary_dns: ''
+        ipv6_block:
+          from: '**REQUIRED**'
+          size: 0 # Must define either size or to, but only define one
+          to: ''
+        ipv6_configuration: # REQUIRED Settings for IPv6 Pools
+          gateway: '**REQUIRED**'
+          prefix: '**REQUIRED**'
           primary_dns: 2620:119:53::53
+          secondary_dns: ''
         name_suffix: ''
       iqn:
         name_suffix: ''

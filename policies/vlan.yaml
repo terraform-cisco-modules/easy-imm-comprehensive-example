@@ -5,17 +5,15 @@
 policies:
   default:
     multicast:
-      - description: mcast Multicast Policy
-        name: mcast
+      - name: mcast
     vlan:
-      - description: vlan VLAN Policy
-        name: vlan
+      - name: vlans
         vlans:
           - auto_allow_on_uplinks: true
             multicast_policy: mcast
-            name: default
+            name: vlan
             native_vlan: true
-            vlan_list: '1'
+            vlan_list: 1
           - multicast_policy: mcast
-            name: default
-            vlan_list: 2-99
+            name: vlan
+            vlan_list: 2-5

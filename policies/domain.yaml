@@ -22,7 +22,7 @@ policies:
     system_qos:
       - classes:
           - bandwidth_percent: 20
-            cos: 20
+            cos: 5
             mtu: 9216
             multicast_optimize: false
             packet_drop: false
@@ -30,7 +30,7 @@ policies:
             state: Enabled
             weight: 10
           - bandwidth_percent: 18
-            cos: 18
+            cos: 4
             mtu: 9216
             multicast_optimize: false
             packet_drop: true
@@ -38,7 +38,7 @@ policies:
             state: Enabled
             weight: 9
           - bandwidth_percent: 20
-            cos: 20
+            cos: 3
             mtu: 2240
             multicast_optimize: false
             packet_drop: false
@@ -46,7 +46,7 @@ policies:
             state: Enabled
             weight: 10
           - bandwidth_percent: 18
-            cos: 18
+            cos: 2
             mtu: 9216
             multicast_optimize: false
             packet_drop: true
@@ -54,7 +54,7 @@ policies:
             state: Enabled
             weight: 8
           - bandwidth_percent: 14
-            cos: 14
+            cos: 1
             mtu: 9216
             multicast_optimize: false
             packet_drop: true
@@ -62,10 +62,10 @@ policies:
             state: Enabled
             weight: 7
           - bandwidth_percent: 10
-            cos: 10
+            cos: 255
             mtu: 9216
             multicast_optimize: false
-            packet_drop: false
+            packet_drop: true
             priority: Best Effort
             state: Enabled
             weight: 5

@@ -4,32 +4,8 @@
 #=======================================
 policies:
   default:
-    sd_card:
-      - description: sdcard SD Card Policy
-        enable_diagnostics: false
-        enable_drivers: false
-        enable_huu: false
-        enable_os: true
-        name: sdcard
     storage:
-      - description: M2 Storage Policy
-        m2_configuration:
-          - controller_slot: MSTOR-RAID-1
-            enable: true
-        name: M2
-        unused_disks_state: NoChange
-        use_jbod_for_vd_creation: false
-      #- description: Raid1 Storage Policy
-      #  drive_groups:
-      #    - manual_drive_groups:
-      #        - drive_array_spans:
-      #           - slots: 1-2
-      #      name: dg0
-      #      raid_level: Raid1
-      #      virtual_drives:
-      #        - boot_drive: true
-      #          expand_to_available: true
-      #          name: vd0
-      #  name: Raid1
-      #  unused_disks_state: Jbod
-      #  use_jbod_for_vd_creation: true
+      - m2_raid_configuration:
+          - slot: MSTOR-RAID-1
+        name: M2-Raid
+        use_jbod_for_vd_creation: true

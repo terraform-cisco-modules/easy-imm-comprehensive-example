@@ -5,66 +5,71 @@
 policies:
   default:
     bios:
-      - bios_template: Virtualization_tpm
-        description: Virtualization_tpm BIOS Policy
-        name: Virtualization_tpm
-      - bios_template: M6_Virtualization_tpm
-        description: M6_Virtualization_tpm BIOS Policy
-        name: M6_Virtualization_tpm
+      - baud_rate: 115200
+        bios_template: Virtualization
+        console_redirection: serial-port-a
+        description: M5-virtualization BIOS Policy
+        execute_disable_bit: disabled
+        lv_ddr_mode: auto
+        name: M5-virtualization
+        serial_port_aenable: enabled
+        terminal_type: vt100
+      - baud_rate: 115200
+        bios_template: Virtualization_tpm
+        console_redirection: serial-port-a
+        description: M5-virtualization-tpm BIOS Policy
+        execute_disable_bit: disabled
+        lv_ddr_mode: auto
+        name: M5-virtualization-tpm
+        serial_port_aenable: enabled
+        terminal_type: vt100
+      - baud_rate: 115200
+        bios_template: M6_Virtualization_tpm
+        console_redirection: serial-port-a
+        description: M6-virtualization-tpm BIOS Policy
+        execute_disable_bit: disabled
+        lv_ddr_mode: auto
+        name: M6-virtualization-tpm
+        serial_port_aenable: enabled
+        terminal_type: vt100
     boot_order:
       - boot_devices:
-          - object_type: boot.VirtualMedia
+          - enabled: true
             name: kvm
-            subtype: kvm-mapped-dvd
-          - object_type: boot.LocalDisk
-            name: M2
-            slot: MSTOR-RAID-1
-          - interface_name: mgmt-a
-            object_type: boot.Pxe
+            object_type: boot.VirtualMedia
+            sub_type: kvm-mapped-dvd
+          - enabled: true
+            name: m2
+            object_type: boot.LocalDisk
+            slot: MSTOR-RAID
+          - enabled: true
+            interface_name: mgmt-a
+            interface_source: name
+            ip_type: IPv4
             name: pxe
+            object_type: boot.Pxe
+            slot: MLOM
+          - enabled: true
+            name: uefishell
+            object_type: boot.UefiShell
         boot_mode: Uefi
-        description: M2 Boot Order Policy
         enable_secure_boot: false
-        name: M2
+        name: M2-pxe
       - boot_devices:
-          - object_type: boot.VirtualMedia
+          - enabled: true
             name: kvm
-            subtype: kvm-mapped-dvd
-          - object_type: boot.LocalDisk
+            object_type: boot.VirtualMedia
+            sub_type: kvm-mapped-dvd
+          - enabled: true
             name: M2
-            slot: MSTOR-RAID-1
-          - object_type: boot.UefiShell
+            object_type: boot.LocalDisk
+            slot: MSTOR-RAID
+          - enabled: true
             name: uefishell
+            object_type: boot.UefiShell
         boot_mode: Uefi
-        description: M2-secure Boot Order Policy
         enable_secure_boot: true
-        name: M2-secure
-      - boot_devices:
-          - object_type: boot.VirtualMedia
-            name: kvm
-            subtype: kvm-mapped-dvd
-          - object_type: boot.LocalDisk
-            name: mraid
-            slot: MRAID
-          - object_type: boot.UefiShell
-            name: uefishell
-        boot_mode: Uefi
-        description: MRAID Boot Order Policy
-        enable_secure_boot: true
-        name: MRAID
-    persistent_memory:
-      - description: pmem Persistent Memory Policy
-        management_mode: configured-from-intersight
-        memory_mode_percentage: '50'
-        name: pmem
-        namespaces:
-          - capacity: 1024
-            mode: raw
-            name: cpu0
-            socket_id: 1
-            socket_memory_id: Not Applicable
-        persistent_memory_type: app-direct
-        retain_namespaces: true
+        name: M2
     virtual_media:
       - add_virtual_media:
           - device_type: cdd

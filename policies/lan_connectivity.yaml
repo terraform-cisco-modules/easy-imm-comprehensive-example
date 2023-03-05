@@ -11,12 +11,12 @@ policies:
         target_platform: FIAttached
         vnics:
           - ethernet_adapter_policy: VMware
-            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_control_policy: lldp
             ethernet_network_group_policy: mgmt
             ethernet_qos_policy: Silver
             mac_address_pools:
-              - mac-a
-              - mac-b
+              - mgmt-a
+              - mgmt-b
             names:
               - mgmt-a
               - mgmt-b
@@ -24,12 +24,12 @@ policies:
               - 2
               - 3
           - ethernet_adapter_policy: VMware
-            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_control_policy: lldp
             ethernet_network_group_policy: migration
             ethernet_qos_policy: Bronze
             mac_address_pools:
-              - mac-a
-              - mac-b
+              - migration-a
+              - migration-b
             names:
               - migration-a
               - migration-b
@@ -37,12 +37,12 @@ policies:
               - 4
               - 5
           - ethernet_adapter_policy: VMware
-            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_control_policy: lldp
             ethernet_network_group_policy: storage
             ethernet_qos_policy: Platinum
             mac_address_pools:
-              - mac-a
-              - mac-b
+              - storage-a
+              - storage-b
             names:
               - storage-a
               - storage-b
@@ -50,12 +50,12 @@ policies:
               - 6
               - 7
           - ethernet_adapter_policy: VMware
-            ethernet_network_control_policy: ntwk-ctrl
+            ethernet_network_control_policy: lldp
             ethernet_network_group_policy: dvs
             ethernet_qos_policy: Gold
             mac_address_pools:
-              - mac-a
-              - mac-b
+              - dvs-a
+              - dvs-b
             names:
               - dvs-a
               - dvs-b

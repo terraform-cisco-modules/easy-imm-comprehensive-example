@@ -21,7 +21,7 @@ profiles:
         syslog_policy: syslog-domain
         system_qos_policy: qos
         vlan_policies:
-          - vlan
+          - vlans
         vsan_policies:
-          - vsan-200
           - vsan-100
+          - vsan-200

@@ -48,11 +48,6 @@ policies:
         user_search_precedence: LocalUserDb
     local_user:
       - description: users Local User Policy
-        local_users:
-          - enabled: true
-            password: 1
-            role: admin
-            username: admin
         name: users
         password_properties:
           always_send_user_password: false
@@ -62,6 +57,11 @@ policies:
           notification_period: 15
           password_expiry_duration: 90
           password_history: 0
+        users:
+          - enabled: true
+            password: 1
+            role: admin
+            username: admin
     network_connectivity:
       - description: dns Network Connectivity Policy
         dns_servers_v4:

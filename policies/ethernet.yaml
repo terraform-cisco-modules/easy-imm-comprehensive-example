@@ -5,15 +5,15 @@
 policies:
   default:
     adapter_configuration:
-      - description: adapter Adapter Configuration Policy
-        enable_fip: true
-        enable_lldp: true
-        enable_port_channel: true
-        fec_modes:
-          - cl91
-          - cl91
-          - cl91
-          - cl91
+      - add_vic_adapter_configuration:
+          dce_interface_settings:
+            dce_interface_fec_modes:
+              - cl91
+          enable_fip: true
+          enable_lldp: true
+          enable_port_channel: true
+          pci_slot: MLOM
+        description: adapter Adapter Configuration Policy
         name: adapter
     ethernet_adapter:
       - adapter_template: VMware
@@ -26,31 +26,35 @@ policies:
         vlan_mode: ACCESS
     ethernet_network_control:
       - action_on_uplink_fail: linkDown
-        cdp_enable: true
-        description: ntwk-ctrl Ethernet Network Control Policy
+        cdp_enable: false
+        description: cdp Ethernet Network Control Policy
+        lldp_receive_enable: true
+        lldp_transmit_enable: true
         mac_register_mode: nativeVlanOnly
         mac_security_forge: allow
-        name: ntwk-ctrl
-    ethernet_network_group:
-      - allowed_vlans: 1-99
-        description: dvs Ethernet Network Group Policy
-        name: dvs
-      - allowed_vlans: '5'
-        description: mgmt Ethernet Network Group Policy
-        name: mgmt
-        native_vlan: 5
-      - allowed_vlans: '6'
-        description: migration Ethernet Network Group Policy
-        name: migration
-        native_vlan: 6
-      - allowed_vlans: '7'
-        description: storage Ethernet Network Group Policy
-        name: storage
-        native_vlan: 7
+        name: cdp
       - action_on_uplink_fail: linkDown
-        allowed_vlans: 1-99
-        description: Uplink Ethernet Network Group Policy
+        cdp_enable: true
+        description: lldp Ethernet Network Control Policy
+        lldp_receive_enable: false
+        lldp_transmit_enable: false
+        mac_register_mode: nativeVlanOnly
+        mac_security_forge: allow
+        name: lldp
+    ethernet_network_group:
+      - allowed_vlans: 64,998-999,3001,3003-3004
         name: uplink
+      - allowed_vlans: '125'
+        name: mgmt
+        native_vlan: 125
+      - allowed_vlans: '126'
+        name: migration
+        native_vlan: 126
+      - allowed_vlans: '127'
+        name: storage
+        native_vlan: 127
+      - allowed_vlans: 64,998-999,3001,3003-3004
+        name: dvs
         native_vlan: 1
     ethernet_qos:
       - burst: 10240

@@ -60,10 +60,10 @@ Configure the following in `yaml.schemas`
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_pools"></a> [pools](#module\_pools) | terraform-cisco-modules/pools/intersight | 1.0.12 |
-| <a name="module_domain_profiles"></a> [domain\_profiles](#module\_domain\_profiles) | terraform-cisco-modules/profiles-domain/intersight | 1.0.11 |
-| <a name="module_policies"></a> [policies](#module\_policies) | terraform-cisco-modules/policies/intersight | 1.0.13 |
-| <a name="module_profiles"></a> [profiles](#module\_profiles) | terraform-cisco-modules/profiles/intersight | 1.0.19 |
+| <a name="module_pools"></a> [pools](#module\_pools) | ../../../../terraform-cisco-modules/terraform-intersight-pools | n/a |
+| <a name="module_domain_profiles"></a> [domain\_profiles](#module\_domain\_profiles) | ../../../../terraform-cisco-modules/terraform-intersight-profiles-domain | n/a |
+| <a name="module_policies"></a> [policies](#module\_policies) | ../../../../terraform-cisco-modules/terraform-intersight-policies | n/a |
+| <a name="module_profiles"></a> [profiles](#module\_profiles) | ../../../../terraform-cisco-modules/terraform-intersight-profiles | n/a |
 
 ## NOTE:
 **When the Data is merged from the YAML files, it will run through the modules using for_each loop(s).  Sensitive Variables cannot be added to a for_each loop, instead use the variables below to add sensitive values for policies.**
@@ -75,7 +75,8 @@ Configure the following in `yaml.schemas`
 | <a name="input_apikey"></a> [apikey](#input\_apikey) | Intersight API Key. | `string` | n/a | yes |
 | <a name="input_deploy_profiles"></a> [deploy\_profiles](#input\_deploy\_profiles) | Flag to Determine if Profiles Should be deployed. | `string` | `false` | no |
 | <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | Intersight Endpoint Hostname. | `string` | `"intersight.com"` | no |
-| <a name="input_moids"></a> [moids](#input\_moids) | Flag to Determine if Policies Should be associated using data object or resource. | `bool` | `false` | no |
+| <a name="input_moids_policies"></a> [moids\_policies](#input\_moids\_policies) | Flag to Determine if Policies Should be associated using resource or data object. | `bool` | `false` | no |
+| <a name="input_moids_pools"></a> [moids\_pools](#input\_moids\_pools) | Flag to Determine if Pools Should be associated using data object or from var.pools. | `bool` | `false` | no |
 | <a name="input_operating_system"></a> [operating\_system](#input\_operating\_system) | Type of Operating System.<br>* Linux<br>* Windows | `string` | `"Linux"` | no |
 | <a name="input_organization"></a> [organization](#input\_organization) | Name of the default intersight Organization. | `string` | `"default"` | no |
 | <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Prefix to Add to Pools, Policies, and Profiles. | `string` | `""` | no |

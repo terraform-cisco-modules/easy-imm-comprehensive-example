@@ -7,11 +7,11 @@ intersight:
         add_vic_adapter_configuration:
           dce_interface_settings: # If you put just one it will do the same for all 4 Interfaces or list all 4
             dce_interface_fec_modes: [cl91] # Options are cl74, cl91, Off
-          description: ''
           enable_fip: true
           enable_lldp: true
           enable_port_channel: true
           pci_slot: MLOM # Supported values are 1-15 or MLOM
+        description: ''
         name: '**REQUIRED**'
         tags: # Optional List of Map of String
           key: ''

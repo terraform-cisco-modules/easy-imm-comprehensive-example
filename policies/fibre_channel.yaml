@@ -41,5 +41,8 @@ policies:
         name: vsan-b
         vsan_id: 200
     fibre_channel_qos:
-      - description: fc-qos Fibre-Channel QoS Policy
+      - burst: 10240
+        description: fc-qos Fibre-Channel QoS Policy
+        max_data_field_size: 2112
         name: fc-qos
+        rate_limit: 0

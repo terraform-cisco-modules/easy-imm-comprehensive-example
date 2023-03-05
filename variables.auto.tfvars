@@ -4,9 +4,10 @@
 #____________________________________________________________
 
 # Begin Variables
-endpoint     = "intersight.com"
-moids        = true
-organization = "default"
+endpoint       = "intersight.com"
+moids_policies = false
+moids_pools    = false
+organization   = "default"
 tags = [
   {
     key   = "Module"
@@ -14,6 +15,6 @@ tags = [
   },
   {
     key   = "Version"
-    value = "2.0.1"
+    value = "2.5.1"
   }
 ]

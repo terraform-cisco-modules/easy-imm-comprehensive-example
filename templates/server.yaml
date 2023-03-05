@@ -5,20 +5,24 @@
 templates:
   default:
     server:
-      - bios_policy: M6_Virtualization_tpm
-        boot_order_policy: M2-secure
-        description: virtualization UCS Server Profile Template
+      - bios_policy: M6-virtualization-tpm
+        boot_order_policy: M2-pxe
+        certificate_management_policy: ''
+        create_template: true
+        description: M2-pxe Server Profile Template
         imc_access_policy: kvm
         ipmi_over_lan_policy: ipmi
-        lan_connectivity_policy: lcp
-        local_user_policy: users
-        name: virtualization
+        lan_connectivity_policy: vmware-lcp
+        local_user_policy: local_users
+        name: M2-pxe
         power_policy: Server
         san_connectivity_policy: scp
+        sd_card_policy: ''
         serial_over_lan_policy: sol
         snmp_policy: snmp
-        storage_policy: M2
+        storage_policy: M2-Raid
         syslog_policy: syslog
+        target_platform: FIAttached
         uuid_pool: uuid
         virtual_kvm_policy: vkvm
         virtual_media_policy: vmedia

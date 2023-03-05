@@ -21,9 +21,15 @@ variable "endpoint" {
   type        = string
 }
 
-variable "moids" {
+variable "moids_policies" {
   default     = false
-  description = "Flag to Determine if Policies Should be associated using data object or resource."
+  description = "Flag to Determine if Policies Should be associated using resource or data object."
+  type        = bool
+}
+
+variable "moids_pools" {
+  default     = false
+  description = "Flag to Determine if Pools Should be associated using data object or from var.pools."
   type        = bool
 }
 

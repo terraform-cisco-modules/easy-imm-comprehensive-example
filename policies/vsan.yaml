@@ -5,19 +5,13 @@
 policies:
   default:
     vsan:
-      - auto_allow_on_uplinks: true
-        description: vsan-100 VSAN Policy
-        name: vsan-100
+      - name: vsan-100
         vsans:
           - fcoe_vlan_id: 100
-            name: vsan-100
+            name: vsan-a
             vsan_id: 100
-            vsan_scope: Uplink
-      - auto_allow_on_uplinks: true
-        description: vsan-200 VSAN Policy
-        name: vsan-200
+      - name: vsan-200
         vsans:
           - fcoe_vlan_id: 200
-            name: vsan-200
+            name: vsan-b
             vsan_id: 200
-            vsan_scope: Uplink
