@@ -248,7 +248,7 @@ resource "time_sleep" "wait_for_server_discovery" {
 module "profiles" {
   #source = "../../../../terraform-cisco-modules/terraform-intersight-profiles"
   source       = "terraform-cisco-modules/profiles/intersight"
-  version      = "2.0.1"
+  version      = "2.0.2"
   for_each       = { for i in sort(keys(local.model)) : i => local.model[i] if i != "intersight" }
   defaults       = local.model.intersight.defaults
   moids_policies = var.moids_policies
