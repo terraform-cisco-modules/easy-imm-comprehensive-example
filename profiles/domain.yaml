@@ -2,8 +2,8 @@
 #======================================
 #   Profiles -> Domain - Variables
 #======================================
-profiles:
-  default:
+default: # Name of the Organization
+  profiles:
     domain:
       - action: No-op
         description: example-ucs UCS Domain Profile

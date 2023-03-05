@@ -2,8 +2,8 @@
 #========================================
 #   Policies -> ethernet - Variables
 #========================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     adapter_configuration:
       - add_vic_adapter_configuration:
           dce_interface_settings:

@@ -2,8 +2,8 @@
 #=======================================
 #   Profiles -> Chassis - Variables
 #=======================================
-profiles:
-  default:
+default: # Name of the Organization
+  profiles:
     chassis:
       - action: No-op
         imc_access_policy: kvm

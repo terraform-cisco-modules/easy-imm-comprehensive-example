@@ -80,7 +80,7 @@ module "pools" {
   #source = "../../../../terraform-cisco-modules/terraform-intersight-pools"
   source       = "terraform-cisco-modules/pools/intersight"
   version      = "2.0.1"
-  for_each     = { for k, v in lookup(local.model, "pools", {}) : k => v }
+  for_each     = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "pools", {}) if i != "intersight" }
   defaults     = local.model.intersight.defaults.pools
   pools        = each.value
   organization = each.key
@@ -97,7 +97,7 @@ module "domain_profiles" {
   #source = "../../../../terraform-cisco-modules/terraform-intersight-profiles-domain"
   source       = "terraform-cisco-modules/profiles-domain/intersight"
   version      = "2.0.1"
-  for_each       = { for k, v in lookup(local.model, "profiles", {}) : k => v }
+  for_each       = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "profiles", {}) if i != "intersight" }
   defaults       = local.model.intersight.defaults.profiles
   moids_policies = var.moids_policies
   moids_pools    = var.moids_pools
@@ -117,7 +117,7 @@ module "policies" {
   #source = "../../../../terraform-cisco-modules/terraform-intersight-policies"
   source       = "terraform-cisco-modules/policies/intersight"
   version      = "2.0.1"
-  for_each       = { for k, v in lookup(local.model, "policies", {}) : k => v }
+  for_each       = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "policies", {}) if i != "intersight" }
   defaults       = local.model.intersight.defaults.policies
   domains        = module.domain_profiles
   moids_policies = var.moids_policies
@@ -249,7 +249,7 @@ module "profiles" {
   #source = "../../../../terraform-cisco-modules/terraform-intersight-profiles"
   source       = "terraform-cisco-modules/profiles/intersight"
   version      = "2.0.1"
-  for_each       = { for k, v in lookup(local.model, "profiles", {}) : k => v }
+  for_each       = { for i in sort(keys(local.model)) : i => local.model[i] if i != "intersight" }
   defaults       = local.model.intersight.defaults
   moids_policies = var.moids_policies
   moids_pools    = var.moids_pools

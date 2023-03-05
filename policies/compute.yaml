@@ -2,8 +2,8 @@
 #=======================================
 #   Policies -> compute - Variables
 #=======================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     bios:
       - baud_rate: 115200
         bios_template: Virtualization

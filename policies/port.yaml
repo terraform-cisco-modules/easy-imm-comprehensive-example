@@ -2,8 +2,8 @@
 #====================================
 #   Policies -> port - Variables
 #====================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     port:
       - description: example-ucs Port Policy
         device_model: UCS-FI-6454

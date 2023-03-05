@@ -2,8 +2,8 @@
 #================================================
 #   Policies -> san_connectivity - Variables
 #================================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     san_connectivity:
       - description: scp SAN Connectivity Policy
         name: scp

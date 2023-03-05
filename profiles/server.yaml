@@ -2,8 +2,8 @@
 #======================================
 #   Profiles -> Server - Variables
 #======================================
-profiles:
-  default:
+default: # Name of the Organization
+  profiles:
     server:
       - action: No-op
         targets:

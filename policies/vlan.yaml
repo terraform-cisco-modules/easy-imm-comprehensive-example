@@ -2,8 +2,8 @@
 #====================================
 #   Policies -> vlan - Variables
 #====================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     multicast:
       - name: mcast
     vlan:

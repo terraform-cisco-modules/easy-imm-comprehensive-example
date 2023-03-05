@@ -2,8 +2,8 @@
 #=======================================
 #   Templates -> Server - Variables
 #=======================================
-templates:
-  default:
+default: # Name of the Organization
+  templates:
     server:
       - bios_policy: M6-virtualization-tpm
         boot_order_policy: M2-pxe

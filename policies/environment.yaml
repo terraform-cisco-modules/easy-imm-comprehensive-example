@@ -2,8 +2,8 @@
 #===========================================
 #   Policies -> environment - Variables
 #===========================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     power:
       - allocated_budget: 0
         description: 5108 Power Policy

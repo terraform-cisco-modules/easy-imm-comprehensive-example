@@ -2,8 +2,8 @@
 #======================================
 #   Policies -> domain - Variables
 #======================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     flow_control:
       - description: flow-ctrl Flow Control Policy
         name: flow-ctrl

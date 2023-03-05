@@ -2,8 +2,8 @@
 #================================================
 #   Policies -> lan_connectivity - Variables
 #================================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     lan_connectivity:
       - description: lcp LAN Connectivity Policy
         enable_azure_stack_host_qos: false

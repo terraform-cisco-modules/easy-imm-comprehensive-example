@@ -2,8 +2,8 @@
 #=======================================
 #   Policies -> storage - Variables
 #=======================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     storage:
       - m2_raid_configuration:
           - slot: MSTOR-RAID-1

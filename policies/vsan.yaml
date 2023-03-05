@@ -2,8 +2,8 @@
 #====================================
 #   Policies -> vsan - Variables
 #====================================
-policies:
-  default:
+default: # Name of the Organization
+  policies:
     vsan:
       - name: vsan-100
         vsans:
