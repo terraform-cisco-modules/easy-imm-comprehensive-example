@@ -7,7 +7,6 @@
 endpoint       = "intersight.com"
 moids_policies = false
 moids_pools    = false
-organization   = "default"
 tags = [
   {
     key   = "Module"

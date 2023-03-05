@@ -43,12 +43,6 @@ variable "operating_system" {
   type        = string
 }
 
-variable "organization" {
-  default     = "default"
-  description = "Name of the default intersight Organization."
-  type        = string
-}
-
 variable "name_prefix" {
   default     = ""
   description = "Prefix to Add to Pools, Policies, and Profiles."
