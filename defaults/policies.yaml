@@ -720,7 +720,7 @@ intersight:
           ethernet_network_group_policy: ''
           ethernet_network_policy: ''
           ethernet_qos_policy: ''
-          iscsi_boot_policy: ''
+          iscsi_boot_policies: []
           mac_address_allocation_type: POOL
           mac_address_pools: []
           mac_addresses_static: []
@@ -1144,4 +1144,4 @@ intersight:
         vsans:
           default_zoning: Disabled
           fc_zone_sharing_mode: ''
-          vsan_scope: Uplink
+          vsan_scope: Uplink # Common, Storage, Uplink

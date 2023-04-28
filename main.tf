@@ -192,7 +192,7 @@ resource "intersight_fabric_switch_profile" "switch_profiles" {
   ]
   for_each = local.switch_profiles
   action = length(regexall(
-    "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][1-3])[\\dA-Z]{4}$", each.value.serial_number)
+    "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][0-3])[\\dA-Z]{4}$", each.value.serial_number)
   ) > 0 ? each.value.action : "No-op"
   lifecycle {
     ignore_changes = [
@@ -274,7 +274,7 @@ resource "intersight_chassis_profile" "chassis" {
   ]
   for_each = local.chassis
   action = length(regexall(
-    "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][1-3])[\\dA-Z]{4}$", each.value.serial_number)
+    "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][0-3])[\\dA-Z]{4}$", each.value.serial_number)
   ) > 0 ? each.value.action : "No-op"
   lifecycle {
     ignore_changes = [
@@ -313,7 +313,7 @@ resource "intersight_server_profile" "server" {
   ]
   for_each = { for k, v in local.server : k => v if v.create_from_template == false }
   action = length(regexall(
-    "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][1-3])[\\dA-Z]{4}$", each.value.serial_number)
+    "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][0-3])[\\dA-Z]{4}$", each.value.serial_number)
   ) > 0 ? each.value.action : "No-op"
   lifecycle {
     ignore_changes = [
