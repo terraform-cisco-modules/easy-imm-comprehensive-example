@@ -227,7 +227,7 @@ intersight:
         #+++++++++++++++++++++++++++++++
         # Main Section
         #+++++++++++++++++++++++++++++++
-        pcie_slots_cdn_enable: platform-default
+        pcie_slots_cdn_enable: enabled
         post_error_pause: platform-default
         tpm_support: platform-default
         #+++++++++++++++++++++++++++++++
@@ -639,6 +639,20 @@ intersight:
         tags: # Optional List of Map of String
           key: ''
           value: ''
+      firmware:
+        name_suffix: ''
+        advanced_mode:
+          exclude_drives: false
+          exclude_drives_except_boot_drives: false
+          exclude_storage_controllers: false
+          exclude_stroage_sas_expander: false
+          exclude_storage_u2: false
+        description: ''
+        name: '**REQUIRED**'
+        models:
+          firmware_version: '4.2(3d)'
+          server_model: 'UCSX-210C-M7'
+        target_platform: 'FIAttached'
       flow_control:
         name_suffix: ''
         description: ''

@@ -51,6 +51,11 @@ intersight:
         targets: # List of Server Targets
           description: ''
           name: '**REQUIRED**'
+          pre_assign:
+            chassis_id: 0
+            domain_name: ''
+            serial: ''
+            slot_id: 0
           serial_number: '' # Required if not assigned from Resource Pool.
         tags: # Optional List of Map of String
           key: ''
@@ -62,6 +67,7 @@ intersight:
         #===========================
         bios_policy_policy: ''
         boot_order_policy: ''
+        firmware_policy: ''
         persistent_memory_policy: '' # Standalone Only
         power_policy: ''             # FIAttached Only
         uuid_pool: ''                # FIAttached Only
@@ -109,6 +115,7 @@ intersight:
         #===========================
         bios_policy: ''
         boot_order_policy: ''
+        firmware_policy: ''
         persistent_memory_policy: '' # Standalone Only
         power_policy: ''             # FIAttached Only
         uuid_pool: ''                # FIAttached Only
