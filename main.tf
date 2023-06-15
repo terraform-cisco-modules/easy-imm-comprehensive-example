@@ -95,8 +95,8 @@ module "pools" {
 #_________________________________________________________________________________________
 module "domain_profiles" {
   #source = "../../../../terraform-cisco-modules/terraform-intersight-profiles-domain"
-  source       = "terraform-cisco-modules/profiles-domain/intersight"
-  version      = "2.0.1"
+  source         = "terraform-cisco-modules/profiles-domain/intersight"
+  version        = "2.0.1"
   for_each       = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "profiles", {}) if i != "intersight" }
   defaults       = local.model.intersight.defaults.profiles
   moids_policies = var.moids_policies
@@ -115,8 +115,8 @@ module "domain_profiles" {
 #_________________________________________________________________________________________
 module "policies" {
   #source = "../../../../terraform-cisco-modules/terraform-intersight-policies"
-  source       = "terraform-cisco-modules/policies/intersight"
-  version      = "2.0.1"
+  source         = "terraform-cisco-modules/policies/intersight"
+  version        = "2.0.1"
   for_each       = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "policies", {}) if i != "intersight" }
   defaults       = local.model.intersight.defaults.policies
   domains        = module.domain_profiles
@@ -138,6 +138,9 @@ module "policies" {
   base64_private_key_3 = var.base64_private_key_3
   base64_private_key_4 = var.base64_private_key_4
   base64_private_key_5 = var.base64_private_key_5
+  # Firmware Sensitive Variables
+  cco_user     = var.cco_user
+  cco_password = var.cco_password
   # IPMI Sensitive Variables
   ipmi_key_1 = var.ipmi_key
   # iSCSI Boot Sensitive Variable
@@ -247,8 +250,8 @@ resource "time_sleep" "wait_for_server_discovery" {
 #_________________________________________________________________________________________
 module "profiles" {
   #source = "../../../../terraform-cisco-modules/terraform-intersight-profiles"
-  source       = "terraform-cisco-modules/profiles/intersight"
-  version      = "2.0.2"
+  source         = "terraform-cisco-modules/profiles/intersight"
+  version        = "2.0.2"
   for_each       = { for i in sort(keys(local.model)) : i => local.model[i] if i != "intersight" }
   defaults       = local.model.intersight.defaults
   moids_policies = var.moids_policies

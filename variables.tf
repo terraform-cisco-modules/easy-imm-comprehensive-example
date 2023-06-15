@@ -151,6 +151,24 @@ variable "base64_private_key_5" {
 # IPMI Sensitive Variables
 #__________________________________________________________________
 
+variable "cco_password" {
+  default     = ""
+  description = "CCO User Account Password."
+  sensitive   = true
+  type        = string
+}
+
+variable "cco_user" {
+  default     = "cco_user"
+  description = "CCO User Account Email for Firmware Policies."
+  type        = string
+}
+
+#__________________________________________________________________
+#
+# IPMI Sensitive Variables
+#__________________________________________________________________
+
 variable "ipmi_key" {
   default     = ""
   description = "Encryption key 1 to use for IPMI communication. It should have an even number of hexadecimal characters and not exceed 40 characters."

@@ -53,17 +53,17 @@ Configure the following in `yaml.schemas`
 
 | Name | Version |
 |------|---------|
+| <a name="provider_intersight"></a> [intersight](#provider\_intersight) | 1.0.34 |
 | <a name="provider_utils"></a> [utils](#provider\_utils) | 0.2.2 |
 | <a name="provider_time"></a> [time](#provider\_time) | 0.9.1 |
-| <a name="provider_intersight"></a> [intersight](#provider\_intersight) | 1.0.34 |
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_pools"></a> [pools](#module\_pools) | ../../../../terraform-cisco-modules/terraform-intersight-pools | n/a |
-| <a name="module_domain_profiles"></a> [domain\_profiles](#module\_domain\_profiles) | ../../../../terraform-cisco-modules/terraform-intersight-profiles-domain | n/a |
-| <a name="module_policies"></a> [policies](#module\_policies) | ../../../../terraform-cisco-modules/terraform-intersight-policies | n/a |
-| <a name="module_profiles"></a> [profiles](#module\_profiles) | ../../../../terraform-cisco-modules/terraform-intersight-profiles | n/a |
+| <a name="module_pools"></a> [pools](#module\_pools) | terraform-cisco-modules/pools/intersight | 2.0.1 |
+| <a name="module_domain_profiles"></a> [domain\_profiles](#module\_domain\_profiles) | terraform-cisco-modules/profiles-domain/intersight | 2.0.1 |
+| <a name="module_policies"></a> [policies](#module\_policies) | terraform-cisco-modules/policies/intersight | 2.0.1 |
+| <a name="module_profiles"></a> [profiles](#module\_profiles) | terraform-cisco-modules/profiles/intersight | 2.0.2 |
 
 ## NOTE:
 **When the Data is merged from the YAML files, it will run through the modules using for_each loop(s).  Sensitive Variables cannot be added to a for_each loop, instead use the variables below to add sensitive values for policies.**
@@ -78,7 +78,6 @@ Configure the following in `yaml.schemas`
 | <a name="input_moids_policies"></a> [moids\_policies](#input\_moids\_policies) | Flag to Determine if Policies Should be associated using resource or data object. | `bool` | `false` | no |
 | <a name="input_moids_pools"></a> [moids\_pools](#input\_moids\_pools) | Flag to Determine if Pools Should be associated using data object or from var.pools. | `bool` | `false` | no |
 | <a name="input_operating_system"></a> [operating\_system](#input\_operating\_system) | Type of Operating System.<br>* Linux<br>* Windows | `string` | `"Linux"` | no |
-| <a name="input_organization"></a> [organization](#input\_organization) | Name of the default intersight Organization. | `string` | `"default"` | no |
 | <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Prefix to Add to Pools, Policies, and Profiles. | `string` | `""` | no |
 | <a name="input_secretkey"></a> [secretkey](#input\_secretkey) | Intersight Secret Key. | `string` | `""` | no |
 | <a name="input_secretkeyfile"></a> [secretkeyfile](#input\_secretkeyfile) | Intersight Secret Key File Location. | `string` | `"blah.txt"` | no |
@@ -93,6 +92,8 @@ Configure the following in `yaml.schemas`
 | <a name="input_base64_private_key_3"></a> [base64\_private\_key\_3](#input\_base64\_private\_key\_3) | The Server Private Key in Base64 Format. | `string` | `""` | no |
 | <a name="input_base64_private_key_4"></a> [base64\_private\_key\_4](#input\_base64\_private\_key\_4) | The Server Private Key in Base64 Format. | `string` | `""` | no |
 | <a name="input_base64_private_key_5"></a> [base64\_private\_key\_5](#input\_base64\_private\_key\_5) | The Server Private Key in Base64 Format. | `string` | `""` | no |
+| <a name="input_cco_password"></a> [cco\_password](#input\_cco\_password) | CCO User Account Password. | `string` | `""` | no |
+| <a name="input_cco_user"></a> [cco\_user](#input\_cco\_user) | CCO User Account Email for Firmware Policies. | `string` | `"cco_user"` | no |
 | <a name="input_ipmi_key"></a> [ipmi\_key](#input\_ipmi\_key) | Encryption key 1 to use for IPMI communication. It should have an even number of hexadecimal characters and not exceed 40 characters. | `string` | `""` | no |
 | <a name="input_iscsi_boot_password"></a> [iscsi\_boot\_password](#input\_iscsi\_boot\_password) | Password to Assign to the iSCSI Boot Policy if doing Authentication. | `string` | `""` | no |
 | <a name="input_binding_parameters_password"></a> [binding\_parameters\_password](#input\_binding\_parameters\_password) | The password of the user for initial bind process with an LDAP Policy. It can be any string that adheres to the following constraints. It can have character except spaces, tabs, line breaks. It cannot be more than 254 characters. | `string` | `""` | no |
