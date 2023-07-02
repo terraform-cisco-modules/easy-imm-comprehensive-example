@@ -2,7 +2,7 @@
 #================================================
 #   Policies -> lan_connectivity - Variables
 #================================================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   policies:
     lan_connectivity:
       - description: lcp LAN Connectivity Policy

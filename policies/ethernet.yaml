@@ -2,17 +2,17 @@
 #========================================
 #   Policies -> ethernet - Variables
 #========================================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   policies:
     adapter_configuration:
       - add_vic_adapter_configuration:
-          dce_interface_settings:
-            dce_interface_fec_modes:
-              - cl91
-          enable_fip: true
-          enable_lldp: true
-          enable_port_channel: true
-          pci_slot: MLOM
+          - dce_interface_settings:
+              dce_interface_fec_modes:
+                - cl91
+            enable_fip: true
+            enable_lldp: true
+            enable_port_channel: true
+            pci_slot: MLOM
         description: adapter Adapter Configuration Policy
         name: adapter
     ethernet_adapter:
@@ -91,17 +91,16 @@ default: # Name of the Organization
         lun_busy_retry_count: 15
         name: adapter
         tcp_connection_timeout: 15
-    #iscsi_boot:
-    #  - authentication: chap
-    #    description: boot iSCSI Boot Policy
-    #    initiator_ip_source: DHCP
-    #    initiator_static_ipv4_config:
-    #    iscsi_adapter_policy: adapter
-    #    name: boot
-    #    primary_target_policy: target
-    #    secondary_target_policy: ''
-    #    target_source_type: Static
-    #    username: iscsiuser
+    iscsi_boot:
+      - authentication: none
+        description: boot iSCSI Boot Policy
+        initiator_ip_source: DHCP
+        iscsi_adapter_policy: adapter
+        name: boot
+        primary_target_policy: target
+        secondary_target_policy: ''
+        target_source_type: Static
+        username: ''
     iscsi_static_target:
       - description: target iSCSI Static Target Policy
         ip_address: 198.18.32.60

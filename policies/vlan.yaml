@@ -2,7 +2,7 @@
 #====================================
 #   Policies -> vlan - Variables
 #====================================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   policies:
     multicast:
       - name: mcast
@@ -16,4 +16,4 @@ default: # Name of the Organization
             vlan_list: 1
           - multicast_policy: mcast
             name: vlan
-            vlan_list: 2-5
+            vlan_list: 64,998-999,3001,3003-3004

@@ -2,21 +2,37 @@
 #======================================
 #   Profiles -> Server - Variables
 #======================================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   profiles:
     server:
       - action: No-op
         targets:
           - description: esx-1 UCS Server Profile
-            name: esx-1
-            serial_number: unknown
-          - name: esx-2
-            serial_number: unknown
-          - name: esx-3
-            serial_number: unknown
+            name: esx-6
+            serial_number: FCH26407DHP
+          - name: esx-7
+            serial_number: FCH26407CXM
+          - name: esx-8
+            serial_number: FCH26417734
         ucs_server_profile_template: M2-pxe
-      - create_from_template: true
+      - action: No-op
+        create_from_template: true
+        domain_name: example-ucs
         targets:
+          - name: esx-1
+            pre_assign:
+              chassis_id: 1
+              slot_id: 1
+          - name: esx-2
+            pre_assign:
+              chassis_id: 1
+              slot_id: 2
+          - name: esx-3
+            pre_assign:
+              chassis_id: 1
+              slot_id: 3
           - name: esx-4
-            serial_number: unknown
+            pre_assign:
+              chassis_id: 1
+              slot_id: 4
         ucs_server_profile_template: M2-pxe

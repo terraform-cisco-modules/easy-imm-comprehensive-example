@@ -2,7 +2,7 @@
 #======================================
 #   Policies -> domain - Variables
 #======================================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   policies:
     flow_control:
       - description: flow-ctrl Flow Control Policy
@@ -21,14 +21,22 @@ default: # Name of the Organization
         vlan_port_count_optimization: false
     system_qos:
       - classes:
-          - bandwidth_percent: 20
-            cos: 5
+          - bandwidth_percent: 10
+            cos: 255
             mtu: 9216
             multicast_optimize: false
-            packet_drop: false
-            priority: Platinum
+            packet_drop: true
+            priority: Best Effort
             state: Enabled
-            weight: 10
+            weight: 5
+          - bandwidth_percent: 14
+            cos: 1
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: true
+            priority: Bronze
+            state: Enabled
+            weight: 7
           - bandwidth_percent: 18
             cos: 4
             mtu: 9216
@@ -45,6 +53,14 @@ default: # Name of the Organization
             priority: FC
             state: Enabled
             weight: 10
+          - bandwidth_percent: 20
+            cos: 5
+            mtu: 9216
+            multicast_optimize: false
+            packet_drop: false
+            priority: Platinum
+            state: Enabled
+            weight: 10
           - bandwidth_percent: 18
             cos: 2
             mtu: 9216
@@ -53,21 +69,5 @@ default: # Name of the Organization
             priority: Silver
             state: Enabled
             weight: 8
-          - bandwidth_percent: 14
-            cos: 1
-            mtu: 9216
-            multicast_optimize: false
-            packet_drop: true
-            priority: Bronze
-            state: Enabled
-            weight: 7
-          - bandwidth_percent: 10
-            cos: 255
-            mtu: 9216
-            multicast_optimize: false
-            packet_drop: true
-            priority: Best Effort
-            state: Enabled
-            weight: 5
         description: qos System QoS Policy
         name: qos

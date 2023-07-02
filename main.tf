@@ -11,7 +11,6 @@ data "intersight_organization_organization" "orgs" {
 #_________________________________________________________________________________________
 data "utils_yaml_merge" "model" {
   input = concat([
-    for file in fileset(path.module, "defaults/*.yaml") : file(file)], [
     for file in fileset(path.module, "policies/*.yaml") : file(file)], [
     for file in fileset(path.module, "pools/*.yaml") : file(file)], [
     for file in fileset(path.module, "profiles/*.yaml") : file(file)], [
@@ -77,35 +76,14 @@ locals {
 # GUI Location: Infrastructure Service > Configure > Pools
 #_________________________________________________________________________________________
 module "pools" {
-  #source = "../../../../terraform-cisco-modules/terraform-intersight-pools"
-  source       = "terraform-cisco-modules/pools/intersight"
-  version      = "2.0.1"
+  source = "../terraform-intersight-pools"
+  #source       = "terraform-cisco-modules/pools/intersight"
+  #version      = "2.1.0"
   for_each     = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "pools", {}) if i != "intersight" }
-  defaults     = local.model.intersight.defaults.pools
-  pools        = each.value
   organization = each.key
   orgs         = local.orgs
+  pools        = each.value
   tags         = var.tags
-}
-
-#_________________________________________________________________________________________
-#
-# Intersight:UCS Domain Profiles
-# GUI Location: Infrastructure Service > Configure > Profiles : UCS Domain Profiles
-#_________________________________________________________________________________________
-module "domain_profiles" {
-  #source = "../../../../terraform-cisco-modules/terraform-intersight-profiles-domain"
-  source         = "terraform-cisco-modules/profiles-domain/intersight"
-  version        = "2.0.1"
-  for_each       = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "profiles", {}) if i != "intersight" }
-  defaults       = local.model.intersight.defaults.profiles
-  moids_policies = var.moids_policies
-  moids_pools    = var.moids_pools
-  organization   = each.key
-  orgs           = local.orgs
-  profiles       = each.value
-  tags           = var.tags
-  #policies     = module.policies
 }
 
 #_________________________________________________________________________________________
@@ -114,12 +92,10 @@ module "domain_profiles" {
 # GUI Location: Infrastructure Service > Configure > Policies
 #_________________________________________________________________________________________
 module "policies" {
-  #source = "../../../../terraform-cisco-modules/terraform-intersight-policies"
-  source         = "terraform-cisco-modules/policies/intersight"
-  version        = "2.0.1"
+  source = "../terraform-intersight-policies"
+  #source   = "terraform-cisco-modules/policies/intersight"
+  #version  = "2.1.2"
   for_each       = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "policies", {}) if i != "intersight" }
-  defaults       = local.model.intersight.defaults.policies
-  domains        = module.domain_profiles
   moids_policies = var.moids_policies
   moids_pools    = var.moids_pools
   organization   = each.key
@@ -184,6 +160,50 @@ module "policies" {
   vmedia_password_5 = var.vmedia_password_5
 }
 
+#data "intersight_fabric_switch_profile" "check" {
+#  
+#  for_each = { for i in flatten([
+#    for v in keys(local.model) : [
+#      for e in lookup(lookup(local.model[v], "profiles", {}), "domain", []): e.name 
+#    ]
+#  ]): i => i }
+#  name = each.value
+#}
+
+
+#_________________________________________________________________________________________
+#
+# Sleep Timer between Deploying the Domain and Waiting for Server Discovery
+#_________________________________________________________________________________________
+#resource "time_sleep" "wait_for_profile_validation" {
+#  depends_on = [
+#    module.policies
+#  ]
+#  create_duration = "2m"
+#  triggers = {
+#    always_run = "${timestamp()}"
+#  }
+#}
+
+#_________________________________________________________________________________________
+#
+# Intersight:UCS Domain Profiles
+# GUI Location: Infrastructure Service > Configure > Profiles : UCS Domain Profiles
+#_________________________________________________________________________________________
+module "domain_profiles" {
+  source = "../terraform-intersight-profiles-domain"
+  #source  = "terraform-cisco-modules/profiles-domain/intersight"
+  #version = "2.1.2"
+  for_each = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "profiles", {}) if i != "intersight" }
+  moids_policies = var.moids_policies
+  moids_pools    = var.moids_pools
+  organization   = each.key
+  orgs           = local.orgs
+  profiles       = each.value
+  tags           = var.tags
+  policies       = module.policies
+}
+
 #_________________________________________________________________________________________
 #
 # Intersight: UCS Domain Profiles
@@ -243,17 +263,26 @@ resource "time_sleep" "wait_for_server_discovery" {
 }
 
 
+#resource "time_sleep" "wait_for_profile_validation" {
+#  depends_on = [
+#    intersight_fabric_switch_profile.switch_profiles
+#  ]
+#  create_duration = "2m"
+#  triggers = {
+#    always_run = length(local.wait_for_domain) == 0 ? "${timestamp()}" : 1
+#  }
+#}
+
 #_________________________________________________________________________________________
 #
 # Intersight:UCS Chassis and Server Profiles
 # GUI Location: Infrastructure Service > Configure > Profiles
 #_________________________________________________________________________________________
 module "profiles" {
-  #source = "../../../../terraform-cisco-modules/terraform-intersight-profiles"
-  source         = "terraform-cisco-modules/profiles/intersight"
-  version        = "2.0.2"
+  source = "../terraform-intersight-profiles"
+  #source         = "terraform-cisco-modules/profiles/intersight"
+  #version        = "2.1.2"
   for_each       = { for i in sort(keys(local.model)) : i => local.model[i] if i != "intersight" }
-  defaults       = local.model.intersight.defaults
   moids_policies = var.moids_policies
   moids_pools    = var.moids_pools
   organization   = each.key
@@ -318,6 +347,7 @@ resource "intersight_server_profile" "server" {
   action = length(regexall(
     "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][0-3])[\\dA-Z]{4}$", each.value.serial_number)
   ) > 0 ? each.value.action : "No-op"
+  target_platform = each.value.target_platform
   lifecycle {
     ignore_changes = [
       action_params,

@@ -2,7 +2,7 @@
 #=======================================
 #   Profiles -> Chassis - Variables
 #=======================================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   profiles:
     chassis:
       - action: No-op
@@ -12,7 +12,7 @@ default: # Name of the Organization
         targets:
           - description: example-ucs-1 UCS Chassis Profile
             name: example-ucs-1
-            serial_number: unknown
+            serial_number: FOX2611P8N1
           - name: example-ucs-2
             serial_number: unknown
           - name: example-ucs-3

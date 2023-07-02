@@ -43,12 +43,6 @@ variable "operating_system" {
   type        = string
 }
 
-variable "name_prefix" {
-  default     = ""
-  description = "Prefix to Add to Pools, Policies, and Profiles."
-  type        = string
-}
-
 variable "secretkey" {
   default     = ""
   description = "Intersight Secret Key."

@@ -1,159 +1,390 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
-    "$ref": "#/definitions/Welcome7",
+    "$ref": "#/definitions/PoolsWelcome",
     "definitions": {
-        "Welcome7": {
+        "PoolsWelcome": {
             "type": "object",
             "additionalProperties": false,
-            "properties": {
-                "intersight": {
-                    "$ref": "#/definitions/Intersight"
+            "patternProperties": {
+                "^[a-zA-Z0-9_.:-]{1,64}$": {
+                    "$ref": "#/definitions/Intersight:Organization"
                 }
             },
-            "required": [
-                "intersight"
-            ],
-            "title": "Welcome7"
+            "title": "Intersight Pools YAML Schema"
         },
-        "Intersight": {
+        "Intersight:Organization": {
             "type": "object",
             "additionalProperties": false,
+            "description": "Name of the Intersight Organization",
             "properties": {
                 "pools": {
+                    "type": "object",
                     "$ref": "#/definitions/Pools"
                 }
             },
             "required": [
                 "pools"
             ],
-            "title": "Intersight"
+            "title": "Intersight Organization"
         },
         "Pools": {
             "type": "object",
             "additionalProperties": false,
+            "description": "Pools are the basic building blocks for uniquely identifying hardware resources. As the basis for the UCS management model, they allow Service Profiles to be associated with any blade server, while still providing the exact same ID and presentation to the upstream LAN or SAN. If a pool is actively associated with a profile, the pool cannot be deleted.",
             "properties": {
                 "ip": {
                     "type": "array",
+                    "description": "An IP pool is a sequential range of IP addresses within a certain network. You can have multiple pool configurations.\nRequired Attributes:\n  * name\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * ipv4_blocks\n  * ipv4_configuration\n  * ipv6_blocks\n  * ipv6_configuration\n  * reservations\n  * tags\nNote: For each Address Family IPv4/IPv6 both blocks and configuration must be defined.",
                     "items": {
-                        "$ref": "#/definitions/IP"
-                    }
+                        "$ref": "#/definitions/ippool.Pool"
+                    },
+                    "title": "ip - IP Pool - ippool.Pool"
+                },
+                "iqn": {
+                    "type": "array",
+                    "description": "An IQN pool is a collection of iSCSI Qualified Names (IQNs) for use as initiator identifiers by iSCSI vNICs. IQN pool members are of the form prefix: suffix: number, where you can specify the prefix, suffix, and a block (range) of numbers.\nRequired Attributes:\n  * name\n  * iqn_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * prefix\n  * reservations\n  * tags",
+                    "items": {
+                        "$ref": "#/definitions/iqnpool.Pool"
+                    },
+                    "title": "iqn - Iqn Pool - iqnpool.Pool"
                 },
                 "mac": {
                     "type": "array",
+                    "description": "A MAC pool is a collection of network identities, or MAC addresses, that are unique in their Layer 2 environment and are available to be assigned to vNICs on a server. If you use MAC pools in server profiles, you do not have to manually configure the MAC addresses to be used by the server associated with the server profile.\nRequired Attributes:\n  * name\n  * mac_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * reservations\n  * tags",
                     "items": {
-                        "$ref": "#/definitions/MAC"
-                    }
+                        "$ref": "#/definitions/macpool.Pool"
+                    },
+                    "title": "mac - MAC Pool - macpool.Pool"
+                },
+                "name_prefix": {
+                    "type": "object",
+                    "$ref": "#/definitions/NamePrefixSuffix"
+                },
+                "name_suffix": {
+                    "type": "object",
+                    "$ref": "#/definitions/NamePrefixSuffix"
+                },
+                "resource": {
+                    "type": "array",
+                    "description": "A resource pool is an aggregation of homogeneous resources that are managed in Intersight. A resource pool enables you to manage the utilization of resources for certain Intersight features like Server Profile. Currently, Intersight supports only server type as a resource for the resource pool.\nRequired Attributes:\n  * name\n  * serial_number_list\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * pool_type\n  * resource_type\n  * server_type\n  * tags",
+                    "items": {
+                        "$ref": "#/definitions/resourcepool.Pool"
+                    },
+                    "title": "resource - Resource Pool - resourcepool.Pool"
                 },
                 "uuid": {
                     "type": "array",
+                    "description": "A Universally Unique Identifier (UUID) pool is a collection of UUIDs that are assigned to servers. The prefix and suffix of the UUID are variable values. A UUID pool ensures that these variable values are unique for each server associated with a server profile that uses a particular pool to avoid conflicts.\nRequired Attributes:\n  * name\n  * uuid_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * prefix\n  * reservations\n  * tags",
                     "items": {
-                        "$ref": "#/definitions/UUID"
-                    }
+                        "$ref": "#/definitions/uuidpool.Pool"
+                    },
+                    "title": "uuid - UUID Pool - uuidpool.Pool"
                 },
                 "wwnn": {
                     "type": "array",
+                    "description": "A WWNN pool is a WWN pool that contains only WW node names. If you include a pool of WWNNs in a server profile, the associated server is assigned a WWNN from that pool.\nRequired Attributes:\n  * name\n  * id_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * reservations\n  * tags",
                     "items": {
-                        "$ref": "#/definitions/MAC"
-                    }
+                        "$ref": "#/definitions/fcpool.Pool"
+                    },
+                    "title": "wwnn - WWNN Pool - fcpool.Pool"
                 },
                 "wwpn": {
                     "type": "array",
+                    "description": "A WWPN pool is a WWN pool that contains only WW port names. If you include a pool of WWPNs in a server profile, the port on each vHBA of the associated server is assigned a WWPN from that pool.\nRequired Attributes:\n  * name\n  * id_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * reservations\n  * tags",
                     "items": {
-                        "$ref": "#/definitions/MAC"
-                    }
+                        "$ref": "#/definitions/fcpool.Pool"
+                    },
+                    "title": "wwpn - WWPN Pool - fcpool.Pool"
                 }
             },
-            "required": [
-                "ip",
-                "mac",
-                "uuid",
-                "wwnn",
-                "wwpn"
-            ],
             "title": "Pools"
         },
-        "IP": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "assignment_order": {
-                    "type": "string"
-                },
-                "description": {
-                    "type": "string"
-                },
-                "ipv4_blocks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Block"
-                    }
-                },
-                "ipv4_config": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/IpvConfig"
-                    }
-                },
-                "ipv6_blocks": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/Block"
-                    }
-                },
-                "ipv6_config": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/IpvConfig"
-                    }
-                },
-                "name": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "assignment_order",
-                "description",
-                "ipv4_blocks",
-                "ipv4_config",
-                "name"
-            ],
-            "title": "IP"
-        },
-        "Block": {
+        "fcBlocks": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "from": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "from"
                 },
                 "size": {
-                    "type": "integer"
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "size"
+                },
+                "to": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "to"
                 }
             },
             "required": [
-                "from",
-                "size"
+                "from"
             ],
-            "title": "Block"
+            "title": "WWNN/WWPN Blocks"
         },
-        "IpvConfig": {
+        "fcpool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "assignment_order": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "assignment_order"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "default",
+                    "description": "Description to add to the Object.  The description can be up to 128 characters.\"",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[a-zA-Z0-9\\\\!#$%()*,-\\./:;@ _{|}~?&+]+$",
+                    "title": "description"
+                },
+                "name": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "name"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Tags"
+                    }
+                },
+                "id_blocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/fcBlocks"
+                    }
+                },
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/fcReservations"
+                }
+            },
+            "required": [
+                "id_blocks",
+                "name"
+            ],
+            "title": "WW{N|P}N Pools"
+        },
+        "fcReservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "allocation_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "WWNN/WWPN Reservations"
+        },
+        "ippool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "assignment_order": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "assignment_order"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "default",
+                    "description": "Description to add to the Object.  The description can be up to 128 characters.\"",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[a-zA-Z0-9\\\\!#$%()*,-\\./:;@ _{|}~?&+]+$",
+                    "title": "description"
+                },
+                "ipv4_blocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ipv4Blocks"
+                    }
+                },
+                "ipv4_configuration": {
+                    "type": "object",
+                    "$ref": "#/definitions/ipv4Configuration"
+                },
+                "ipv6_blocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ipv6Blocks"
+                    }
+                },
+                "ipv6_configuration": {
+                    "type": "object",
+                    "$ref": "#/definitions/ipv6Configuration"
+                },
+                "name": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "name"
+                },
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/ipReservations"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Tags"
+                    }
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "IP"
+        },
+        "ipReservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "allocation_type"
+                },
+                "ip_type": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "ip_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "Identity Reservations"
+        },
+        "ipv4Blocks": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "from"
+                },
+                "size": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "size"
+                },
+                "to": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from"
+            ],
+            "title": "IpvBlock"
+        },
+        "ipv4Configuration": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "gateway": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "gateway"
                 },
                 "netmask": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "netmask"
                 },
                 "primary_dns": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "primary_dns"
                 },
                 "secondary_dns": {
-                    "type": "string"
-                },
-                "prefix": {
-                    "type": "integer"
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "secondary_dns"
                 }
             },
             "required": [
@@ -161,72 +392,642 @@
                 "primary_dns",
                 "secondary_dns"
             ],
-            "title": "IpvConfig"
+            "title": "IpvConfiguration"
         },
-        "MAC": {
+        "ipv6Blocks": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "from"
+                },
+                "size": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "size"
+                },
+                "to": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from"
+            ],
+            "title": "Ipv6 Block"
+        },
+        "ipv6Configuration": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "gateway": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "gateway"
+                },
+                "prefix": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "prefix"
+                },
+                "primary_dns": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "primary_dns"
+                },
+                "secondary_dns": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "secondary_dns"
+                }
+            },
+            "required": [
+                "gateway",
+                "primary_dns",
+                "secondary_dns"
+            ],
+            "title": "IpvConfiguration"
+        },
+        "iqnBlocks": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "from"
+                },
+                "size": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "size"
+                },
+                "suffix": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "suffix"
+                },
+                "to": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from",
+                "size",
+                "to"
+            ],
+            "title": "Block"
+        },
+        "iqnpool.Pool": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "assignment_order": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "assignment_order"
                 },
                 "description": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "default",
+                    "description": "Description to add to the Object.  The description can be up to 128 characters.\"",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[a-zA-Z0-9\\\\!#$%()*,-\\./:;@ _{|}~?&+]+$",
+                    "title": "description"
+                },
+                "name": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "name"
+                },
+                "iqn_blocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/iqnBlocks"
+                    }
+                },
+                "prefix": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "prefix"
+                },
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/iqnReservations"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Tags"
+                    }
+                }
+            },
+            "required": [
+                "iqn_blocks",
+                "name"
+            ],
+            "title": "IQN Pool"
+        },
+        "iqnReservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "allocation_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "IqnReservations"
+        },
+        "macBlocks": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "from"
+                },
+                "size": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "size"
+                },
+                "to": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from"
+            ],
+            "title": "MAC Blocks"
+        },
+        "macpool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "assignment_order": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "assignment_order"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "default",
+                    "description": "Description to add to the Object.  The description can be up to 128 characters.\"",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[a-zA-Z0-9\\\\!#$%()*,-\\./:;@ _{|}~?&+]+$",
+                    "title": "description"
                 },
                 "mac_blocks": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Block"
+                        "$ref": "#/definitions/macBlocks"
                     }
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "name"
                 },
-                "id_blocks": {
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/iqnReservations"
+                },
+                "tags": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Block"
+                        "$ref": "#/definitions/Tags"
                     }
                 }
             },
             "required": [
-                "assignment_order",
-                "description",
+                "mac_blocks",
                 "name"
             ],
-            "title": "MAC"
+            "title": "MAC Pools"
         },
-        "UUID": {
+        "macReservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "allocation_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "IqnReservations"
+        },
+        "NamePrefixSuffix": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "default": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "default"
+                },
+                "ip": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "ip"
+                },
+                "iqn": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "iqn"
+                },
+                "mac": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "mac"
+                },
+                "resource": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "resource"
+                },
+                "uuid": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "uuid"
+                },
+                "wwnn": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "wwnn"
+                },
+                "wwpn": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "wwpn"
+                }
+            },
+            "title": "Name Prefix and Suffix"
+        },
+        "resourcepool.Pool": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "assignment_order": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "assignment_order"
                 },
                 "description": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "default",
+                    "description": "Description to add to the Object.  The description can be up to 128 characters.\"",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[a-zA-Z0-9\\\\!#$%()*,-\\./:;@ _{|}~?&+]+$",
+                    "title": "description"
                 },
                 "name": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "name"
                 },
-                "prefix": {
-                    "type": "string"
+                "pool_type": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "pool_type"
                 },
-                "uuid_blocks": {
+                "resource_type": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "resource_type"
+                },
+                "serial_number_list": {
+                    "type": "array",
+                    "items": {}
+                },
+                "server_type": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "server_type"
+                },
+                "tags": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Block"
+                        "$ref": "#/definitions/Tags"
                     }
                 }
             },
             "required": [
-                "assignment_order",
-                "description",
                 "name",
-                "prefix",
+                "pool_type",
+                "resource_type",
+                "server_type",
+                "tags"
+            ],
+            "title": "Resource"
+        },
+        "Tags": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "key"
+                },
+                "value": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "value"
+                }
+            },
+            "required": [
+                "key",
+                "value"
+            ],
+            "title": "Tags"
+        },
+        "uuidBlocks": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "from"
+                },
+                "size": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "size"
+                },
+                "to": {
+                    "type": "integer",
+                    "default": 1,
+                    "description": "",
+                    "minimum": 1,
+                    "maximum": 64,
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from"
+            ],
+            "title": "UUID Blocks"
+        },
+        "uuidpool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "assignment_order": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "assignment_order"
+                },
+                "description": {
+                    "type": "string",
+                    "default": "default",
+                    "description": "Description to add to the Object.  The description can be up to 128 characters.\"",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[a-zA-Z0-9\\\\!#$%()*,-\\./:;@ _{|}~?&+]+$",
+                    "title": "description"
+                },
+                "name": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "name"
+                },
+                "prefix": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "prefix"
+                },
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/uuidReservations"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Tags"
+                    }
+                },
+                "uuid_blocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/uuidBlocks"
+                    }
+                }
+            },
+            "required": [
+                "name",
                 "uuid_blocks"
             ],
             "title": "UUID"
+        },
+        "uuidReservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "",
+                    "description": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "allocation_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "IqnReservations"
         }
     }
 }

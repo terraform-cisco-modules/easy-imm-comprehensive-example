@@ -2,18 +2,27 @@
 #=========================
 #   Pools - Variables
 #=========================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   pools:
     ip:
       - ipv4_blocks:
-          - from: 198.18.0.10
+          - from: 198.18.1.10
             size: 245
         ipv4_configuration:
-          gateway: 198.18.0.1
-          prefix: 255.255.255.0
+          gateway: 198.18.1.1
+          netmask: 255.255.255.0
+          primary_dns: 208.67.222.222
+          secondary_dns: 208.67.220.220
+        name: kvm-inband
+      - ipv4_blocks:
+          - from: 198.18.2.10
+            size: 245
+        ipv4_configuration:
+          gateway: 198.18.2.1
+          netmask: 255.255.255.0
           primary_dns: 208.67.220.220
-          secondary_dns: ''
-        name: 198.18.0.10
+          secondary_dns: 208.67.222.222
+        name: kvm-ooband
     mac:
       - mac_blocks:
           - from: 00:25:B5:00:10:00
@@ -47,6 +56,24 @@ default: # Name of the Organization
           - from: 00:25:B5:00:F0:00
             size: 1024
         name: storage-b
+    name_prefix:
+      default: ''
+      ip: ''
+      iqn: ''
+      mac: ''
+      resource: ''
+      uuid: ''
+      wwnn: ''
+      wwpn: ''
+    name_suffix:
+      default: ''
+      ip: ''
+      iqn: ''
+      mac: ''
+      resource: ''
+      uuid: ''
+      wwnn: ''
+      wwpn: ''
     uuid:
       - description: uuid UUID Pool
         name: uuid

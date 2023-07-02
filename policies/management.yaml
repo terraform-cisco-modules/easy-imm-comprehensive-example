@@ -2,7 +2,7 @@
 #==========================================
 #   Policies -> management - Variables
 #==========================================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   policies:
     device_connector:
       - configuration_lockout: false
@@ -11,11 +11,10 @@ default: # Name of the Organization
     imc_access:
       - description: kvm IMC Access Policy
         inband_ip_pool: kvm-inband
-        inband_vlan_id: 4
+        inband_vlan_id: 64
         ipv4_address_configuration: true
-        ipv6_address_configuration: true
         name: kvm
-        out_of_band_ip_pool: kvm-oob
+        out_of_band_ip_pool: kvm-ooband
     ipmi_over_lan:
       - description: ipmi IPMI over LAN Policy
         name: ipmi
@@ -113,22 +112,6 @@ default: # Name of the Organization
             security_level: AuthPriv
         system_contact: admin@example.com
         system_location: Example Corporation
-      - description: snmp SNMP Policy
-        name: snmp-domain
-        port: 161
-        snmp_traps:
-          - destination_address: 198.18.1.61
-            port: 162
-            user: snmpadmin
-        snmp_users:
-          - auth_password: 1
-            auth_type: SHA
-            name: snmpadmin
-            privacy_password: 1
-            privacy_type: AES
-            security_level: AuthPriv
-        system_contact: admin@example.com
-        system_location: Example Corporation
     ssh:
       - description: ssh SSH Policy
         name: ssh
@@ -138,20 +121,6 @@ default: # Name of the Organization
       - description: syslog Syslog Policy
         local_min_severity: warning
         name: syslog
-        remote_clients:
-          - enable: true
-            hostname: 198.18.5.14
-            min_severity: warning
-            port: 514
-            protocol: udp
-          - enable: true
-            hostname: 198.18.5.15
-            min_severity: warning
-            port: 514
-            protocol: udp
-      - description: syslog Syslog Policy
-        local_min_severity: warning
-        name: syslog-domain
         remote_clients:
           - enable: true
             hostname: 198.18.5.14

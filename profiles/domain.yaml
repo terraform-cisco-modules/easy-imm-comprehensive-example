@@ -2,7 +2,7 @@
 #======================================
 #   Profiles -> Domain - Variables
 #======================================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   profiles:
     domain:
       - action: No-op
@@ -14,11 +14,11 @@ default: # Name of the Organization
           - example-ucs-a
           - example-ucs-b
         serial_numbers:
-          - unknown
-          - unknown
-        snmp_policy: snmp-domain
+          - FDO245219W2
+          - FDO23350SKV
+        snmp_policy: snmp
         switch_control_policy: sw-ctrl
-        syslog_policy: syslog-domain
+        syslog_policy: syslog
         system_qos_policy: qos
         vlan_policies:
           - vlans

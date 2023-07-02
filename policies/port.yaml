@@ -2,7 +2,7 @@
 #====================================
 #   Policies -> port - Variables
 #====================================
-default: # Name of the Organization
+Asgard: # Name of the Organization
   policies:
     port:
       - description: example-ucs Port Policy
@@ -40,4 +40,4 @@ default: # Name of the Organization
               - 1
               - 4
         port_role_servers:
-          - port_list: 5-18
+          - port_list: 5-18,33-34
