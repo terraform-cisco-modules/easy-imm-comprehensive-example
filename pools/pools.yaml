@@ -2,7 +2,7 @@
 #=========================
 #   Pools - Variables
 #=========================
-Asgard: # Name of the Organization
+default: # Name of the Organization
   pools:
     ip:
       - ipv4_blocks:
@@ -23,6 +23,19 @@ Asgard: # Name of the Organization
           primary_dns: 208.67.220.220
           secondary_dns: 208.67.222.222
         name: kvm-ooband
+    iqn:
+      - assignment_order: sequential
+        description: default
+        name: default
+        iqn_blocks:
+          - from: 0
+            size: 1024
+            suffix: ucs-host
+        prefix: iqn.1984-12.com.cisco
+        reservations:
+          allocation_type: static
+          identities:
+            - "iqn.2001-04.com.example:uefi-13021088"
     mac:
       - mac_blocks:
           - from: 00:25:B5:00:10:00
@@ -74,6 +87,15 @@ Asgard: # Name of the Organization
       uuid: ''
       wwnn: ''
       wwpn: ''
+    resource:
+      - assignment_order: sequential
+        description: default
+        name: default
+        pool_type: Static
+        resource_type: Server
+        serial_number_list:
+          - "FOX25415555"
+        server_type: Blades
     uuid:
       - description: uuid UUID Pool
         name: uuid

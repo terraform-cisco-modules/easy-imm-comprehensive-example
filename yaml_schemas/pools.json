@@ -1,0 +1,1129 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/PoolsWelcome",
+    "definitions": {
+        "PoolsWelcome": {
+            "type": "object",
+            "additionalProperties": false,
+            "patternProperties": {
+                "^[a-zA-Z0-9_.:-]{1,64}$": {
+                    "$ref": "#/definitions/IntersightOrganization"
+                }
+            },
+            "title": "Intersight Pools YAML Schema"
+        },
+        "IntersightOrganization": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Name of the Intersight Organization",
+            "properties": {
+                "pools": {
+                    "type": "object",
+                    "$ref": "#/definitions/Intersight:Pools"
+                }
+            },
+            "required": [
+                "pools"
+            ],
+            "title": "Intersight Organization"
+        },
+        "Intersight:Pools": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Pools are the basic building blocks for uniquely identifying hardware resources. As the basis for the UCS management model, they allow Service Profiles to be associated with any blade server, while still providing the exact same ID and presentation to the upstream LAN or SAN. If a pool is actively associated with a profile, the pool cannot be deleted.",
+            "properties": {
+                "ip": {
+                    "type": "array",
+                    "description": "An IP pool is a sequential range of IP addresses within a certain network. You can assign multiple pool blocks within a pool configuration.\nRequired Attributes:\n  * name\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * ipv4_blocks\n  * ipv4_configuration\n  * ipv6_blocks\n  * ipv6_configuration\n  * reservations\n  * tags\nNote: For each Address Family IPv4/IPv6, both ipv(4|6)_blocks and ipv(4|6)_configuration must be defined.",
+                    "intersightUri": "ippool/Pools",
+                    "items": {
+                        "$ref": "#/definitions/ippool.Pool"
+                    },
+                    "objectType": "ippool.Pool",
+                    "title": "ip - IP Pool - ippool.Pool"
+                },
+                "iqn": {
+                    "type": "array",
+                    "description": "An IQN pool is a collection of iSCSI Qualified Names (IQNs) for use as initiator identifiers by iSCSI vNICs. IQN pool members are of the form prefix: suffix: number, where you can specify the prefix, suffix, and a block (range) of numbers.\nRequired Attributes:\n  * name\n  * iqn_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * prefix\n  * reservations\n  * tags",
+                    "intersightUri": "iqnpool/Pools",
+                    "items": {
+                        "$ref": "#/definitions/iqnpool.Pool"
+                    },
+                    "objectType": "iqnpool.Pool",
+                    "title": "iqn - Iqn Pool - iqnpool.Pool"
+                },
+                "mac": {
+                    "type": "array",
+                    "description": "A MAC pool is a collection of network identities, or MAC addresses, that are unique in their Layer 2 environment and are available to be assigned to vNICs on a server. If you use MAC pools in server profiles, you do not have to manually configure the MAC addresses to be used by the server associated with the server profile.\nRequired Attributes:\n  * name\n  * mac_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * reservations\n  * tags",
+                    "intersightUri": "macpool/Pools",
+                    "items": {
+                        "$ref": "#/definitions/macpool.Pool"
+                    },
+                    "objectType": "macpool.Pool",
+                    "title": "mac - MAC Pool - macpool.Pool"
+                },
+                "name_prefix": {
+                    "type": "object",
+                    "$ref": "#/definitions/NamePrefixSuffix"
+                },
+                "name_suffix": {
+                    "type": "object",
+                    "$ref": "#/definitions/NamePrefixSuffix"
+                },
+                "resource": {
+                    "type": "array",
+                    "description": "A resource pool is an aggregation of homogeneous resources that are managed in Intersight. A resource pool enables you to manage the utilization of resources for certain Intersight features like Server Profile. Currently, Intersight supports only server type as a resource for the resource pool.\nRequired Attributes:\n  * name\n  * serial_number_list\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * pool_type\n  * resource_type\n  * server_type\n  * tags",
+                    "intersightUri": "resourcepool/Pools",
+                    "items": {
+                        "$ref": "#/definitions/resourcepool.Pool"
+                    },
+                    "objectType": "resourcepool.Pool",
+                    "title": "resource - Resource Pool - resourcepool.Pool"
+                },
+                "uuid": {
+                    "type": "array",
+                    "description": "A Universally Unique Identifier (UUID) pool is a collection of UUIDs that are assigned to servers. The prefix and suffix of the UUID are variable values. A UUID pool ensures that these variable values are unique for each server associated with a server profile that uses a particular pool to avoid conflicts.\nRequired Attributes:\n  * name\n  * uuid_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * prefix\n  * reservations\n  * tags",
+                    "intersightUri": "uuidpool/Pools",
+                    "items": {
+                        "$ref": "#/definitions/uuidpool.Pool"
+                    },
+                    "objectType": "uuidpool.Pool",
+                    "title": "uuid - UUID Pool - uuidpool.Pool"
+                },
+                "wwnn": {
+                    "type": "array",
+                    "description": "A WWNN pool is a WWN pool that contains only WW node names. If you include a pool of WWNNs in a server profile, the associated server is assigned a WWNN from that pool.\nRequired Attributes:\n  * name\n  * id_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * reservations\n  * tags",
+                    "intersightUri": "fcpool/Pools",
+                    "items": {
+                        "$ref": "#/definitions/fcpool.Pool"
+                    },
+                    "objectType": "fcpool.Pool",
+                    "title": "wwnn - WWNN Pool - fcpool.Pool"
+                },
+                "wwpn": {
+                    "type": "array",
+                    "description": "A WWPN pool is a WWN pool that contains only WW port names. If you include a pool of WWPNs in a server profile, the port on each vHBA of the associated server is assigned a WWPN from that pool.\nRequired Attributes:\n  * name\n  * id_blocks\n\nOptional Attributes:\n  * assignment_order\n  * description\n  * reservations\n  * tags",
+                    "intersightUri": "fcpool/Pools",
+                    "items": {
+                        "$ref": "#/definitions/fcpool.Pool"
+                    },
+                    "objectType": "fcpool.Pool",
+                    "title": "wwpn - WWPN Pool - fcpool.Pool"
+                }
+            },
+            "title": "Pools"
+        },
+        "common:AssignmentOrder": {
+            "type": "string",
+            "default": "sequential",
+            "description": "Assignment order decides the order in which the next identifier is allocated.  Options are:\n  * default\n  * sequential: (default)",
+            "intersightApi": "AssignmentOrder",
+            "enum": [
+                "default",
+                "sequential"
+            ],
+            "title": "assignment_order"
+        },
+        "common:Description": {
+            "type": "string",
+            "default": "default",
+            "description": "Description to Assign to the Pool.",
+            "intersightApi": "Description",
+            "minLength": 1,
+            "maxLength": 1024,
+            "pattern": "^$|^[a-zA-Z0-9]+[\\x00-\\xFF]*$",
+            "title": "name"
+        },
+        "common:Name": {
+            "type": "string",
+            "default": "default",
+            "description": "Name of the Pool.",
+            "intersightApi": "Name",
+            "minLength": 1,
+            "maxLength": 64,
+            "pattern": "^[a-zA-Z0-9_\\.-]{1,64}$",
+            "title": "name"
+        },
+        "common:Size": {
+            "type": "integer",
+            "default": 255,
+            "description": "Size of the Pool.  Allowed range is 1-1024.",
+            "intersightApi": "Size",
+            "minimum": 1,
+            "maximum": 1024,
+            "title": "size"
+        },
+        "common:Tags": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "",
+            "ObjectType": "mo.Tag",
+            "properties": {
+                "key": {
+                    "type": "string",
+                    "default": "key",
+                    "description": "The tag key for which usage information is provided.",
+                    "intersightApi": "Key",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[\\S]+$",
+                    "title": "key"
+                },
+                "value": {
+                    "type": "string",
+                    "default": "value",
+                    "description": "A list of all Tag values that have been assigned to this tag Key.",
+                    "intersightApi": "Value",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[\\S]+$",
+                    "title": "value"
+                }
+            },
+            "required": [
+                "key",
+                "value"
+            ],
+            "title": "Tags"
+        },
+        "fcpool.Block": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "20:00:00:25:B5:00:00:00",
+                    "description": "Staring WWxN Address.  An Example is `20:00:00:25:B5:00:00:00`",
+                    "intersightApi": "From",
+                    "minLength": 23,
+                    "maxLength": 23,
+                    "pattern": "^([\\da-fA-F]{2}:){7}[\\da-fA-F]{2}$",
+                    "title": "from"
+                },
+                "size": {
+                    "$ref": "#/definitions/common:Size"
+                },
+                "to": {
+                    "type": "string",
+                    "default": "20:00:00:25:B5:00:04:00",
+                    "description": "Ending WWxN Address.  An Example is `20:00:00:25:B5:00:04:00`",
+                    "intersightApi": "To",
+                    "minLength": 23,
+                    "maxLength": 23,
+                    "pattern": "^([\\da-fA-F]{2}:){7}[\\da-fA-F]{2}$",
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from"
+            ],
+            "title": "WWNN/WWPN Blocks"
+        },
+        "fcpool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "assignment_order": {
+                    "$ref": "#/definitions/common:AssignmentOrder"
+                },
+                "description": {
+                    "$ref": "#/definitions/common:Description"
+                },
+                "name": {
+                    "$ref": "#/definitions/common:Name"
+                },
+                "tags": {
+                    "type": "array",
+                    "description": "An arbitrary key and value pair that can be used to tag REST resources and organize managed objects by\nassigning meta-data tags to any object.\nRequired Attributes:\n  * key\n  * value",
+                    "items": {
+                        "$ref": "#/definitions/common:Tags"
+                    },
+                    "title": "tags - Tags"
+                },
+                "id_blocks": {
+                    "type": "array",
+                    "description": "A block of WW(N|P) addresses.\n\nRequired Attributes:\n  * from\n\nOptional Attributes:\n  * size\n  * to\nNote: Only assign either size or to, not both.",
+                    "items": {
+                        "$ref": "#/definitions/fcpool.Block"
+                    },
+                    "title": "id_blocks"
+                },
+                "pool_purpose": {
+                    "type": "string",
+                    "default": "WWPN",
+                    "description": "Purpose of this WWN pool.\nOptions are:\n  * WWNN\n  * WWPN: (defualt)",
+                    "intersightApi": "PoolPurpose",
+                    "enum": [
+                        "WWNN",
+                        "WWPN"
+                    ],
+                    "title": "pool_purpose"
+                },
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/fcpool.Reservations"
+                }
+            },
+            "required": [
+                "id_blocks",
+                "name"
+            ],
+            "title": "WW{N|P}N Pools"
+        },
+        "fcpool.Reservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "The WWxN reservation object, used to hold reserved addresses.\nRequired Attributes:\n  * identities\n\nOptional Attributes:\n  * allocation_type",
+            "ObjectType": "fcpool.Reservations",
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "static",
+                    "description": "Type of the allocation for the identity in the reservation either static or dynamic (i.e. via pool).\n  * dynamic - Identifiers to be allocated by system.\n  * static - Identifiers are assigned by the user.  (default)",
+                    "intersightApi": "AllocationType",
+                    "enum": [
+                        "dynamic",
+                        "static"
+                    ],
+                    "title": "allocation_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "additionalProperties": false,
+                    "description": "List of WWxN identities to be reserved.",
+                    "intersightApi": "Identity",
+                    "items": {
+                        "type": "string",
+                        "default": "20:00:00:25:B5:00:00:00",
+                        "description": "WWN identity to be reserved.  Example `20:00:00:25:B5:00:00:00`",
+                        "intersightApi": "Identity",
+                        "minLength": 23,
+                        "maxLength": 23,
+                        "pattern": "^([\\da-fA-F]{2}:){7}[\\da-fA-F]{2}$",
+                        "title": "identity"
+                    },
+                    "title": "identities"
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "WWNN/WWPN Reservations"
+        },
+        "ippool.IpV4Block": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "",
+            "ObjectType": "ippool.IpV4Block",
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "198.18.0.10",
+                    "description": "First IPv4 address of the block.  Example `198.18.0.10`.",
+                    "intersightApi": "From",
+                    "minLength": 7,
+                    "maxLength": 15,
+                    "title": "from"
+                },
+                "size": {
+                    "$ref": "#/definitions/common:Size"
+                },
+                "to": {
+                    "type": "string",
+                    "default": "198.18.0.250",
+                    "description": "Last IPv4 address of the block. Example `198.18.0.250`.",
+                    "intersightApi": "To",
+                    "minLength": 7,
+                    "maxLength": 15,
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from"
+            ],
+            "title": "ipv4_blocks - Ipv4 Block of Addresses"
+        },
+        "ippool.IpV4Config": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Network interface configuration data for IPv4 interfaces. Netmask, Gateway and DNS settings.\n\nRequired Attributes:\n  * gateway\n  * netmask\n  * primary_dns\n\nOptional Attributes:\n  * secondary_dns.",
+            "ObjectType": "ippool.IpV4Config",
+            "properties": {
+                "gateway": {
+                    "type": "string",
+                    "default": "198.18.0.1",
+                    "description": "Gateway to assign to the pool.  Example `198.18.0.1`.",
+                    "intersightApi": "Gateway",
+                    "minLength": 7,
+                    "maxLength": 15,
+                    "pattern": "^(([1-9]|[1-9][0-9]{1}|1[0-9]{2}|2[0-1][0-9]|22[0-3])\\.)(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\\.){2}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+                    "title": "gateway"
+                },
+                "netmask": {
+                    "type": "string",
+                    "default": "255.255.255.0",
+                    "description": "A subnet mask is a 32-bit number that masks an IP address and divides the IP address into network address and host address.  Example `255.255.255.0`.",
+                    "intersightApi": "Netmask",
+                    "minLength": 7,
+                    "maxLength": 15,
+                    "pattern": "^(([1-9]|[1-9][0-9]{1}|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.)(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\\.){2}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+                    "title": "netmask"
+                },
+                "primary_dns": {
+                    "type": "string",
+                    "default": "208.67.220.220",
+                    "description": "IP Address of the primary Domain Name System (DNS) server.  Example `208.67.220.220`.",
+                    "intersightApi": "PrimaryDns",
+                    "minLength": 7,
+                    "maxLength": 15,
+                    "pattern": "^(([1-9]|[1-9][0-9]{1}|1[0-9]{2}|2[0-1][0-9]|22[0-3])\\.)(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\\.){2}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+                    "title": "primary_dns"
+                },
+                "secondary_dns": {
+                    "type": "string",
+                    "default": "208.67.222.222",
+                    "description": "IP Address of the secondary Domain Name System (DNS) server.  Example `208.67.222.222`.",
+                    "intersightApi": "SecondaryDns",
+                    "minLength": 0,
+                    "maxLength": 15,
+                    "pattern": "^$|^(([1-9]|[1-9][0-9]{1}|1[0-9]{2}|2[0-1][0-9]|22[0-3])\\.)(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\\.){2}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+                    "title": "secondary_dns"
+                }
+            },
+            "required": [
+                "gateway",
+                "primary_dns",
+                "secondary_dns"
+            ],
+            "title": "ipv4_configuration - IPv4 Configuration Settings"
+        },
+        "ippool.IpV6Block": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "",
+            "ObjectType": "ippool.IpV6Block",
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "2001:db8::10",
+                    "description": "First IPv6 address of the block.  Example `2001:db8::10`.",
+                    "intersightApi": "From",
+                    "minLength": 6,
+                    "maxLength": 39,
+                    "pattern": "^$|^(([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{0,4}|:[0-9A-Fa-f]{1,4})?|(:[0-9A-Fa-f]{1,4}){0,2})|(:[0-9A-Fa-f]{1,4}){0,3})|(:[0-9A-Fa-f]{1,4}){0,4})|:(:[0-9A-Fa-f]{1,4}){0,5})((:[0-9A-Fa-f]{1,4}){2}|:(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])(\\.(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])){3})|(([0-9A-Fa-f]{1,4}:){1,6}|:):[0-9A-Fa-f]{0,4}|([0-9A-Fa-f]{1,4}:){7}:)$",
+                    "title": "from"
+                },
+                "size": {
+                    "$ref": "#/definitions/common:Size"
+                },
+                "to": {
+                    "type": "string",
+                    "default": "2001:db8::250",
+                    "description": "Last IPv6 address of the block.  Example `2001:db8::250`.",
+                    "intersightApi": "To",
+                    "minLength": 6,
+                    "maxLength": 39,
+                    "pattern": "^$|^(([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{0,4}|:[0-9A-Fa-f]{1,4})?|(:[0-9A-Fa-f]{1,4}){0,2})|(:[0-9A-Fa-f]{1,4}){0,3})|(:[0-9A-Fa-f]{1,4}){0,4})|:(:[0-9A-Fa-f]{1,4}){0,5})((:[0-9A-Fa-f]{1,4}){2}|:(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])(\\.(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])){3})|(([0-9A-Fa-f]{1,4}:){1,6}|:):[0-9A-Fa-f]{0,4}|([0-9A-Fa-f]{1,4}:){7}:)$",
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from"
+            ],
+            "title": "ipv6_blocks - Ipv6 Block of Addresses"
+        },
+        "ippool.IpV6Config": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Network interface configuration data for IPv6 interfaces. Prefix, Gateway and DNS settings.\n\nRequired Attributes:\n  * gateway\n  * prefix\n  * primary_dns\n\nOptional Attributes:\n  * secondary_dns.",
+            "ObjectType": "ippool.IpV6Config",
+            "properties": {
+                "gateway": {
+                    "type": "string",
+                    "default": "2001:db8::1",
+                    "description": "Gateway to assign to the pool.  Example `2001:db8::1`.",
+                    "intersightApi": "Gateway",
+                    "minLength": 6,
+                    "maxLength": 39,
+                    "pattern": "^$|^(([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{0,4}|:[0-9A-Fa-f]{1,4})?|(:[0-9A-Fa-f]{1,4}){0,2})|(:[0-9A-Fa-f]{1,4}){0,3})|(:[0-9A-Fa-f]{1,4}){0,4})|:(:[0-9A-Fa-f]{1,4}){0,5})((:[0-9A-Fa-f]{1,4}){2}|:(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])(\\.(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])){3})|(([0-9A-Fa-f]{1,4}:){1,6}|:):[0-9A-Fa-f]{0,4}|([0-9A-Fa-f]{1,4}:){7}:)$",
+                    "title": "gateway"
+                },
+                "prefix": {
+                    "type": "integer",
+                    "default": 64,
+                    "description": "Prefix to assign to the pool.  Example `64`.",
+                    "intersightApi": "Prefix",
+                    "minimum": 1,
+                    "maximum": 128,
+                    "title": "prefix"
+                },
+                "primary_dns": {
+                    "type": "string",
+                    "default": "2620:119:53::53",
+                    "description": "IP Address of the primary Domain Name System (DNS) server.  Example `2620:119:53::53`.",
+                    "intersightApi": "PrimaryDns",
+                    "minLength": 6,
+                    "maxLength": 39,
+                    "pattern": "^$|^(([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{0,4}|:[0-9A-Fa-f]{1,4})?|(:[0-9A-Fa-f]{1,4}){0,2})|(:[0-9A-Fa-f]{1,4}){0,3})|(:[0-9A-Fa-f]{1,4}){0,4})|:(:[0-9A-Fa-f]{1,4}){0,5})((:[0-9A-Fa-f]{1,4}){2}|:(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])(\\.(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])){3})|(([0-9A-Fa-f]{1,4}:){1,6}|:):[0-9A-Fa-f]{0,4}|([0-9A-Fa-f]{1,4}:){7}:)$",
+                    "title": "primary_dns"
+                },
+                "secondary_dns": {
+                    "type": "string",
+                    "default": "2620:119:35::35",
+                    "description": "IP Address of the secondary Domain Name System (DNS) server.  Example `2620:119:35::35`.",
+                    "intersightApi": "SecondaryDns",
+                    "minLength": 0,
+                    "maxLength": 39,
+                    "pattern": "^$|^(([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:([0-9A-Fa-f]{1,4}:[0-9A-Fa-f]{0,4}|:[0-9A-Fa-f]{1,4})?|(:[0-9A-Fa-f]{1,4}){0,2})|(:[0-9A-Fa-f]{1,4}){0,3})|(:[0-9A-Fa-f]{1,4}){0,4})|:(:[0-9A-Fa-f]{1,4}){0,5})((:[0-9A-Fa-f]{1,4}){2}|:(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])(\\.(25[0-5]|(2[0-4]|1[0-9]|[1-9])?[0-9])){3})|(([0-9A-Fa-f]{1,4}:){1,6}|:):[0-9A-Fa-f]{0,4}|([0-9A-Fa-f]{1,4}:){7}:)$",
+                    "title": "secondary_dns"
+                }
+            },
+            "required": [
+                "gateway",
+                "primary_dns",
+                "secondary_dns"
+            ],
+            "title": "ipv6_configuration - IPv6 Configuration Settings"
+        },
+        "ippool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Pool represents a collection of IPv4 and/or IPv6 addresses that can be allocated to other configuration entities like server profiles.",
+            "OjbectType": "ippool.Pool",
+            "properties": {
+                "assignment_order": {
+                    "$ref": "#/definitions/common:AssignmentOrder"
+                },
+                "description": {
+                    "$ref": "#/definitions/common:Description"
+                },
+                "ipv4_blocks": {
+                    "type": "array",
+                    "description": "A block of IPv4 addresses.\n\nRequired Attributes:\n  * from\n\nOptional Attributes:\n  * size\n  * to\nNote: Only assign either size or to, not both.",
+                    "items": {
+                        "$ref": "#/definitions/ippool.IpV4Block"
+                    },
+                    "title": "ipv4_blocks"
+                },
+                "ipv4_configuration": {
+                    "type": "object",
+                    "$ref": "#/definitions/ippool.IpV4Config"
+                },
+                "ipv6_blocks": {
+                    "type": "array",
+                    "description": "A block of IPv6 addresses.\n\nRequired Attributes:\n  * from\n\nOptional Attributes:\n  * size\n  * to\nNote: Only assign either size or to, not both.",
+                    "items": {
+                        "$ref": "#/definitions/ippool.IpV6Block"
+                    },
+                    "title": "ipv6_blocks"
+                },
+                "ipv6_configuration": {
+                    "type": "object",
+                    "$ref": "#/definitions/ippool.IpV6Config"
+                },
+                "name": {
+                    "$ref": "#/definitions/common:Name"
+                },
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/ippool.Reservations"
+                },
+                "tags": {
+                    "type": "array",
+                    "description": "An arbitrary key and value pair that can be used to tag REST resources and organize managed objects by\nassigning meta-data tags to any object.\nRequired Attributes:\n  * key\n  * value",
+                    "items": {
+                        "$ref": "#/definitions/common:Tags"
+                    },
+                    "title": "tags - Tags"
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "ip - IP Pool for Chassis and Server Address Allocation."
+        },
+        "ippool.Reservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "The IP reservation object, used to hold reserved addresses.\nRequired Attributes:\n  * identities\n\nOptional Attributes:\n  * allocation_type\n  * ip_type",
+            "ObjectType": "ippool.Reservations",
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "static",
+                    "description": "Type of the allocation for the identity in the reservation either static or dynamic (i.e. via pool).\n  * dynamic - Identifiers to be allocated by system.\n  * static - Identifiers are assigned by the user.  (default)",
+                    "intersightApi": "AllocationType",
+                    "enum": [
+                        "dynamic",
+                        "static"
+                    ],
+                    "title": "allocation_type"
+                },
+                "ip_type": {
+                    "type": "string",
+                    "default": "IPv4",
+                    "description": "Type of the IP address that needs to be reserved.\n  * IPv4 - IP V4 address type requested. (default)\n  * IPv6 - IP V6 address type requested.",
+                    "intersightApi": "IpType",
+                    "enum": [
+                        "IPv4",
+                        "IPv6"
+                    ],
+                    "title": "ip_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "additionalProperties": false,
+                    "description": "List of IP identities to be reserved.",
+                    "intersightApi": "Identity",
+                    "items": {
+                        "type": "string",
+                        "default": "198.18.1.1",
+                        "description": "IP identity to be reserved.  Example `198.18.1.1` or `2001:db8::1`",
+                        "intersightApi": "Identity",
+                        "minLength": 6,
+                        "maxLength": 39,
+                        "pattern": "^((([1-9]|[1-9][0-9]{1}|1[0-9]{2}|2[0-1][0-9]|22[0-3])\\.)(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\\.){2}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^(([a-fA-F]|[a-fA-F][a-fA-F0-9\\-]*[a-fA-F0-9])\\.)*([A-Fa-f]|[A-Fa-f][A-Fa-f0-9\\-]*[A-Fa-f0-9])$|^(?:(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){6})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:::(?:(?:(?:[0-9a-fA-F]{1,4})):){5})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:(?:[0-9a-fA-F]{1,4})):){4})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,1}(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:(?:[0-9a-fA-F]{1,4})):){3})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,2}(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:(?:[0-9a-fA-F]{1,4})):){2})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,3}(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:[0-9a-fA-F]{1,4})):)(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,4}(?:(?:[0-9a-fA-F]{1,4})))?::)(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,5}(?:(?:[0-9a-fA-F]{1,4})))?::)(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,6}(?:(?:[0-9a-fA-F]{1,4})))?::)))))$",
+                        "title": "identity"
+                    },
+                    "title": "identities"
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "Identity Reservations"
+        },
+        "iqnpool.Block": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "from": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "Staring IQN Address.  An Exmaple is `0`.",
+                    "intersightApi": "From",
+                    "minimum": 0,
+                    "maximum": 60000000000,
+                    "title": "from"
+                },
+                "size": {
+                    "$ref": "#/definitions/common:Size"
+                },
+                "suffix": {
+                    "type": "string",
+                    "default": "ucs-host",
+                    "description": "Suffix to assign to the IQN Pool.  An Exmaple is `ucs-host`.",
+                    "intersightApi": "Suffix",
+                    "minLength": 3,
+                    "maxLength": 32,
+                    "pattern": "([^,:\\s']+)",
+                    "title": "suffix"
+                },
+                "to": {
+                    "type": "integer",
+                    "default": 1024,
+                    "description": "Ending IQN Address.  An Exmaple is `1024`.",
+                    "intersightApi": "To",
+                    "minimum": 0,
+                    "maximum": 60000000000,
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from",
+                "suffix"
+            ],
+            "title": "Block"
+        },
+        "iqnpool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "assignment_order": {
+                    "$ref": "#/definitions/common:AssignmentOrder"
+                },
+                "description": {
+                    "$ref": "#/definitions/common:Description"
+                },
+                "name": {
+                    "$ref": "#/definitions/common:Name"
+                },
+                "iqn_blocks": {
+                    "type": "array",
+                    "description": "A block of IQN addresses.\n\nRequired Attributes:\n  * from\n  * suffix\n\nOptional Attributes:\n  * size\n  * to\nNote: Only assign either size or to, not both.",
+                    "items": {
+                        "$ref": "#/definitions/iqnpool.Block"
+                    },
+                    "title": "iqn_blocks"
+                },
+                "prefix": {
+                    "type": "string",
+                    "default": "iqn.1984-12.com.cisco",
+                    "description": "The prefix for any IQN blocks created for this pool. IQN Prefix must have the following format `iqn.yyyy-mm.naming-authority`, where naming-authority is usually the reverse syntax of the Internet domain name of the naming authority.  The default is `iqn.1984-12.com.cisco`.",
+                    "intersightApi": "Prefix",
+                    "minLength": 7,
+                    "maxLength": 64,
+                    "pattern": "^iqn\\.(\\d{4}-\\d{2})\\.([^:]+)$",
+                    "title": "prefix"
+                },
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/iqnpool.Reservations"
+                },
+                "tags": {
+                    "type": "array",
+                    "description": "An arbitrary key and value pair that can be used to tag REST resources and organize managed objects by\nassigning meta-data tags to any object.\nRequired Attributes:\n  * key\n  * value",
+                    "items": {
+                        "$ref": "#/definitions/common:Tags"
+                    },
+                    "title": "tags - Tags"
+                }
+            },
+            "required": [
+                "iqn_blocks",
+                "name"
+            ],
+            "title": "IQN Pool"
+        },
+        "iqnpool.Reservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "The IQN reservation object, used to hold reserved addresses.\nRequired Attributes:\n  * identities\n\nOptional Attributes:\n  * allocation_type",
+            "ObjectType": "iqnpool.Reservations",
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "static",
+                    "description": "Type of the allocation for the identity in the reservation either static or dynamic (i.e. via pool).\n  * dynamic - Identifiers to be allocated by system.\n  * static - Identifiers are assigned by the user.  (default)",
+                    "intersightApi": "AllocationType",
+                    "enum": [
+                        "dynamic",
+                        "static"
+                    ],
+                    "title": "allocation_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "additionalProperties": false,
+                    "description": "List of IQN identities to be reserved.",
+                    "intersightApi": "Identity",
+                    "items": {
+                        "type": "string",
+                        "default": "iqn.1984-12.com.cisco:ucs000",
+                        "description": "IP identity to be reserved.  Example `iqn.1984-12.com.cisco`",
+                        "intersightApi": "Identity",
+                        "minLength": 7,
+                        "maxLength": 128,
+                        "pattern": "^iqn\\.(\\d{4}-\\d{2})\\.([^:]+)(:)([^,:\\s']+)$",
+                        "title": "identity"
+                    },
+                    "title": "identities"
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "IqnReservations"
+        },
+        "macpool.Block": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "00:25:B5:0A:00:00",
+                    "description": "Staring MAC Address.  An Example is `00:25:B5:0A:00:00`",
+                    "intersightApi": "From",
+                    "minLength": 17,
+                    "maxLength": 17,
+                    "pattern": "^([\\da-fA-F]{2}:){5}[\\da-fA-F]{2}$",
+                    "title": "from"
+                },
+                "size": {
+                    "$ref": "#/definitions/common:Size"
+                },
+                "to": {
+                    "type": "string",
+                    "default": "00:25:B5:0A:04:00",
+                    "description": "Ending MAC Address.  An Example is `00:25:B5:0A:04:00`",
+                    "intersightApi": "To",
+                    "minLength": 17,
+                    "maxLength": 17,
+                    "pattern": "^([\\da-fA-F]{2}:){5}[\\da-fA-F]{2}$",
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from"
+            ],
+            "title": "MAC Blocks"
+        },
+        "macpool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "assignment_order": {
+                    "$ref": "#/definitions/common:AssignmentOrder"
+                },
+                "description": {
+                    "$ref": "#/definitions/common:Description"
+                },
+                "mac_blocks": {
+                    "type": "array",
+                    "description": "A block of MAC addresses.\n\nRequired Attributes:\n  * from\n\nOptional Attributes:\n  * size\n  * to\nNote: Only assign either size or to, not both.",
+                    "items": {
+                        "$ref": "#/definitions/macpool.Block"
+                    },
+                    "title": "mac_blocks"
+                },
+                "name": {
+                    "$ref": "#/definitions/common:Name"
+                },
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/macpool.Reservations"
+                },
+                "tags": {
+                    "type": "array",
+                    "description": "An arbitrary key and value pair that can be used to tag REST resources and organize managed objects by\nassigning meta-data tags to any object.\nRequired Attributes:\n  * key\n  * value",
+                    "items": {
+                        "$ref": "#/definitions/common:Tags"
+                    },
+                    "title": "tags - Tags"
+                }
+            },
+            "required": [
+                "mac_blocks",
+                "name"
+            ],
+            "title": "MAC Pools"
+        },
+        "macpool.Reservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "The MAC reservation object, used to hold reserved addresses.\nRequired Attributes:\n  * identities\n\nOptional Attributes:\n  * allocation_type",
+            "ObjectType": "macpool.Reservations",
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "static",
+                    "description": "Type of the allocation for the identity in the reservation either static or dynamic (i.e. via pool).\n  * dynamic - Identifiers to be allocated by system.\n  * static - Identifiers are assigned by the user.  (default)",
+                    "intersightApi": "AllocationType",
+                    "enum": [
+                        "dynamic",
+                        "static"
+                    ],
+                    "title": "allocation_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "additionalProperties": false,
+                    "description": "List of MAC identities to be reserved.",
+                    "intersightApi": "Identity",
+                    "items": {
+                        "type": "string",
+                        "default": "00:25:B5:0A:00:00",
+                        "description": "MAC identity to be reserved.  Example `00:25:B5:0A:00:00`",
+                        "intersightApi": "Identity",
+                        "minLength": 17,
+                        "maxLength": 17,
+                        "pattern": "^([\\da-fA-F]{2}:){5}[\\da-fA-F]{2}$",
+                        "title": "identity"
+                    },
+                    "title": "identities"
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "MAC Reservations"
+        },
+        "NamePrefixSuffix": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "A List of (Pre|Suf)fixes to add to the Pool Names.\n Options are:\n  * default\n  * ip\n  * iqn\n  * mac\n  * resource\n  * uuid\n  * wwnn\n  * wwpn",
+            "properties": {
+                "default": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to the Name of all pools.  An individual pool prefix/suffix will override this.",
+                    "intersightApi": "",
+                    "minLength": 0,
+                    "maxLength": 12,
+                    "pattern": "^$|^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "default"
+                },
+                "ip": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to IP Pool Names.",
+                    "intersightApi": "",
+                    "minLength": 0,
+                    "maxLength": 12,
+                    "pattern": "^$|^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "ip"
+                },
+                "iqn": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to IQN Pool Names.",
+                    "intersightApi": "",
+                    "minLength": 0,
+                    "maxLength": 12,
+                    "pattern": "^$|^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "iqn"
+                },
+                "mac": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to MAC Pool Names.",
+                    "intersightApi": "",
+                    "minLength": 0,
+                    "maxLength": 12,
+                    "pattern": "^$|^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "mac"
+                },
+                "resource": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to Resource Pool Names.",
+                    "intersightApi": "",
+                    "minLength": 0,
+                    "maxLength": 12,
+                    "pattern": "^$|^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "resource"
+                },
+                "uuid": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to UUID Pool Names.",
+                    "intersightApi": "",
+                    "minLength": 0,
+                    "maxLength": 12,
+                    "pattern": "^$|^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "uuid"
+                },
+                "wwnn": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Prefix / Suffix to add to WWNN Pool Names.",
+                    "intersightApi": "",
+                    "minLength": 0,
+                    "maxLength": 12,
+                    "pattern": "^$|^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "wwnn"
+                },
+                "wwpn": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Prefix / Suffix to add to WWPN Pool Names.",
+                    "intersightApi": "",
+                    "minLength": 0,
+                    "maxLength": 12,
+                    "pattern": "^$|^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "wwpn"
+                }
+            },
+            "title": "Name Prefix and Suffix"
+        },
+        "resourcepool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "assignment_order": {
+                    "$ref": "#/definitions/common:AssignmentOrder"
+                },
+                "description": {
+                    "$ref": "#/definitions/common:Description"
+                },
+                "name": {
+                    "$ref": "#/definitions/common:Name"
+                },
+                "pool_type": {
+                    "type": "string",
+                    "default": "Static",
+                    "description": "The resource management type in the pool, it can be either static or dynamic.\n  * Static - The resources in the pool will not be changed until user manually update it. (default)\n  * Dynamic - The resources in the pool will be updated dynamically based on the condition.",
+                    "intersightApi": "PoolType",
+                    "enum": [
+                        "Dynamic",
+                        "Static"
+                    ],
+                    "title": "pool_type"
+                },
+                "resource_type": {
+                    "type": "string",
+                    "default": "Server",
+                    "description": "The type of the resource present in the pool, example 'server' its combination of RackUnit and Blade.\n  * None - The resource cannot consider for Resource Pool.\n  * Server - Resource Pool holds the server kind of resources, example - RackServer, Blade. (default)",
+                    "intersightApi": "ResourceType",
+                    "enum": [
+                        "None",
+                        "Server"
+                    ],
+                    "title": "resource_type"
+                },
+                "serial_number_list": {
+                    "type": "array",
+                    "description": "A List of Compute Serial Numbers to assign to the policy.  These must be the same type of server. Cannot be some blades and some rackmounts.",
+                    "intersightApi": "",
+                    "items": {
+                        "type": "string",
+                        "default": "FOX25415555",
+                        "description": "Server Serial Number.",
+                        "intersightApi": "",
+                        "minLength": 11,
+                        "maxLength": 11,
+                        "pattern": "^[A-Z]{3}[2-3][\\d]([0][1-9]|[1-4][0-9]|[5][0-3])[\\dA-Z]{4}$",
+                        "title": "serial_number"
+                    },
+                    "title": "serial_number_list"
+                },
+                "server_type": {
+                    "type": "string",
+                    "default": "Blades",
+                    "description": "The Server type to add to the selection filter field.  This is combined with the Serial Number List for the selector criteria.  Options are:\n  * Blades: (default)\n  * RackUnits",
+                    "intersightApi": "ServerType",
+                    "enum": [
+                        "Blades",
+                        "Server"
+                    ],
+                    "title": "server_type"
+                },
+                "tags": {
+                    "type": "array",
+                    "description": "An arbitrary key and value pair that can be used to tag REST resources and organize managed objects by\nassigning meta-data tags to any object.\nRequired Attributes:\n  * key\n  * value",
+                    "items": {
+                        "$ref": "#/definitions/common:Tags"
+                    },
+                    "title": "tags - Tags"
+                }
+            },
+            "required": [
+                "name",
+                "serial_number_list"
+            ],
+            "title": "Resource"
+        },
+        "uuidpool.Pool": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "assignment_order": {
+                    "$ref": "#/definitions/common:AssignmentOrder"
+                },
+                "description": {
+                    "$ref": "#/definitions/common:Description"
+                },
+                "name": {
+                    "$ref": "#/definitions/common:Name"
+                },
+                "prefix": {
+                    "type": "string",
+                    "default": "000025B5-0000-0000",
+                    "description": "Prefix to assign to the UUID Pool..  The default is `000025B5-0000-0000`",
+                    "intersightApi": "Prefix",
+                    "minLength": 18,
+                    "maxLength": 18,
+                    "pattern": "^[0-9a-fA-F]{8}\\-[0-9a-fA-F]{4}\\-[0-9a-fA-F]{4}$",
+                    "title": "prefix"
+                },
+                "reservations": {
+                    "type": "object",
+                    "$ref": "#/definitions/uuidpool.Reservations"
+                },
+                "tags": {
+                    "type": "array",
+                    "description": "An arbitrary key and value pair that can be used to tag REST resources and organize managed objects by\nassigning meta-data tags to any object.\nRequired Attributes:\n  * key\n  * value",
+                    "items": {
+                        "$ref": "#/definitions/common:Tags"
+                    },
+                    "title": "tags - Tags"
+                },
+                "uuid_blocks": {
+                    "type": "array",
+                    "description": "A block of UUID addresses.\n\nRequired Attributes:\n  * from\n\nOptional Attributes:\n  * size\n  * to\nNote: Only assign either size or to, not both.",
+                    "items": {
+                        "$ref": "#/definitions/uuidpool.uuidBlock"
+                    }
+                }
+            },
+            "required": [
+                "name",
+                "uuid_blocks"
+            ],
+            "title": "UUID"
+        },
+        "uuidpool.Reservations": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "The UUID reservation object, used to hold reserved addresses.\nRequired Attributes:\n  * identities\n\nOptional Attributes:\n  * allocation_type",
+            "ObjectType": "uuidpool.Reservations",
+            "properties": {
+                "allocation_type": {
+                    "type": "string",
+                    "default": "static",
+                    "description": "Type of the allocation for the identity in the reservation either static or dynamic (i.e. via pool).\n  * dynamic - Identifiers to be allocated by system.\n  * static - Identifiers are assigned by the user.  (default)",
+                    "intersightApi": "AllocationType",
+                    "enum": [
+                        "dynamic",
+                        "static"
+                    ],
+                    "title": "allocation_type"
+                },
+                "identities": {
+                    "type": "array",
+                    "additionalProperties": false,
+                    "description": "List of UUID identities to be reserved.",
+                    "intersightApi": "Identity",
+                    "items": {
+                        "type": "string",
+                        "default": "0000-000000000000",
+                        "description": "UUID identity to be reserved.  Example `0000-000000000000`",
+                        "intersightApi": "Identity",
+                        "minLength": 17,
+                        "maxLength": 17,
+                        "pattern": "^[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                        "title": "identity"
+                    },
+                    "title": "identities"
+                }
+            },
+            "required": [
+                "identities"
+            ],
+            "title": "IqnReservations"
+        },
+        "uuidpool.uuidBlock": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "from": {
+                    "type": "string",
+                    "default": "0000-000000000000",
+                    "description": "Starting UUID Address.  An Example is `0000-000000000000`",
+                    "intersightApi": "From",
+                    "minLength": 17,
+                    "maxLength": 17,
+                    "pattern": "^[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                    "title": "from"
+                },
+                "size": {
+                    "$ref": "#/definitions/common:Size"
+                },
+                "to": {
+                    "type": "string",
+                    "default": "0000-000000000400",
+                    "description": "Ending UUID Address.  An Example is `0000-000000000400`",
+                    "intersightApi": "To",
+                    "minLength": 17,
+                    "maxLength": 17,
+                    "pattern": "^[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+                    "title": "to"
+                }
+            },
+            "required": [
+                "from"
+            ],
+            "title": "UUID Blocks"
+        }
+    }
+}

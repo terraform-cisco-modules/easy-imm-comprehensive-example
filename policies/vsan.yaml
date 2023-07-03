@@ -2,7 +2,7 @@
 #====================================
 #   Policies -> vsan - Variables
 #====================================
-Asgard: # Name of the Organization
+default: # Name of the Organization
   policies:
     vsan:
       - name: vsan-100

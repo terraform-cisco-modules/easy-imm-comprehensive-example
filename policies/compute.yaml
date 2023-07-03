@@ -2,7 +2,7 @@
 #=======================================
 #   Policies -> compute - Variables
 #=======================================
-Asgard: # Name of the Organization
+default: # Name of the Organization
   policies:
     bios:
       - baud_rate: 115200

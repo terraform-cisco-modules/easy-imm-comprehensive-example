@@ -2,7 +2,7 @@
 #================================================
 #   Policies -> lan_connectivity - Variables
 #================================================
-Asgard: # Name of the Organization
+default: # Name of the Organization
   policies:
     lan_connectivity:
       - description: lcp LAN Connectivity Policy
@@ -12,7 +12,7 @@ Asgard: # Name of the Organization
         vnics:
           - ethernet_adapter_policy: VMware
             ethernet_network_control_policy: lldp
-            ethernet_network_group_policy: mgmt
+            ethernet_network_group_policies: [mgmt]
             ethernet_qos_policy: Silver
             mac_address_pools:
               - mgmt-a
@@ -25,7 +25,7 @@ Asgard: # Name of the Organization
               - 3
           - ethernet_adapter_policy: VMware
             ethernet_network_control_policy: lldp
-            ethernet_network_group_policy: migration
+            ethernet_network_group_policies: [migration]
             ethernet_qos_policy: Bronze
             mac_address_pools:
               - migration-a
@@ -38,7 +38,7 @@ Asgard: # Name of the Organization
               - 5
           - ethernet_adapter_policy: VMware
             ethernet_network_control_policy: lldp
-            ethernet_network_group_policy: storage
+            ethernet_network_group_policies: [storage]
             ethernet_qos_policy: Platinum
             mac_address_pools:
               - storage-a
@@ -51,7 +51,7 @@ Asgard: # Name of the Organization
               - 7
           - ethernet_adapter_policy: VMware
             ethernet_network_control_policy: lldp
-            ethernet_network_group_policy: dvs
+            ethernet_network_group_policies: [dvs]
             ethernet_qos_policy: Gold
             mac_address_pools:
               - dvs-a

@@ -2,7 +2,7 @@
 #=======================================
 #   Policies -> storage - Variables
 #=======================================
-Asgard: # Name of the Organization
+default: # Name of the Organization
   policies:
     storage:
       - m2_raid_configuration:
@@ -11,15 +11,15 @@ Asgard: # Name of the Organization
         use_jbod_for_vd_creation: true
       - description: Raid1 Storage Policy
         drive_groups:
-          - manual_drive_groups:
-              - drive_array_spans:
-                 - slots: 1-2
-            name: dg0
-            raid_level: Raid1
-            virtual_drives:
-              - boot_drive: true
-                expand_to_available: true
-                name: vd0
+          manual_drive_groups:
+            - drive_array_spans:
+               - slots: 1-2
+              name: dg0
+              raid_level: Raid1
+              virtual_drives:
+                - boot_drive: true
+                  expand_to_available: true
+                  name: vd0
         name: Raid1
         unused_disks_state: Jbod
         use_jbod_for_vd_creation: true

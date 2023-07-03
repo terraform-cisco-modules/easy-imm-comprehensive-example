@@ -2,7 +2,7 @@
 #=============================================
 #   Policies -> fibre_channel - Variables
 #=============================================
-Asgard: # Name of the Organization
+default: # Name of the Organization
   policies:
     fc_zone:
       - description: vsan-a FC Zone Policy

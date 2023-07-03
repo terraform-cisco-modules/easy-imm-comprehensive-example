@@ -2,7 +2,7 @@
 #===========================================
 #   Policies -> environment - Variables
 #===========================================
-Asgard: # Name of the Organization
+default: # Name of the Organization
   policies:
     power:
       - allocated_budget: 0
