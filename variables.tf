@@ -69,72 +69,72 @@ variable "tags" {
 # Certificate Management Sensitive Variables
 #__________________________________________________________________
 
-variable "base64_certificate_1" {
+variable "cert_mgmt_certificate_1" {
   default     = ""
   description = "The Server Certificate in Base64 format."
   sensitive   = true
   type        = string
 }
 
-variable "base64_certificate_2" {
+variable "cert_mgmt_certificate_2" {
   default     = ""
   description = "The Server Certificate in Base64 format."
   sensitive   = true
   type        = string
 }
 
-variable "base64_certificate_3" {
+variable "cert_mgmt_certificate_3" {
   default     = ""
   description = "The Server Certificate in Base64 format."
   sensitive   = true
   type        = string
 }
 
-variable "base64_certificate_4" {
+variable "cert_mgmt_certificate_4" {
   default     = ""
   description = "The Server Certificate in Base64 format."
   sensitive   = true
   type        = string
 }
 
-variable "base64_certificate_5" {
+variable "cert_mgmt_certificate_5" {
   default     = ""
   description = "The Server Certificate in Base64 format."
   sensitive   = true
   type        = string
 }
 
-variable "base64_private_key_1" {
+variable "cert_mgmt_private_key_1" {
   default     = ""
   description = "The Server Private Key in Base64 Format."
   sensitive   = true
   type        = string
 }
 
-variable "base64_private_key_2" {
+variable "cert_mgmt_private_key_2" {
   default     = ""
-  description = "The Server Private Key in Base64 Format."
+  description = "The Server Private Key in PEM Format."
   sensitive   = true
   type        = string
 }
 
-variable "base64_private_key_3" {
+variable "cert_mgmt_private_key_3" {
   default     = ""
-  description = "The Server Private Key in Base64 Format."
+  description = "The Server Private Key in PEM Format."
   sensitive   = true
   type        = string
 }
 
-variable "base64_private_key_4" {
+variable "cert_mgmt_private_key_4" {
   default     = ""
-  description = "The Server Private Key in Base64 Format."
+  description = "The Server Private Key in PEM Format."
   sensitive   = true
   type        = string
 }
 
-variable "base64_private_key_5" {
+variable "cert_mgmt_private_key_5" {
   default     = ""
-  description = "The Server Private Key in Base64 Format."
+  description = "The Server Private Key in PEM Format."
   sensitive   = true
   type        = string
 }
@@ -142,7 +142,27 @@ variable "base64_private_key_5" {
 
 #__________________________________________________________________
 #
-# IPMI Sensitive Variables
+# Drive Security Sensitive Variables
+#__________________________________________________________________
+
+variable "drive_security_password" {
+  default     = ""
+  description = "Drive Security User Password."
+  sensitive   = true
+  type        = string
+}
+
+variable "drive_security_server_ca_certificate" {
+  default     = ""
+  description = "Drive Security Server CA Certificate in PEM Format."
+  sensitive   = true
+  type        = string
+}
+
+
+#__________________________________________________________________
+#
+# Firmware Sensitive Variables
 #__________________________________________________________________
 
 variable "cco_password" {
@@ -157,6 +177,7 @@ variable "cco_user" {
   description = "CCO User Account Email for Firmware Policies."
   type        = string
 }
+
 
 #__________________________________________________________________
 #

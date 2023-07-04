@@ -104,9 +104,7 @@ default: # Name of the Organization
     iscsi_static_target:
       - description: target iSCSI Static Target Policy
         ip_address: 198.18.32.60
-        luns:
-          - bootable: true
-            lun_id: 0
+        lun_id: 0
         name: target
         port: 3260
         target_name: iqn.1984-12.com.cisco:lnx1

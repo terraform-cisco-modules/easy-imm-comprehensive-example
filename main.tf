@@ -104,16 +104,30 @@ module "policies" {
   pools          = module.pools
   tags           = var.tags
   # Certificate Management Sensitive Variables
-  base64_certificate_1 = var.base64_certificate_1
-  base64_certificate_2 = var.base64_certificate_2
-  base64_certificate_3 = var.base64_certificate_3
-  base64_certificate_5 = var.base64_certificate_4
-  base64_certificate_4 = var.base64_certificate_5
-  base64_private_key_1 = var.base64_private_key_1
-  base64_private_key_2 = var.base64_private_key_2
-  base64_private_key_3 = var.base64_private_key_3
-  base64_private_key_4 = var.base64_private_key_4
-  base64_private_key_5 = var.base64_private_key_5
+  cert_mgmt_certificate_1 = fileexists(var.cert_mgmt_certificate_1
+  ) ? file(var.cert_mgmt_certificate_1) : var.cert_mgmt_certificate_1
+  cert_mgmt_certificate_2 = fileexists(var.cert_mgmt_certificate_2
+  ) ? file(var.cert_mgmt_certificate_2) : var.cert_mgmt_certificate_2
+  cert_mgmt_certificate_3 = fileexists(var.cert_mgmt_certificate_3
+  ) ? file(var.cert_mgmt_certificate_3) : var.cert_mgmt_certificate_3
+  cert_mgmt_certificate_5 = fileexists(var.cert_mgmt_certificate_4
+  ) ? file(var.cert_mgmt_certificate_4) : var.cert_mgmt_certificate_4
+  cert_mgmt_certificate_4 = fileexists(var.cert_mgmt_certificate_5
+  ) ? file(var.cert_mgmt_certificate_5) : var.cert_mgmt_certificate_5
+  cert_mgmt_private_key_1 = fileexists(var.cert_mgmt_private_key_1
+  ) ? file(var.cert_mgmt_private_key_1) : var.cert_mgmt_private_key_1
+  cert_mgmt_private_key_2 = fileexists(var.cert_mgmt_private_key_2
+  ) ? file(var.cert_mgmt_private_key_2) : var.cert_mgmt_private_key_2
+  cert_mgmt_private_key_3 = fileexists(var.cert_mgmt_private_key_3
+  ) ? file(var.cert_mgmt_private_key_3) : var.cert_mgmt_private_key_3
+  cert_mgmt_private_key_4 = fileexists(var.cert_mgmt_private_key_4
+  ) ? file(var.cert_mgmt_private_key_4) : var.cert_mgmt_private_key_4
+  cert_mgmt_private_key_5 = fileexists(var.cert_mgmt_private_key_5
+  ) ? file(var.cert_mgmt_private_key_5) : var.cert_mgmt_private_key_5
+  # Drive Security Sensitive Variables
+  drive_security_password                     = var.drive_security_password
+  drive_security_server_ca_certificate = fileexists(var.drive_security_server_ca_certificate
+  ) ? file(var.drive_security_server_ca_certificate) : var.drive_security_server_ca_certificate
   # Firmware Sensitive Variables
   cco_user     = var.cco_user
   cco_password = var.cco_password
@@ -194,7 +208,7 @@ module "domain_profiles" {
   source = "../terraform-intersight-profiles-domain"
   #source  = "terraform-cisco-modules/profiles-domain/intersight"
   #version = "2.1.2"
-  for_each = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "profiles", {}) if i != "intersight" }
+  for_each       = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "profiles", {}) if i != "intersight" }
   moids_policies = var.moids_policies
   moids_pools    = var.moids_pools
   organization   = each.key
