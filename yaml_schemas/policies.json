@@ -10914,7 +10914,7 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Number of drives within this span group. The minimum number of disks needed in a span group varies based on RAID level. RAID0 requires at least one disk. RAID1 and RAID10 requires at least 2 and in multiples of . RAID5 and RAID50 require at least 3 disks in a span group. RAID6 and RAID60 require atleast 4 disks in a span.",
-                    "intersightApi": "",
+                    "intersightApi": "DrivesPerSpan",
                     "minimum": 1,
                     "maximum": 64,
                     "title": "drives_per_span"
@@ -10923,7 +10923,7 @@
                     "type": "string",
                     "default": "",
                     "description": "Type of drive that should be used for this RAID group.\n  * Any - Any type of drive can be used for virtual drive creation.\n  * HDD - Hard disk drives should be used for virtual drive creation.\n  * SSD - Solid state drives should be used for virtual drive creation.",
-                    "intersightApi": "",
+                    "intersightApi": "DriveType",
                     "minLength": 1,
                     "maxLength": 64,
                     "pattern": "^[a-zA-Z0-9_\\.:-]+$",
@@ -10933,7 +10933,7 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Minimum size of the drive to be used for creating this RAID group.",
-                    "intersightApi": "",
+                    "intersightApi": "MinimumDriveSize",
                     "minimum": 1,
                     "maximum": 64,
                     "title": "minimum_drive_size"
@@ -10942,7 +10942,7 @@
                     "type": "string",
                     "default": "",
                     "description": "Number of dedicated hot spare disks for this RAID group. Allowed value is a comma or hyphen separated number range.",
-                    "intersightApi": "",
+                    "intersightApi": "NumDedicatedHotSpares",
                     "minLength": 1,
                     "maxLength": 64,
                     "pattern": "^[a-zA-Z0-9_\\.:-]+$",
@@ -10952,7 +10952,7 @@
                     "type": "integer",
                     "default": 1,
                     "description": "Number of span groups to be created for this RAID group. Non-nested RAID levels have a single span.",
-                    "intersightApi": "",
+                    "intersightApi": "NumberOfSpans",
                     "minimum": 1,
                     "maximum": 64,
                     "title": "number_of_spans"
@@ -10961,17 +10961,13 @@
                     "type": "boolean",
                     "default": true,
                     "description": "This flag enables the drive group to use all the remaining drives on the server.",
-                    "intersightApi": "",
+                    "intersightApi": "UseRemainingDrives",
                     "title": "use_remaining_drives"
                 }
             },
             "required": [
-                "drive_type",
                 "drives_per_span",
-                "minimum_drive_size",
-                "num_dedicated_hot_spares",
-                "number_of_spans",
-                "use_remaining_drives"
+                "number_of_spans"
             ],
             "title": "AutomaticDriveGroups"
         },
