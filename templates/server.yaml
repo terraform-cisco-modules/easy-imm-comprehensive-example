@@ -7,7 +7,6 @@ default: # Name of the Organization
     server:
       - bios_policy: M6-virtualization-tpm
         boot_order_policy: M2-pxe
-        certificate_management_policy: ''
         create_template: true
         description: M2-pxe Server Profile Template
         imc_access_policy: kvm
@@ -17,7 +16,6 @@ default: # Name of the Organization
         name: M2-pxe
         power_policy: Server
         san_connectivity_policy: scp
-        sd_card_policy: ''
         serial_over_lan_policy: sol
         snmp_policy: snmp
         storage_policy: M2-Raid

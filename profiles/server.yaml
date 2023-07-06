@@ -6,6 +6,7 @@ default: # Name of the Organization
   profiles:
     server:
       - action: No-op
+        create_from_template: false
         targets:
           - description: esx-1 UCS Server Profile
             name: esx-6

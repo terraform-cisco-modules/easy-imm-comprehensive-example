@@ -8871,345 +8871,6 @@
             ],
             "title": "model - Firmware Model Bundles"
         },
-        "iam.LdapPolicy": {
-            "type": "object",
-            "additionalProperties": false,
-            "description": "LDAP Policy configurations.",
-            "easyimm": "ldap",
-            "intersightUri": "iam/LdapPolicies",
-            "ObjectType": "iam.LdapPolicy",
-            "properties": {
-                "base_settings": {
-                    "$ref": "#/definitions/iam.LdapBaseProperties"
-                },
-                "binding_parameters": {
-                    "$ref": "#/definitions/iam.LdapBindingParameters"
-                },
-                "description": {
-                    "$ref": "#/definitions/common:Description"
-                },
-                "enable_encryption": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Default is false.  If enabled, the endpoint encrypts all information it sends to the LDAP server.",
-                    "intersightApi": "$ref:iam.LdapBaseProperties:EnableEncryption",
-                    "title": "enable_encryption"
-                },
-                "enable_group_authorization": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Default is false.  If enabled, user authorization is also done at the group level for LDAP users not in the local user database.",
-                    "intersightApi": "$ref:iam.LdapBaseProperties:EnableGroupAuthorization",
-                    "title": "enable_group_authorization"
-                },
-                "enable_ldap": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Default is true.  LDAP server performs authentication.",
-                    "intersightApi": "Enabled",
-                    "title": "enable_ldap"
-                },
-                "ldap_from_dns": {
-                    "$ref": "#/definitions/iam.LdapDnsParameters",
-                    "description": "This Array enables the use of DNS for LDAP Server discovery."
-                },
-                "ldap_groups": {
-                    "type": "array",
-                    "description": "A List of LDAP Group resources.\nRequired Attributes:\n  * group\n  * role",
-                    "intersightUri": "iam/LdapGroups",
-                    "items": {
-                        "$ref": "#/definitions/iam.LdapGroup"
-                    },
-                    "objectType": "iam.LdapGroup",
-                    "title": "ldap_groups - LDAP Groups\nIntersight Uri: iam/LdapGroups"
-                },
-                "ldap_servers": {
-                    "type": "array",
-                    "description": "A List of LDAP Provider Servers.\nRequired Attributes:\n  * server\n\nOptional Attributes:\n  * port",
-                    "intersightUri": "iam/LdapProviders",
-                    "items": {
-                        "$ref": "#/definitions/iam.LdapProvider"
-                    },
-                    "objectType": "iam.LdapProvider",
-                    "title": "ldap_servers - LDAP Provider Servers\nIntersight Uri: iam/LdapProviders"
-                },
-                "name": {
-                    "$ref": "#/definitions/common:Name"
-                },
-                "nested_group_search_depth": {
-                    "type": "integer",
-                    "default": 128,
-                    "description": "Default is 128.  Search depth to look for a nested LDAP group in an LDAP group map.  Range is 1-128",
-                    "intersightApi": "$ref:iam.LdapBaseProperties:NestedGroupSearchDepth",
-                    "minimum": 1,
-                    "maximum": 128,
-                    "title": "nested_group_search_depth"
-                },
-                "search_parameters": {
-                    "$ref": "#/definitions/iam.LdapSearchParameters"
-                },
-                "tags": {
-                    "type": "array",
-                    "description": "An arbitrary key and value pair that can be used to tag REST resources and organize managed objects by\nassigning meta-data tags to any object.\nRequired Attributes:\n  * key\n  * value",
-                    "items": {
-                        "$ref": "#/definitions/common:Tags"
-                    },
-                    "title": "tags - Tags"
-                },
-                "user_search_precedence": {
-                    "type": "string",
-                    "default": "LocalUserDb",
-                    "description": "Default is `LocalUserDb`.  Search precedence between local user database and LDAP user database.\n  * `LocalUserDb` - Precedence is given to local user database while searching.\n  * `LDAPUserDb` - Precedence is given to LADP user database while searching.",
-                    "intersightApi": "UserSearchPrecedence",
-                    "enum": [
-                        "LocalUserDb",
-                        "LDAPUserDb"
-                    ],
-                    "title": "user_search_precedence"
-                }
-            },
-            "required": [
-                "base_settings",
-                "binding_parameters",
-                "name",
-                "search_parameters"
-            ],
-            "title": "ldap - LDAP\nIntersight Uri: iam/LdapPolicies"
-        },
-        "iam.LdapBaseProperties": {
-            "type": "object",
-            "additionalProperties": false,
-            "description": "Base settings of LDAP required while configuring LDAP policy.\n  * Required Attributes:\n  * domain\n\nOptional Attributes:\n  * base_dn\n  * timeout",
-            "easyimm": "base_settings",
-            "intersightUri": "iam/LdapBaseProperties",
-            "ObjectType": "iam.LdapBaseProperties",
-            "properties": {
-                "base_dn": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Distinguished Name (DN) of the user, that is used to authenticate against LDAP servers.  An example would be `DC=example,DC=com`",
-                    "intersightApi": "",
-                    "minLength": 1,
-                    "maxLength": 254,
-                    "pattern": "^((CN=([^,]*)),)?((((?:CN|OU)=[^,]+,?)+),)?((DC=[^,]+,?)+)$",
-                    "title": "switch_id"
-                },
-                "domain": {
-                    "type": "string",
-                    "default": "example.com",
-                    "description": "The LDAP domain that all users must be in.  An example would be `example.com`.",
-                    "intersightApi": "",
-                    "minLength": 1,
-                    "maxLength": 64,
-                    "pattern": "^(([a-zA-Z0-9])|([a-zA-Z0-9][a-zA-Z0-9\\.\\-]*[a-zA-Z0-9]))$",
-                    "title": "switch_id"
-                },
-                "timeout": {
-                    "type": "integer",
-                    "default": 0,
-                    "description": "LDAP authentication timeout duration, in seconds.  Range is 0 to 180.",
-                    "intersightApi": "",
-                    "minimum": 0,
-                    "maximum": 180,
-                    "title": "timeout"
-                }
-            },
-            "required": [
-                "domain"
-            ],
-            "title": "BaseSettings"
-        },
-        "iam.LdapBindingParameters": {
-            "type": "object",
-            "additionalProperties": false,
-            "description": "Base settings of LDAP required while configuring LDAP policy.\nRequired Attributes:\n  * bind_method\n\nOptional Attributes:\n  * bind_dn",
-            "intersightUri": "iam/LdapBaseProperties",
-            "ObjectType": "iam.LdapBaseProperties",
-            "properties": {
-                "bind_dn": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Base Distinguished Name (DN). Starting point from where server will search for users and groups.  An example is `CN=admin,DC=example,DC=com`",
-                    "intersightApi": "BindDn",
-                    "minLength": 1,
-                    "maxLength": 254,
-                    "pattern": "^((CN=([^,]*)),)?((((?:CN|OU)=[^,]+,?)+),)?((DC=[^,]+,?)+)$",
-                    "title": "bind_dn"
-                },
-                "bind_method": {
-                    "type": "string",
-                    "default": "LoginCredentials",
-                    "description": "Default is LoginCredentials.  Authentication method to access LDAP servers.\n  * `LoginCredentials` - Requires the user credentials. If the bind process fails, then user is denied access.\n  * `Anonymous` - Requires no username and password. If this option is selected and the LDAP server is configured for Anonymous logins, then the user gains access.\n  * `ConfiguredCredentials` - Requires a known set of credentials to be specified for the initial bind process. If the initial bind process succeeds, then the distinguished name (DN) of the user name is queried and re-used for the re-binding process. If the re-binding process fails, then the user is denied access.'",
-                    "intersightApi": "BindMethod",
-                    "enum": [
-                        "Anonymous",
-                        "ConfiguredCredentials",
-                        "LoginCredentials"
-                    ],
-                    "title": "bind_method"
-                }
-            },
-            "required": [
-                "bind_method"
-            ],
-            "title": "binding_parameters"
-        },
-        "iam.LdapDnsParameters": {
-            "type": "object",
-            "additionalProperties": false,
-            "description": "DNS settings used to access LDAP Providers.\nRequired Attributes:\n  * search_domain\n\nOptional Attributes:\n  * search_forest\n  * source",
-            "intersightUri": "iam/LdapDnsParameters",
-            "ObjectType": "iam.LdapDnsParameters",
-            "properties": {
-                "search_domain": {
-                    "type": "string",
-                    "default": "example.com",
-                    "description": "Domain name that acts as a source for a DNS query.  An example would be `example.com`.",
-                    "intersightApi": "SearchDomain",
-                    "minLength": 1,
-                    "maxLength": 64,
-                    "pattern": "^(([a-zA-Z0-9])|([a-zA-Z0-9][a-zA-Z0-9\\.\\-]*[a-zA-Z0-9]))$",
-                    "title": "search_domain"
-                },
-                "search_forest": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Forest name that acts as a source for a DNS query.",
-                    "intersightApi": "SearchForest",
-                    "minLength": 1,
-                    "maxLength": 64,
-                    "pattern": "^(([a-zA-Z0-9])|([a-zA-Z0-9][a-zA-Z0-9\\.\\-]*[a-zA-Z0-9]))$",
-                    "title": "search_forest"
-                },
-                "source": {
-                    "type": "string",
-                    "default": "Extracted",
-                    "description": "Default is Extracted.  Source of the domain name used for the DNS SRV request.\n  * `Extracted` - The domain name extracted-domain from the login ID.\n  * `Configured` - The configured-search domain.\n  * `ConfiguredExtracted` - The domain name extracted from the login ID than the configured-search domain.",
-                    "intersightApi": "Source",
-                    "enum": [
-                        "Extracted",
-                        "Configured",
-                        "ConfiguredExtracted"
-                    ],
-                    "title": "source"
-                }
-            },
-            "required": [
-                "search_domain",
-                "search_forest"
-            ],
-            "title": "ldap_from_dns"
-        },
-        "iam.LdapGroup": {
-            "type": "object",
-            "additionalProperties": false,
-            "description": "Endpoint User or Local User.",
-            "easyimm": "ldap_groups",
-            "intersightUri": "iam/LdapGroups",
-            "ObjectType": "iam.LdapGroup",
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "default": "admin",
-                    "description": "LDAP Group name in the LDAP server database.",
-                    "intersightApi": "Name",
-                    "minLength": 1,
-                    "maxLength": 127,
-                    "pattern": "^([^+\\-][a-zA-Z0-9=!#$%()*+,-.:;@ _{|}~?&]*)$",
-                    "title": "username"
-                },
-                "role": {
-                    "type": "string",
-                    "default": "readonly",
-                    "description": "Default is readonly.  The name of the end point role.\n  * admin\n  * readonly\n  * user",
-                    "intersightApi": "$ref:iam.EndPointRole:Name",
-                    "enum": [
-                        "admin",
-                        "readonly",
-                        "user"
-                    ],
-                    "title": "role"
-                }
-            },
-            "required": [
-                "name",
-                "role"
-            ],
-            "title": "ldap_groups - LDAP Groups\nIntersight Uri: iam/LdapGroups"
-        },
-        "iam.LdapProvider": {
-            "type": "object",
-            "additionalProperties": false,
-            "description": "Endpoint User or Local User.",
-            "easyimm": "ldap_servers",
-            "intersightUri": "iam/LdapProviders",
-            "ObjectType": "iam.LdapProvider",
-            "properties": {
-                "port": {
-                    "type": "integer",
-                    "default": 389,
-                    "description": "Default is 389.  PLDAP Server Port for connection establishment.",
-                    "intersightApi": "Port",
-                    "minimum": 1,
-                    "maximum": 65535,
-                    "title": "port"
-                },
-                "server": {
-                    "type": "string",
-                    "default": "ldap.example.com",
-                    "description": "LDAP Server Address, can be IP address or hostname.",
-                    "intersightApi": "Server",
-                    "minLength": 1,
-                    "maxLength": 255,
-                    "pattern": "^((([1-9]|[1-9][0-9]{1}|1[0-9]{2}|2[0-1][0-9]|22[0-3])\\.)(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\\.){2}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?(?:\\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?)*\\.?$|^(([a-fA-F]|[a-fA-F][a-fA-F0-9\\-]*[a-fA-F0-9])\\.)*([A-Fa-f]|[A-Fa-f][A-Fa-f0-9\\-]*[A-Fa-f0-9])$|^(?:(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){6})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:::(?:(?:(?:[0-9a-fA-F]{1,4})):){5})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:(?:[0-9a-fA-F]{1,4})):){4})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,1}(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:(?:[0-9a-fA-F]{1,4})):){3})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,2}(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:(?:[0-9a-fA-F]{1,4})):){2})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,3}(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:[0-9a-fA-F]{1,4})):)(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,4}(?:(?:[0-9a-fA-F]{1,4})))?::)(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,5}(?:(?:[0-9a-fA-F]{1,4})))?::)(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,6}(?:(?:[0-9a-fA-F]{1,4})))?::)))))$",
-                    "title": "username"
-                }
-            },
-            "required": [
-                "server"
-            ],
-            "title": "ldap_servers - LDAP Provider Servers\nIntersight Uri: iam/LdapProviders"
-        },
-        "iam.LdapSearchParameters": {
-            "type": "object",
-            "additionalProperties": false,
-            "description": "Base settings of LDAP required while configuring LDAP policy.Required Attributes:\n  * attribute\n  * filter\n  * group_attribute",
-            "intersightUri": "iam/LdapBaseProperties",
-            "ObjectType": "iam.LdapBaseProperties",
-            "properties": {
-                "attribute": {
-                    "type": "string",
-                    "default": "CiscoAvPair",
-                    "description": "Default is CiscoAvPair.  Role and locale information of the user.",
-                    "intersightApi": "Attribute",
-                    "minLength": 1,
-                    "maxLength": 64,
-                    "pattern": "^$|^[a-zA-Z0-9][a-zA-Z0-9\\-\\.]*[a-zA-Z0-9\\-]$",
-                    "title": "attribute"
-                },
-                "filter": {
-                    "type": "string",
-                    "default": "sAMAccountName",
-                    "description": "Default is sAMAccountName.  Criteria to identify entries in search requests.",
-                    "intersightApi": "Filter",
-                    "minLength": 1,
-                    "maxLength": 64,
-                    "pattern": "^[a-zA-Z0-9(][a-zA-Z0-9_#@$%&\\-\\^|()*=:!,.]*[a-zA-Z0-9\\-)]$",
-                    "title": "filter"
-                },
-                "group_attribute": {
-                    "type": "string",
-                    "default": "memberOf",
-                    "description": "Default is memberOf.  Attribute that identifies the Groups to which an LDAP user belongs.",
-                    "intersightApi": "GroupAttribute",
-                    "minLength": 1,
-                    "maxLength": 128,
-                    "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_#@$%&\\-\\^]*[a-zA-Z0-9\\-]$",
-                    "title": "group_attribute"
-                }
-            },
-            "title": "search_parameters"
-        },
         "iam.EndPointUser": {
             "type": "object",
             "additionalProperties": false,
@@ -9381,6 +9042,345 @@
                 "password_history"
             ],
             "title": "password_properties - Local User Policy Password Settings.\nIntersightApi: iam/EndPointPasswordProperties"
+        },
+        "iam.LdapBaseProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Base settings of LDAP required while configuring LDAP policy.\n  * Required Attributes:\n  * domain\n\nOptional Attributes:\n  * base_dn\n  * timeout",
+            "easyimm": "base_settings",
+            "intersightUri": "iam/LdapBaseProperties",
+            "ObjectType": "iam.LdapBaseProperties",
+            "properties": {
+                "base_dn": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Distinguished Name (DN) of the user, that is used to authenticate against LDAP servers.  An example would be `DC=example,DC=com`",
+                    "intersightApi": "",
+                    "minLength": 1,
+                    "maxLength": 254,
+                    "pattern": "^((CN=([^,]*)),)?((((?:CN|OU)=[^,]+,?)+),)?((DC=[^,]+,?)+)$",
+                    "title": "switch_id"
+                },
+                "domain": {
+                    "type": "string",
+                    "default": "example.com",
+                    "description": "The LDAP domain that all users must be in.  An example would be `example.com`.",
+                    "intersightApi": "",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^(([a-zA-Z0-9])|([a-zA-Z0-9][a-zA-Z0-9\\.\\-]*[a-zA-Z0-9]))$",
+                    "title": "switch_id"
+                },
+                "timeout": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": "LDAP authentication timeout duration, in seconds.  Range is 0 to 180.",
+                    "intersightApi": "",
+                    "minimum": 0,
+                    "maximum": 180,
+                    "title": "timeout"
+                }
+            },
+            "required": [
+                "domain"
+            ],
+            "title": "BaseSettings"
+        },
+        "iam.LdapBindingParameters": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Base settings of LDAP required while configuring LDAP policy.\nRequired Attributes:\n  * bind_method\n\nOptional Attributes:\n  * bind_dn",
+            "intersightUri": "iam/LdapBaseProperties",
+            "ObjectType": "iam.LdapBaseProperties",
+            "properties": {
+                "bind_dn": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Base Distinguished Name (DN). Starting point from where server will search for users and groups.  An example is `CN=admin,DC=example,DC=com`",
+                    "intersightApi": "BindDn",
+                    "minLength": 1,
+                    "maxLength": 254,
+                    "pattern": "^((CN=([^,]*)),)?((((?:CN|OU)=[^,]+,?)+),)?((DC=[^,]+,?)+)$",
+                    "title": "bind_dn"
+                },
+                "bind_method": {
+                    "type": "string",
+                    "default": "LoginCredentials",
+                    "description": "Default is LoginCredentials.  Authentication method to access LDAP servers.\n  * `LoginCredentials` - Requires the user credentials. If the bind process fails, then user is denied access.\n  * `Anonymous` - Requires no username and password. If this option is selected and the LDAP server is configured for Anonymous logins, then the user gains access.\n  * `ConfiguredCredentials` - Requires a known set of credentials to be specified for the initial bind process. If the initial bind process succeeds, then the distinguished name (DN) of the user name is queried and re-used for the re-binding process. If the re-binding process fails, then the user is denied access.'",
+                    "intersightApi": "BindMethod",
+                    "enum": [
+                        "Anonymous",
+                        "ConfiguredCredentials",
+                        "LoginCredentials"
+                    ],
+                    "title": "bind_method"
+                }
+            },
+            "required": [
+                "bind_method"
+            ],
+            "title": "binding_parameters"
+        },
+        "iam.LdapDnsParameters": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "DNS settings used to access LDAP Providers.\nRequired Attributes:\n  * search_domain\n\nOptional Attributes:\n  * search_forest\n  * source",
+            "intersightUri": "iam/LdapDnsParameters",
+            "ObjectType": "iam.LdapDnsParameters",
+            "properties": {
+                "search_domain": {
+                    "type": "string",
+                    "default": "example.com",
+                    "description": "Domain name that acts as a source for a DNS query.  An example would be `example.com`.",
+                    "intersightApi": "SearchDomain",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^(([a-zA-Z0-9])|([a-zA-Z0-9][a-zA-Z0-9\\.\\-]*[a-zA-Z0-9]))$",
+                    "title": "search_domain"
+                },
+                "search_forest": {
+                    "type": "string",
+                    "default": "",
+                    "description": "Forest name that acts as a source for a DNS query.",
+                    "intersightApi": "SearchForest",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^(([a-zA-Z0-9])|([a-zA-Z0-9][a-zA-Z0-9\\.\\-]*[a-zA-Z0-9]))$",
+                    "title": "search_forest"
+                },
+                "source": {
+                    "type": "string",
+                    "default": "Extracted",
+                    "description": "Default is Extracted.  Source of the domain name used for the DNS SRV request.\n  * `Extracted` - The domain name extracted-domain from the login ID.\n  * `Configured` - The configured-search domain.\n  * `ConfiguredExtracted` - The domain name extracted from the login ID than the configured-search domain.",
+                    "intersightApi": "Source",
+                    "enum": [
+                        "Extracted",
+                        "Configured",
+                        "ConfiguredExtracted"
+                    ],
+                    "title": "source"
+                }
+            },
+            "required": [
+                "search_domain",
+                "search_forest"
+            ],
+            "title": "ldap_from_dns"
+        },
+        "iam.LdapGroup": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Endpoint User or Local User.",
+            "easyimm": "ldap_groups",
+            "intersightUri": "iam/LdapGroups",
+            "ObjectType": "iam.LdapGroup",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "default": "admin",
+                    "description": "LDAP Group name in the LDAP server database.",
+                    "intersightApi": "Name",
+                    "minLength": 1,
+                    "maxLength": 127,
+                    "pattern": "^([^+\\-][a-zA-Z0-9=!#$%()*+,-.:;@ _{|}~?&]*)$",
+                    "title": "username"
+                },
+                "role": {
+                    "type": "string",
+                    "default": "readonly",
+                    "description": "Default is readonly.  The name of the end point role.\n  * admin\n  * readonly\n  * user",
+                    "intersightApi": "$ref:iam.EndPointRole:Name",
+                    "enum": [
+                        "admin",
+                        "readonly",
+                        "user"
+                    ],
+                    "title": "role"
+                }
+            },
+            "required": [
+                "name",
+                "role"
+            ],
+            "title": "ldap_groups - LDAP Groups\nIntersight Uri: iam/LdapGroups"
+        },
+        "iam.LdapPolicy": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "LDAP Policy configurations.",
+            "easyimm": "ldap",
+            "intersightUri": "iam/LdapPolicies",
+            "ObjectType": "iam.LdapPolicy",
+            "properties": {
+                "base_settings": {
+                    "$ref": "#/definitions/iam.LdapBaseProperties"
+                },
+                "binding_parameters": {
+                    "$ref": "#/definitions/iam.LdapBindingParameters"
+                },
+                "description": {
+                    "$ref": "#/definitions/common:Description"
+                },
+                "enable_encryption": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Default is false.  If enabled, the endpoint encrypts all information it sends to the LDAP server.",
+                    "intersightApi": "$ref:iam.LdapBaseProperties:EnableEncryption",
+                    "title": "enable_encryption"
+                },
+                "enable_group_authorization": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Default is false.  If enabled, user authorization is also done at the group level for LDAP users not in the local user database.",
+                    "intersightApi": "$ref:iam.LdapBaseProperties:EnableGroupAuthorization",
+                    "title": "enable_group_authorization"
+                },
+                "enable_ldap": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Default is true.  LDAP server performs authentication.",
+                    "intersightApi": "Enabled",
+                    "title": "enable_ldap"
+                },
+                "ldap_from_dns": {
+                    "$ref": "#/definitions/iam.LdapDnsParameters",
+                    "description": "This Array enables the use of DNS for LDAP Server discovery."
+                },
+                "ldap_groups": {
+                    "type": "array",
+                    "description": "A List of LDAP Group resources.\nRequired Attributes:\n  * group\n  * role",
+                    "intersightUri": "iam/LdapGroups",
+                    "items": {
+                        "$ref": "#/definitions/iam.LdapGroup"
+                    },
+                    "objectType": "iam.LdapGroup",
+                    "title": "ldap_groups - LDAP Groups\nIntersight Uri: iam/LdapGroups"
+                },
+                "ldap_servers": {
+                    "type": "array",
+                    "description": "A List of LDAP Provider Servers.\nRequired Attributes:\n  * server\n\nOptional Attributes:\n  * port",
+                    "intersightUri": "iam/LdapProviders",
+                    "items": {
+                        "$ref": "#/definitions/iam.LdapProvider"
+                    },
+                    "objectType": "iam.LdapProvider",
+                    "title": "ldap_servers - LDAP Provider Servers\nIntersight Uri: iam/LdapProviders"
+                },
+                "name": {
+                    "$ref": "#/definitions/common:Name"
+                },
+                "nested_group_search_depth": {
+                    "type": "integer",
+                    "default": 128,
+                    "description": "Default is 128.  Search depth to look for a nested LDAP group in an LDAP group map.  Range is 1-128",
+                    "intersightApi": "$ref:iam.LdapBaseProperties:NestedGroupSearchDepth",
+                    "minimum": 1,
+                    "maximum": 128,
+                    "title": "nested_group_search_depth"
+                },
+                "search_parameters": {
+                    "$ref": "#/definitions/iam.LdapSearchParameters"
+                },
+                "tags": {
+                    "type": "array",
+                    "description": "An arbitrary key and value pair that can be used to tag REST resources and organize managed objects by\nassigning meta-data tags to any object.\nRequired Attributes:\n  * key\n  * value",
+                    "items": {
+                        "$ref": "#/definitions/common:Tags"
+                    },
+                    "title": "tags - Tags"
+                },
+                "user_search_precedence": {
+                    "type": "string",
+                    "default": "LocalUserDb",
+                    "description": "Default is `LocalUserDb`.  Search precedence between local user database and LDAP user database.\n  * `LocalUserDb` - Precedence is given to local user database while searching.\n  * `LDAPUserDb` - Precedence is given to LADP user database while searching.",
+                    "intersightApi": "UserSearchPrecedence",
+                    "enum": [
+                        "LocalUserDb",
+                        "LDAPUserDb"
+                    ],
+                    "title": "user_search_precedence"
+                }
+            },
+            "required": [
+                "base_settings",
+                "binding_parameters",
+                "name",
+                "search_parameters"
+            ],
+            "title": "ldap - LDAP\nIntersight Uri: iam/LdapPolicies"
+        },
+        "iam.LdapProvider": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Endpoint User or Local User.",
+            "easyimm": "ldap_servers",
+            "intersightUri": "iam/LdapProviders",
+            "ObjectType": "iam.LdapProvider",
+            "properties": {
+                "port": {
+                    "type": "integer",
+                    "default": 389,
+                    "description": "Default is 389.  PLDAP Server Port for connection establishment.",
+                    "intersightApi": "Port",
+                    "minimum": 1,
+                    "maximum": 65535,
+                    "title": "port"
+                },
+                "server": {
+                    "type": "string",
+                    "default": "ldap.example.com",
+                    "description": "LDAP Server Address, can be IP address or hostname.",
+                    "intersightApi": "Server",
+                    "minLength": 1,
+                    "maxLength": 255,
+                    "pattern": "^((([1-9]|[1-9][0-9]{1}|1[0-9]{2}|2[0-1][0-9]|22[0-3])\\.)(([01]?[0-9]?[0-9]|2([0-4][0-9]|5[0-5]))\\.){2}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$|^(?=.{1,255}$)[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?(?:\\.[0-9A-Za-z](?:(?:[0-9A-Za-z]|-){0,61}[0-9A-Za-z])?)*\\.?$|^(([a-fA-F]|[a-fA-F][a-fA-F0-9\\-]*[a-fA-F0-9])\\.)*([A-Fa-f]|[A-Fa-f][A-Fa-f0-9\\-]*[A-Fa-f0-9])$|^(?:(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){6})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:::(?:(?:(?:[0-9a-fA-F]{1,4})):){5})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:(?:[0-9a-fA-F]{1,4})):){4})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,1}(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:(?:[0-9a-fA-F]{1,4})):){3})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,2}(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:(?:[0-9a-fA-F]{1,4})):){2})(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,3}(?:(?:[0-9a-fA-F]{1,4})))?::(?:(?:[0-9a-fA-F]{1,4})):)(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,4}(?:(?:[0-9a-fA-F]{1,4})))?::)(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9]))\\.){3}(?:(?:25[0-5]|(?:[1-9]|1[0-9]|2[0-4])?[0-9])))))))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,5}(?:(?:[0-9a-fA-F]{1,4})))?::)(?:(?:[0-9a-fA-F]{1,4})))|(?:(?:(?:(?:(?:(?:[0-9a-fA-F]{1,4})):){0,6}(?:(?:[0-9a-fA-F]{1,4})))?::)))))$",
+                    "title": "username"
+                }
+            },
+            "required": [
+                "server"
+            ],
+            "title": "ldap_servers - LDAP Provider Servers\nIntersight Uri: iam/LdapProviders"
+        },
+        "iam.LdapSearchParameters": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "Base settings of LDAP required while configuring LDAP policy.Required Attributes:\n  * attribute\n  * filter\n  * group_attribute",
+            "intersightUri": "iam/LdapBaseProperties",
+            "ObjectType": "iam.LdapBaseProperties",
+            "properties": {
+                "attribute": {
+                    "type": "string",
+                    "default": "CiscoAvPair",
+                    "description": "Default is CiscoAvPair.  Role and locale information of the user.",
+                    "intersightApi": "Attribute",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^$|^[a-zA-Z0-9][a-zA-Z0-9\\-\\.]*[a-zA-Z0-9\\-]$",
+                    "title": "attribute"
+                },
+                "filter": {
+                    "type": "string",
+                    "default": "sAMAccountName",
+                    "description": "Default is sAMAccountName.  Criteria to identify entries in search requests.",
+                    "intersightApi": "Filter",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9(][a-zA-Z0-9_#@$%&\\-\\^|()*=:!,.]*[a-zA-Z0-9\\-)]$",
+                    "title": "filter"
+                },
+                "group_attribute": {
+                    "type": "string",
+                    "default": "memberOf",
+                    "description": "Default is memberOf.  Attribute that identifies the Groups to which an LDAP user belongs.",
+                    "intersightApi": "GroupAttribute",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_#@$%&\\-\\^]*[a-zA-Z0-9\\-]$",
+                    "title": "group_attribute"
+                }
+            },
+            "title": "search_parameters"
         },
         "ipmioverlan.Policy": {
             "type": "object",
