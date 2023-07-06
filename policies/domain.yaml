@@ -23,51 +23,40 @@ default: # Name of the Organization
       - classes:
           - bandwidth_percent: 10
             cos: 255
-            mtu: 9216
-            multicast_optimize: false
             packet_drop: true
             priority: Best Effort
             state: Enabled
             weight: 5
           - bandwidth_percent: 14
             cos: 1
-            mtu: 9216
-            multicast_optimize: false
             packet_drop: true
             priority: Bronze
             state: Enabled
             weight: 7
           - bandwidth_percent: 18
             cos: 4
-            mtu: 9216
-            multicast_optimize: false
             packet_drop: true
             priority: Gold
             state: Enabled
             weight: 9
           - bandwidth_percent: 20
             cos: 3
-            mtu: 2240
-            multicast_optimize: false
             packet_drop: false
             priority: FC
             state: Enabled
             weight: 10
           - bandwidth_percent: 20
             cos: 5
-            mtu: 9216
-            multicast_optimize: false
             packet_drop: false
             priority: Platinum
             state: Enabled
             weight: 10
           - bandwidth_percent: 18
             cos: 2
-            mtu: 9216
-            multicast_optimize: false
             packet_drop: true
             priority: Silver
             state: Enabled
             weight: 8
+        jumbo_mtu: true
         description: qos System QoS Policy
         name: qos

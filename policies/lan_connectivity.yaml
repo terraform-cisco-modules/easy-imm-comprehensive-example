@@ -20,9 +20,10 @@ default: # Name of the Organization
             names:
               - mgmt-a
               - mgmt-b
-            placement_pci_order:
-              - 2
-              - 3
+            placement:
+              pci_order:
+                - 2
+                - 3
           - ethernet_adapter_policy: VMware
             ethernet_network_control_policy: lldp
             ethernet_network_group_policies: [migration]
@@ -33,9 +34,10 @@ default: # Name of the Organization
             names:
               - migration-a
               - migration-b
-            placement_pci_order:
-              - 4
-              - 5
+            placement:
+              pci_order:
+                - 4
+                - 5
           - ethernet_adapter_policy: VMware
             ethernet_network_control_policy: lldp
             ethernet_network_group_policies: [storage]
@@ -46,9 +48,10 @@ default: # Name of the Organization
             names:
               - storage-a
               - storage-b
-            placement_pci_order:
-              - 6
-              - 7
+            placement:
+              pci_order:
+                - 6
+                - 7
           - ethernet_adapter_policy: VMware
             ethernet_network_control_policy: lldp
             ethernet_network_group_policies: [dvs]
@@ -59,6 +62,7 @@ default: # Name of the Organization
             names:
               - dvs-a
               - dvs-b
-            placement_pci_order:
-              - 8
-              - 9
+            placement:
+              pci_order:
+                - 8
+                - 9

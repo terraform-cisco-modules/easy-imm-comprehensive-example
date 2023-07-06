@@ -12,6 +12,5 @@ default: # Name of the Organization
             vsan_id: 100
       - name: vsan-200
         vsans:
-          - fcoe_vlan_id: 200
-            name: vsan-b
+          - name: vsan-b
             vsan_id: 200

@@ -17,9 +17,10 @@ default: # Name of the Organization
             names:
               - vhba-a
               - vhba-b
-            placement_pci_order:
-              - 0
-              - 1
+            placement:
+              pci_order:
+                - 0
+                - 1
             vhba_type: fc-initiator
             wwpn_allocation_type: POOL
             wwpn_pools:

@@ -13,7 +13,7 @@ default: # Name of the Organization
             multicast_policy: mcast
             name: vlan
             native_vlan: true
-            vlan_list: 1
+            vlan_list: '1'
           - multicast_policy: mcast
             name: vlan
             vlan_list: 64,998-999,3001,3003-3004

@@ -98,8 +98,8 @@ default: # Name of the Organization
     snmp:
       - description: snmp SNMP Policy
         name: snmp
-        port: 161
-        snmp_traps:
+        snmp_port: 161
+        snmp_trap_destinations:
           - destination_address: 198.18.1.61
             port: 162
             user: snmpadmin
@@ -119,17 +119,18 @@ default: # Name of the Organization
         ssh_timeout: 1800
     syslog:
       - description: syslog Syslog Policy
-        local_min_severity: warning
+        local_logging:
+          minimum_severity: warning
         name: syslog
-        remote_clients:
+        remote_logging:
           - enable: true
             hostname: 198.18.5.14
-            min_severity: warning
+            minimum_severity: warning
             port: 514
             protocol: udp
           - enable: true
             hostname: 198.18.5.15
-            min_severity: warning
+            minimum_severity: warning
             port: 514
             protocol: udp
     virtual_kvm:

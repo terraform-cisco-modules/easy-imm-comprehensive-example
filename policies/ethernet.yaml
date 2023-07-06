@@ -20,7 +20,7 @@ default: # Name of the Organization
         description: VMware Ethernet Adapter
         name: VMware
     ethernet_network:
-      - default_vlan: '4'
+      - default_vlan: 4
         description: network Ethernet Network Policy
         name: network
         vlan_mode: ACCESS
@@ -28,16 +28,16 @@ default: # Name of the Organization
       - action_on_uplink_fail: linkDown
         cdp_enable: false
         description: cdp Ethernet Network Control Policy
-        lldp_receive_enable: true
-        lldp_transmit_enable: true
+        lldp_enable_receive: true
+        lldp_enable_transmit: true
         mac_register_mode: nativeVlanOnly
         mac_security_forge: allow
         name: cdp
       - action_on_uplink_fail: linkDown
         cdp_enable: true
         description: lldp Ethernet Network Control Policy
-        lldp_receive_enable: false
-        lldp_transmit_enable: false
+        lldp_enable_receive: false
+        lldp_enable_transmit: false
         mac_register_mode: nativeVlanOnly
         mac_security_forge: allow
         name: lldp
@@ -98,9 +98,7 @@ default: # Name of the Organization
         iscsi_adapter_policy: adapter
         name: boot
         primary_target_policy: target
-        secondary_target_policy: ''
         target_source_type: Static
-        username: ''
     iscsi_static_target:
       - description: target iSCSI Static Target Policy
         ip_address: 198.18.32.60

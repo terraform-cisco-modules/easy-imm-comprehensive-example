@@ -12,7 +12,7 @@ default: # Name of the Organization
       - description: Raid1 Storage Policy
         drive_groups:
           - manual_drive_group:
-              - drive_array_spans:
+              drive_array_spans:
                 - slots: 1-2
             name: dg0
             raid_level: Raid1
