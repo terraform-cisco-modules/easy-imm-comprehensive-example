@@ -125,7 +125,7 @@ module "policies" {
   cert_mgmt_private_key_5 = fileexists(var.cert_mgmt_private_key_5
   ) ? file(var.cert_mgmt_private_key_5) : var.cert_mgmt_private_key_5
   # Drive Security Sensitive Variables
-  drive_security_password                     = var.drive_security_password
+  drive_security_password = var.drive_security_password
   drive_security_server_ca_certificate = fileexists(var.drive_security_server_ca_certificate
   ) ? file(var.drive_security_server_ca_certificate) : var.drive_security_server_ca_certificate
   # Firmware Sensitive Variables

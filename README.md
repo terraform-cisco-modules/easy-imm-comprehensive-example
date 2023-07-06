@@ -31,7 +31,7 @@ If you would like to enable Auto Completion in the Pools File for ip, mac, uuid,
 ### Install the YAML extension by Red Hat
 `Extensions`: Search for YAML and Select the 'YAML Language Support by Red Hat'
 
-### Add the YAML Schema's to the Visual Studio Code Settings
+### Add the YAML Schema's below to the Visual Studio Code Settings
 
 `Settings` » `Settings`: Search for `YAML:Schemas`.
 
@@ -39,9 +39,7 @@ Click: `Edit in settings.json`
 
 Configure the following in `yaml.schemas`
 ```bash
-"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/yaml_schemas/policies.json": "/policies/*.yaml"
-"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/yaml_schemas/pools.json": "/pools/*.yaml"
-"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/yaml_schemas/profiles.json": "/profiles/*.yaml"
+"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/schemas/pools.json": "pools.yaml"
 ```
 
 ## Requirements
@@ -62,10 +60,10 @@ Configure the following in `yaml.schemas`
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_pools"></a> [pools](#module\_pools) | terraform-cisco-modules/pools/intersight | 2.0.1 |
-| <a name="module_domain_profiles"></a> [domain\_profiles](#module\_domain\_profiles) | terraform-cisco-modules/profiles-domain/intersight | 2.0.1 |
-| <a name="module_policies"></a> [policies](#module\_policies) | terraform-cisco-modules/policies/intersight | 2.0.1 |
-| <a name="module_profiles"></a> [profiles](#module\_profiles) | terraform-cisco-modules/profiles/intersight | 2.0.2 |
+| <a name="module_pools"></a> [pools](#module\_pools) | ../terraform-intersight-pools | n/a |
+| <a name="module_policies"></a> [policies](#module\_policies) | ../terraform-intersight-policies | n/a |
+| <a name="module_domain_profiles"></a> [domain\_profiles](#module\_domain\_profiles) | ../terraform-intersight-profiles-domain | n/a |
+| <a name="module_profiles"></a> [profiles](#module\_profiles) | ../terraform-intersight-profiles | n/a |
 
 ## NOTE:
 **When the Data is merged from the YAML files, it will run through the modules using for_each loop(s).  Sensitive Variables cannot be added to a for_each loop, instead use the variables below to add sensitive values for policies.**
@@ -80,20 +78,21 @@ Configure the following in `yaml.schemas`
 | <a name="input_moids_policies"></a> [moids\_policies](#input\_moids\_policies) | Flag to Determine if Policies Should be associated using resource or data object. | `bool` | `false` | no |
 | <a name="input_moids_pools"></a> [moids\_pools](#input\_moids\_pools) | Flag to Determine if Pools Should be associated using data object or from var.pools. | `bool` | `false` | no |
 | <a name="input_operating_system"></a> [operating\_system](#input\_operating\_system) | Type of Operating System.<br>* Linux<br>* Windows | `string` | `"Linux"` | no |
-| <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Prefix to Add to Pools, Policies, and Profiles. | `string` | `""` | no |
 | <a name="input_secretkey"></a> [secretkey](#input\_secretkey) | Intersight Secret Key. | `string` | `""` | no |
 | <a name="input_secretkeyfile"></a> [secretkeyfile](#input\_secretkeyfile) | Intersight Secret Key File Location. | `string` | `"blah.txt"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of Key/Value Pairs to Assign as Attributes to the Policy. | `list(map(string))` | `[]` | no |
-| <a name="input_base64_certificate_1"></a> [base64\_certificate\_1](#input\_base64\_certificate\_1) | The Server Certificate in Base64 format. | `string` | `""` | no |
-| <a name="input_base64_certificate_2"></a> [base64\_certificate\_2](#input\_base64\_certificate\_2) | The Server Certificate in Base64 format. | `string` | `""` | no |
-| <a name="input_base64_certificate_3"></a> [base64\_certificate\_3](#input\_base64\_certificate\_3) | The Server Certificate in Base64 format. | `string` | `""` | no |
-| <a name="input_base64_certificate_4"></a> [base64\_certificate\_4](#input\_base64\_certificate\_4) | The Server Certificate in Base64 format. | `string` | `""` | no |
-| <a name="input_base64_certificate_5"></a> [base64\_certificate\_5](#input\_base64\_certificate\_5) | The Server Certificate in Base64 format. | `string` | `""` | no |
-| <a name="input_base64_private_key_1"></a> [base64\_private\_key\_1](#input\_base64\_private\_key\_1) | The Server Private Key in Base64 Format. | `string` | `""` | no |
-| <a name="input_base64_private_key_2"></a> [base64\_private\_key\_2](#input\_base64\_private\_key\_2) | The Server Private Key in Base64 Format. | `string` | `""` | no |
-| <a name="input_base64_private_key_3"></a> [base64\_private\_key\_3](#input\_base64\_private\_key\_3) | The Server Private Key in Base64 Format. | `string` | `""` | no |
-| <a name="input_base64_private_key_4"></a> [base64\_private\_key\_4](#input\_base64\_private\_key\_4) | The Server Private Key in Base64 Format. | `string` | `""` | no |
-| <a name="input_base64_private_key_5"></a> [base64\_private\_key\_5](#input\_base64\_private\_key\_5) | The Server Private Key in Base64 Format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_certificate_1"></a> [cert\_mgmt\_certificate\_1](#input\_cert\_mgmt\_certificate\_1) | The Server Certificate in Base64 format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_certificate_2"></a> [cert\_mgmt\_certificate\_2](#input\_cert\_mgmt\_certificate\_2) | The Server Certificate in Base64 format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_certificate_3"></a> [cert\_mgmt\_certificate\_3](#input\_cert\_mgmt\_certificate\_3) | The Server Certificate in Base64 format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_certificate_4"></a> [cert\_mgmt\_certificate\_4](#input\_cert\_mgmt\_certificate\_4) | The Server Certificate in Base64 format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_certificate_5"></a> [cert\_mgmt\_certificate\_5](#input\_cert\_mgmt\_certificate\_5) | The Server Certificate in Base64 format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_private_key_1"></a> [cert\_mgmt\_private\_key\_1](#input\_cert\_mgmt\_private\_key\_1) | The Server Private Key in Base64 Format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_private_key_2"></a> [cert\_mgmt\_private\_key\_2](#input\_cert\_mgmt\_private\_key\_2) | The Server Private Key in PEM Format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_private_key_3"></a> [cert\_mgmt\_private\_key\_3](#input\_cert\_mgmt\_private\_key\_3) | The Server Private Key in PEM Format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_private_key_4"></a> [cert\_mgmt\_private\_key\_4](#input\_cert\_mgmt\_private\_key\_4) | The Server Private Key in PEM Format. | `string` | `""` | no |
+| <a name="input_cert_mgmt_private_key_5"></a> [cert\_mgmt\_private\_key\_5](#input\_cert\_mgmt\_private\_key\_5) | The Server Private Key in PEM Format. | `string` | `""` | no |
+| <a name="input_drive_security_password"></a> [drive\_security\_password](#input\_drive\_security\_password) | Drive Security User Password. | `string` | `""` | no |
+| <a name="input_drive_security_server_ca_certificate"></a> [drive\_security\_server\_ca\_certificate](#input\_drive\_security\_server\_ca\_certificate) | Drive Security Server CA Certificate in PEM Format. | `string` | `""` | no |
 | <a name="input_cco_password"></a> [cco\_password](#input\_cco\_password) | CCO User Account Password. | `string` | `""` | no |
 | <a name="input_cco_user"></a> [cco\_user](#input\_cco\_user) | CCO User Account Email for Firmware Policies. | `string` | `"cco_user"` | no |
 | <a name="input_ipmi_key"></a> [ipmi\_key](#input\_ipmi\_key) | Encryption key 1 to use for IPMI communication. It should have an even number of hexadecimal characters and not exceed 40 characters. | `string` | `""` | no |
