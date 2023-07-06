@@ -53,6 +53,12 @@
                     "objectType": "fabric.SwitchClusterProfile",
                     "title": "domain - Domain Cluster Profile\nIntersight Uri: fabric/SwitchClusterProfiles"
                 },
+                "name_prefix": {
+                    "$ref": "#/definitions/NamePrefixSuffix"
+                },
+                "name_suffix": {
+                    "$ref": "#/definitions/NamePrefixSuffix"
+                },
                 "server": {
                     "type": "array",
                     "description": "In Cisco Intersight, a Server Profile enables resource management by streamlining policy alignment, and server configuration. You can create Server Profiles using the Server Profile wizard or you can import the configuration details of C-series servers in standalone mode and FI-attached servers in Intersight Managed Mode (IMM), directly from Cisco IMC. You can create Server Profiles using the Server Profile wizard to provision servers, create policies to ensure smooth deployment of servers, and eliminate failures that are caused by inconsistent configuration. The Server Profiles wizard groups the server policies into the following four categories to provide a quick Summary View of the policies that are attached to a profile:\n  * Compute Policies—BIOS, Boot Order, and Virtual Media.\n  * Network Policies—Adapter Configuration, iSCSI Boot, LAN Connectivity, and SAN Connectivity policies.\n     - The LAN Connectivity policy requires you to create Ethernet Network Policy, Ethernet Adapter Policy, and Ethernet QoS Policy. When you attach a LAN Connectivity policy to a server profile, the addresses of the MAC address Pool, or the static MAC address, are automatically assigned.\n     - Note: A LAN Connectivity policy that has a static MAC address can be attached to only one server profile.\n     - The SAN Connectivity policy requires you to create Fibre Channel Network Policy, Fibre Channel Adapter Policy, and Fiber Channel QoS Policy. When you attach a SAN Connectivity policy to a server profile, the addresses of the WWPN and WWNN Pools, or the static WWPN and WWNN addresses, are automatically assigned.\n     - Note:  A SAN Connectivity policy that has a static WWPN, or a static WWNN can be attached to only one server profile.\n  * Storage Policies—SD Card and Storage policies\n  * Management Policies—Device Connector, IPMI Over LAN, LDAP, Local User, Network Connectivity, SMTP, SNMP, SSH, Serial over LAN, Syslog, NTP, Certificate Management, and Virtual KVM policies\nRequired Attributes:\n  * action\n  * targets\n\nRequired for FIAttached:\n  * domain_name\n\nRequired for Standalone:\n  * target_platform\n\nOptional Attributes:\n  * create_from_template\n  * resource_pool\n  * tags\n  * ucs_server_profile_template\n#===========================\n# Compute Configuration\n#===========================\n  * bios_policy_policy\n  * boot_order_policy\n  * firmware_policy\n  * persistent_memory_policy - Standalone Only\n  * power_policy - FIAttached Only\n  * uuid_pool - FIAttached Only\n  * virtual_media_policy\n#===========================\n# Management Configuration\n#===========================\n  * certificate_management_policy - FIAttached Only\n  * device_connector_policy - Standalone Only\n  * imc_access_policy - FIAttached Only\n  * ipmi_over_lan_policy\n  * ldap_policy - Standalone Only\n  * local_user_policy\n  * network_connectivity_policy - Standalone Only\n  * ntp_policy - Standalone Only\n  * serial_over_lan_policy\n  * smtp_policy - Standalone Only\n  * snmp_policy\n  * ssh_policy - Standalone Only\n  * syslog_policy\n  * virtual_kvm_policy\n#===========================\n# Storage Configuration\n#===========================\n  * drive_security_policy\n  * sd_card_policy\n  * storage_policy\n#===========================\n# Network Configuration\n#===========================\n  * adapter_configuration_policy - Standalone Only\n  * lan_connectivity_policy\n  * san_connectivity_policy",
@@ -408,6 +414,66 @@
                 "vlan_policies"
             ],
             "title": "Domain Profile"
+        },
+        "NamePrefixSuffix": {
+            "type": "object",
+            "additionalProperties": false,
+            "description": "A List of (Pre|Suf)fixes to add to the Policy Names.\n Options are:\n  * default\n  * chassis\n  * domain\n  * server\n  * template",
+            "intersightUri": "not_applicable",
+            "ObjectType": "not_applicable",
+            "properties": {
+                "default": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to the Name of all profiles.  An individual profile prefix/suffix will override this.",
+                    "intersightApi": "not_applicable",
+                    "minLength": 0,
+                    "maxLength": 12,
+                    "pattern": "^$|^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "default"
+                },
+                "chassis": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to the Chassis Profile Names.",
+                    "intersightApi": "not_applicable",
+                    "minLength": 1,
+                    "maxLength": 12,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "chassis"
+                },
+                "domain": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to the Domain Profile Names.",
+                    "intersightApi": "not_applicable",
+                    "minLength": 1,
+                    "maxLength": 12,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "domain"
+                },
+                "server": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to the Server Profile Names.",
+                    "intersightApi": "not_applicable",
+                    "minLength": 1,
+                    "maxLength": 12,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "server"
+                },
+                "template": {
+                    "type": "string",
+                    "default": "",
+                    "description": "A Value to add to the Server Template Profile Names.",
+                    "intersightApi": "not_applicable",
+                    "minLength": 1,
+                    "maxLength": 12,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "template"
+                }
+            },
+            "title": "NamePrefixSuffix"
         },
         "server.PreAssign": {
             "type": "object",
