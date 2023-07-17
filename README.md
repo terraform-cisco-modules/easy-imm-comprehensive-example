@@ -40,10 +40,10 @@ Click: `Edit in settings.json`
 Configure the following in `yaml.schemas`
 ```bash
 "https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/yaml_schemas/easy_imm.json": [
-"pools/*.yaml",
-"policies/*.yaml",
-"profiles/*.yaml",
-"templates/*.yaml"
+    "pools/*.yaml",
+    "policies/*.yaml",
+    "profiles/*.yaml",
+    "templates/*.yaml"
 ],
 ```
 ## Environment Variables
