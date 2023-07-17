@@ -39,7 +39,7 @@ Click: `Edit in settings.json`
 
 Configure the following in `yaml.schemas`
 ```bash
-"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/yaml_schemas/easy_imm.json": [
+"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/yaml_schemas/easy_imm.json": [
     "pools/*.yaml",
     "policies/*.yaml",
     "profiles/*.yaml",
@@ -98,8 +98,8 @@ $env:TF_VAR_intersight_secret_key="<secret-key-file-location>"
 
 ### Certificate Management - FIAttached Servers
 
-* cert_mgmt_certificate: Options are 1-5 for Up to 5 Certificates.  Variable Should Point to the File Location of the PEM Certificate.
-* cert_mgmt_private_key: Options are 1-5 for Up to 5 Private Keys.  Variable Should Point to the File Location of the PEM Private Key.
+* `cert_mgmt_certificate`: Options are 1-5 for Up to 5 Certificates.  Variable Should Point to the File Location of the PEM Certificate.
+* `cert_mgmt_private_key`: Options are 1-5 for Up to 5 Private Keys.  Variable Should Point to the File Location of the PEM Private Key.
 
 #### Linux
 
@@ -121,8 +121,8 @@ $env:TF_VAR_cert_mgmt_private_key_1='<cert_mgmt_private_key_file_location>'
 
 ### Drive Security - KMIP Sensitive Variables
 
-* drive_security_password: If Authentication is supported/used by the KMIP Server, This is the User Password to Configure.
-* drive_security_server_ca_certificate: KMIP Server CA Certificate Contents.
+* `drive_security_password`: If Authentication is supported/used by the KMIP Server, This is the User Password to Configure.
+* `drive_security_server_ca_certificate`: KMIP Server CA Certificate Contents.
 
 #### Linux
 
@@ -144,8 +144,8 @@ $env:TF_VAR_drive_security_server_ca_certificate='<drive_security_server_ca_cert
 
 ### Firmware - CCO  Credentials
 
-* cco_user: If Configuring Firmware Policies, the CCO User for Firmware Downloads.
-* cco_password: If Configuring Firmware Policies, the CCO Password for Firmware Downloads.
+* `cco_user`: If Configuring Firmware Policies, the CCO User for Firmware Downloads.
+* `cco_password`: If Configuring Firmware Policies, the CCO Password for Firmware Downloads.
 
 #### Linux
 
@@ -165,6 +165,35 @@ $env:TF_VAR_cco_user='<cco_user>'
 $env:TF_VAR_cco_password='<cco_password>'
 ```
 
+### IPMI/iSCSI/LDAP/Local Users/SNMP/Virtual Media
+
+* `ipmi_key_1`: Currently IPMI isn't Working, I would Skip this for Now.
+* `iscsi_boot_password`: If Configuring CHAP or MSCHAP Authentication, this is the User Password to Use.
+* `binding_parameters_password`: Although You can use a binding password, highly recommend using login user credentials instead in the module.
+* `local_user_password`_1-5: If Configuring Multiple Users, increment the Password based on number of configured Users.
+* `access_community_string`_1-5: Used to Configure 1 or More Community Strings.  Only used if assigned.
+* `snmp_auth_password`_1-5: If Configuring 1 or More SNMP Users.  Only used if assigned.
+* `snmp_privacy_password`_1-5: If Configuring SNMP Users and security_level set to `AuthPriv`.  Only used if assigned.
+* `snmp_trap_community`_1-5: Used by SNMP Trap Servers if using v2c instead of v3.
+* `vmedia_password`_1-5: If Configuring vMedia Mappings and method uses authentication.
+
+#### Linux
+
+```bash
+export cco_user='<cco_user>'
+```
+```bash
+export cco_password='<cco_password>'
+```
+
+#### Windows
+
+```powershell
+$env:TF_VAR_cco_user='<cco_user>'
+```
+```powershell
+$env:TF_VAR_cco_password='<cco_password>'
+```
 
 ## Requirements
 
@@ -279,5 +308,5 @@ If you want to see documentation on Variables for Submodules use the links below
 
 [*Domain*](https://registry.terraform.io/modules/terraform-cisco-modules/profiles-domain/intersight/latest)
 
-[*Chassis and Server + Server Templates *](https://registry.terraform.io/modules/terraform-cisco-modules/profiles/intersight/latest)
+[*Chassis and Server + Server Templates*](https://registry.terraform.io/modules/terraform-cisco-modules/profiles/intersight/latest)
 <!-- END_TF_DOCS -->
