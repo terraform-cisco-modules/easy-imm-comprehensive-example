@@ -63,70 +63,70 @@ variable "tags" {
 #__________________________________________________________________
 
 variable "cert_mgmt_certificate_1" {
-  default     = ""
-  description = "The Server Certificate in Base64 format."
+  default     = "blah.txt"
+  description = "The Server Certificate File in PEM format."
   sensitive   = true
   type        = string
 }
 
 variable "cert_mgmt_certificate_2" {
-  default     = ""
-  description = "The Server Certificate in Base64 format."
+  default     = "blah.txt"
+  description = "The Server Certificate File in PEM format."
   sensitive   = true
   type        = string
 }
 
 variable "cert_mgmt_certificate_3" {
-  default     = ""
-  description = "The Server Certificate in Base64 format."
+  default     = "blah.txt"
+  description = "The Server Certificate File in PEM format."
   sensitive   = true
   type        = string
 }
 
 variable "cert_mgmt_certificate_4" {
-  default     = ""
-  description = "The Server Certificate in Base64 format."
+  default     = "blah.txt"
+  description = "The Server Certificate File in PEM format."
   sensitive   = true
   type        = string
 }
 
 variable "cert_mgmt_certificate_5" {
-  default     = ""
-  description = "The Server Certificate in Base64 format."
+  default     = "blah.txt"
+  description = "The Server Certificate File in PEM format."
   sensitive   = true
   type        = string
 }
 
 variable "cert_mgmt_private_key_1" {
-  default     = ""
-  description = "The Server Private Key in Base64 Format."
+  default     = "blah.txt"
+  description = "The Server Private Key in PEM Format."
   sensitive   = true
   type        = string
 }
 
 variable "cert_mgmt_private_key_2" {
-  default     = ""
+  default     = "blah.txt"
   description = "The Server Private Key in PEM Format."
   sensitive   = true
   type        = string
 }
 
 variable "cert_mgmt_private_key_3" {
-  default     = ""
+  default     = "blah.txt"
   description = "The Server Private Key in PEM Format."
   sensitive   = true
   type        = string
 }
 
 variable "cert_mgmt_private_key_4" {
-  default     = ""
+  default     = "blah.txt"
   description = "The Server Private Key in PEM Format."
   sensitive   = true
   type        = string
 }
 
 variable "cert_mgmt_private_key_5" {
-  default     = ""
+  default     = "blah.txt"
   description = "The Server Private Key in PEM Format."
   sensitive   = true
   type        = string
@@ -146,7 +146,7 @@ variable "drive_security_password" {
 }
 
 variable "drive_security_server_ca_certificate" {
-  default     = ""
+  default     = "blah.txt"
   description = "Drive Security Server CA Certificate in PEM Format."
   sensitive   = true
   type        = string
