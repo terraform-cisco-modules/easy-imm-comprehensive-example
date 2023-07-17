@@ -4,29 +4,29 @@
 
 # Easy IMM - Comprehensive example for Intersight
 
-## Environment Variables
+Examples are Shown in the Following Directories:
 
-### Terraform Cloud/Enterprise - Workspace Variables
-- Add variable apikey with the value of [your-api-key]
-- Add variable secretkey with the value of [your-secret-file-content]
+* `policies`
+* `pools`
+* `profiles`
+* `templates`
 
-### Linux and Windows
-```bash
-export TF_VAR_apikey="<your-api-key>"
-export TF_VAR_secretkeyfile="<secret-key-file-location>"
-```
+The Structure of the YAML Files is very flexible.  You can have all the YAML Data in a single file or you can have it in multiple individual folders like is shown in this module.  The important part is that the `data.utils_yaml_merge.model` is configured to read the folders that you put the Data into.
 
-## Environment Variable for Deploy Process
+### Modify `variables.auto.tfvars` to match environment
 
-At this time the deploy process is separate from the profile creation process.  To accomplish deploy the script is using curl to deploy the profiles
+`variables.auto.tfvars` contains Terraform variables that I felt fit better outside of the YAML Data Model.  These variables should be configured to be unique to the deployment environment, but examples are shown for the Richfield environemnt in the module.
 
-### Linux
-```bash
-export TF_VAR_secretkey=`cat <your-secretkey-file>`
-```
-## Auto-completion Notes:
+#### Notes for the `variables.auto.tfvars`
 
-If you would like to enable Auto Completion in the Pools File for ip, mac, uuid, wwnn, and wwpn perform the following in Visual Studio Code.
+* endpoint: SaaS will by default be `intersight.com`.  Available in the event of CVA or PVA deployments.
+* moids_policies: Consume Policies from a Data Source instead of a Resource.  This is helpful if you separate the `policies` module from `profiles/templates`.
+* moids_pools: Consume Pools from a Data Source instead of a Resource.  This is helpful if you seperate the `pools` Module from the `policies` module.
+* tags: Not Required, but by default the version of the script is being flagged here.
+
+## YAML Schema Notes for Autocompletion, Help, and Error Validation:
+
+If you would like to enable Autocompletion, Help Context, and Error Validation, (`HIGHLY RECOMMENDED`) perform the following configuration in Visual Studio Code.
 
 ### Install the YAML extension by Red Hat
 `Extensions`: Search for YAML and Select the 'YAML Language Support by Red Hat'
@@ -39,8 +39,132 @@ Click: `Edit in settings.json`
 
 Configure the following in `yaml.schemas`
 ```bash
-"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/main/schemas/pools.json": "pools.yaml"
+"https://raw.githubusercontent.com/terraform-cisco-modules/easy-imm-comprehensive-example/yaml_schemas/easy_imm.json": [
+"pools/*.yaml",
+"policies/*.yaml",
+"profiles/*.yaml",
+"templates/*.yaml"
+],
 ```
+## Environment Variables
+
+### Terraform Cloud/Enterprise - Workspace Variables
+
+- Add variable intersight_api_key_id with the value of [your-api-key]
+- Add variable intersight_secret_key with the value of [your-secret-file-content]
+
+#### Add Other Variables as discussed below based on use cases
+
+## [Cloud Posse `tfenv`](https://github.com/cloudposse/tfenv)
+
+Command line utility to transform environment variables for use with Terraform. (e.g. HOSTNAME → TF_VAR_hostname)
+
+Recently I adopted the `tfenv` runner to standardize environment variables with multiple orchestration tools.  tfenv makes it so you don't need to add TF_VAR_ to the variables when you add them to the environment.  But it doesn't work for windows would be the caveat.
+
+In the export examples below, for the Linux Example, the 'TF_VAR_' is excluded because Cloud Posse tfenv is used to insert it during the run.
+
+### Aliases for `.bashrc`
+
+Additionally to Save time on typing commands I use the following aliases by editing the `.bashrc` for my environment.
+
+```bash
+alias tfa='tfenv terraform apply main.plan'
+alias tfap='tfenv terraform apply -parallelism=1 main.plan'
+alias tfd='terraform destroy'
+alias tff='terraform fmt'
+alias tfi='terraform init'
+alias tfp='tfenv terraform plan -out=main.plan'
+alias tfu='terraform init -upgrade'
+alias tfv='terraform validate'
+```
+
+## IMPORTANT: ALL EXAMPLES BELOW ASSUME USING `tfenv` in LINUX
+
+#### Linux
+
+```bash
+export intersight_api_key_id="<your-api-key>"
+export intersight_secret_key="<secret-key-file-location>"
+```
+
+#### Windows
+
+```powershell
+$env:TF_VAR_intersight_api_key_id="<your-api-key>"
+$env:TF_VAR_intersight_secret_key="<secret-key-file-location>"
+```
+
+## Sensitive Variables for the Policies Module:
+
+### Certificate Management - FIAttached Servers
+
+* cert_mgmt_certificate: Options are 1-5 for Up to 5 Certificates.  Variable Should Point to the File Location of the PEM Certificate.
+* cert_mgmt_private_key: Options are 1-5 for Up to 5 Private Keys.  Variable Should Point to the File Location of the PEM Private Key.
+
+#### Linux
+
+```bash
+export cert_mgmt_certificate_1='<cert_mgmt_certificate_file_location>'
+```
+```bash
+export cert_mgmt_private_key_1='<cert_mgmt_private_key_file_location>'
+```
+
+#### Windows
+
+```powershell
+$env:TF_VAR_cert_mgmt_certificate_1='<cert_mgmt_certificate_file_location>'
+```
+```powershell
+$env:TF_VAR_cert_mgmt_private_key_1='<cert_mgmt_private_key_file_location>'
+```
+
+### Drive Security - KMIP Sensitive Variables
+
+* drive_security_password: If Authentication is supported/used by the KMIP Server, This is the User Password to Configure.
+* drive_security_server_ca_certificate: KMIP Server CA Certificate Contents.
+
+#### Linux
+
+```bash
+export drive_security_password='<drive_security_password>'
+```
+```bash
+export drive_security_server_ca_certificate='<drive_security_server_ca_certificate_file_location>'
+```
+
+#### Windows
+
+```powershell
+$env:TF_VAR_drive_security_password='<drive_security_password>'
+```
+```powershell
+$env:TF_VAR_drive_security_server_ca_certificate='<drive_security_server_ca_certificate_file_location>'
+```
+
+### Firmware - CCO  Credentials
+
+* cco_user: If Configuring Firmware Policies, the CCO User for Firmware Downloads.
+* cco_password: If Configuring Firmware Policies, the CCO Password for Firmware Downloads.
+
+#### Linux
+
+```bash
+export cco_user='<cco_user>'
+```
+```bash
+export cco_password='<cco_password>'
+```
+
+#### Windows
+
+```powershell
+$env:TF_VAR_cco_user='<cco_user>'
+```
+```powershell
+$env:TF_VAR_cco_password='<cco_password>'
+```
+
 
 ## Requirements
 
@@ -72,14 +196,13 @@ Configure the following in `yaml.schemas`
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_apikey"></a> [apikey](#input\_apikey) | Intersight API Key. | `string` | n/a | yes |
 | <a name="input_deploy_profiles"></a> [deploy\_profiles](#input\_deploy\_profiles) | Flag to Determine if Profiles Should be deployed. | `string` | `false` | no |
 | <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | Intersight Endpoint Hostname. | `string` | `"intersight.com"` | no |
+| <a name="input_intersight_api_key_id"></a> [intersight\_api\_key\_id](#input\_intersight\_api\_key\_id) | Intersight API Key. | `string` | n/a | yes |
+| <a name="input_intersight_secret_key"></a> [intersight\_secret\_key](#input\_intersight\_secret\_key) | Intersight Secret Key. | `string` | `"blah.txt"` | no |
 | <a name="input_moids_policies"></a> [moids\_policies](#input\_moids\_policies) | Flag to Determine if Policies Should be associated using resource or data object. | `bool` | `false` | no |
 | <a name="input_moids_pools"></a> [moids\_pools](#input\_moids\_pools) | Flag to Determine if Pools Should be associated using data object or from var.pools. | `bool` | `false` | no |
 | <a name="input_operating_system"></a> [operating\_system](#input\_operating\_system) | Type of Operating System.<br>* Linux<br>* Windows | `string` | `"Linux"` | no |
-| <a name="input_secretkey"></a> [secretkey](#input\_secretkey) | Intersight Secret Key. | `string` | `""` | no |
-| <a name="input_secretkeyfile"></a> [secretkeyfile](#input\_secretkeyfile) | Intersight Secret Key File Location. | `string` | `"blah.txt"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | List of Key/Value Pairs to Assign as Attributes to the Policy. | `list(map(string))` | `[]` | no |
 | <a name="input_cert_mgmt_certificate_1"></a> [cert\_mgmt\_certificate\_1](#input\_cert\_mgmt\_certificate\_1) | The Server Certificate in Base64 format. | `string` | `""` | no |
 | <a name="input_cert_mgmt_certificate_2"></a> [cert\_mgmt\_certificate\_2](#input\_cert\_mgmt\_certificate\_2) | The Server Certificate in Base64 format. | `string` | `""` | no |
@@ -156,5 +279,5 @@ If you want to see documentation on Variables for Submodules use the links below
 
 [*Domain*](https://registry.terraform.io/modules/terraform-cisco-modules/profiles-domain/intersight/latest)
 
-[*Chassis and Server*](https://registry.terraform.io/modules/terraform-cisco-modules/profiles/intersight/latest)
+[*Chassis and Server + Server Templates *](https://registry.terraform.io/modules/terraform-cisco-modules/profiles/intersight/latest)
 <!-- END_TF_DOCS -->

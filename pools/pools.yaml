@@ -94,7 +94,7 @@ default: # Name of the Organization
         pool_type: Static
         resource_type: Server
         serial_number_list:
-          - "FOX25415555"
+          - FOX25415555
         server_type: Blades
     uuid:
       - description: uuid UUID Pool

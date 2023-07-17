@@ -19,7 +19,7 @@ terraform {
 }
 
 provider "intersight" {
-  apikey    = var.apikey
+  apikey    = var.intersight_api_key_id
   endpoint  = "https://${var.endpoint}"
-  secretkey = fileexists(var.secretkeyfile) ? file(var.secretkeyfile) : var.secretkey
+  secretkey = fileexists(var.intersight_secret_key) ? file(var.intersight_secret_key) : var.intersight_secret_key
 }
