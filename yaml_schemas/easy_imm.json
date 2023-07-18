@@ -202,7 +202,7 @@
                 "bios_template": {
                     "type": "string",
                     "default": "platform-default",
-                    "description": "Name of a BIOS Template to Configure.  Options are:\n  * DSS - Analytics Database Systems.\n  * DSS_tpm - Analytics Database Systems with TPM Enabled.\n  * HPC - High-Performance Computing.\n  * HPC_tpm - High-Performance Computing with TPM Enabled.\n  * Java - Java Application Servers.\n  * Java_tpm - Java Application Servers with TPM Enabled.\n  * M6_analytical_DB_tpm - M6 Analytical Database Systems with TPM Enabled.\n  * M6_Data_tpm - M6 Data Analytics with TPM Enabled.\n  * M6_HPC_tpm - High-Performance Computing with TPM Enabled.\n  * M6_relational_DB_tpm - M6 Relational Database Systems with TPM Enabled.\n  * M6_Virtualization_tpm - Virtual Host with TPM Enabled.\n  * M7_analytical_DB_tpm - M6 Analytical Database Systems with TPM Enabled.\n  * M7_Data_tpm - M6 Data Analytics with TPM Enabled.\n  * M7_HPC_tpm - High-Performance Computing with TPM Enabled.\n  * M7_relational_DB_tpm - M6 Relational Database Systems with TPM Enabled.\n  * M7_Virtualization_tpm - Virtual Host with TPM Enabled.\n  * OLTP - Online Transaction Processing.\n  * OLTP_tpm - Online Transaction Processing with TPM Enabled.\n  * Virtualization - Virtual Host.\n  * Virtualization_tpm - Virtual Host with TPM Enabled.",
+                    "description": "Name of a BIOS Template to Configure.  Options are:\n  * DSS - Analytics Database Systems.\n  * DSS_tpm - Analytics Database Systems with TPM Enabled.\n  * HPC - High-Performance Computing.\n  * HPC_tpm - High-Performance Computing with TPM Enabled.\n  * Java - Java Application Servers.\n  * Java_tpm - Java Application Servers with TPM Enabled.\n  * M5-amd-virtual - Virtual Host with AMD Processor\n  * M5-intel-virtual - Virtual Host with Intel Processor\n  * M6-amd-virtual - Virtual Host with AMD Processor\n  * M6-intel-HPC\n  * M6-intel-analytical-DB\n  * M6-intel-azure - Azure HCI Host with Intel Processor\n  * M6-intel-relational-DB\n  * M6-intel-virtual - Virtual Host with Intel Processor\n  * M6_Data_tpm - M6 Data Analytics with TPM Enabled.\n  * M6_HPC_tpm - High-Performance Computing with TPM Enabled.\n  * M6_Virtualization_tpm - Virtual Host with TPM Enabled.\n  * M6_analytical_DB_tpm - M6 Analytical Database Systems with TPM Enabled.\n  * M6_relational_DB_tpm - M6 Relational Database Systems with TPM Enabled.\n  * M7_Data_tpm - M7 Data Analytics with TPM Enabled.\n  * M7_HPC_tpm - High-Performance Computing with TPM Enabled.\n  * M7_Virtualization_tpm - Virtual Host with TPM Enabled.\n  * M7_analytical_DB_tpm - M7 Analytical Database Systems with TPM Enabled.\n  * M7_relational_DB_tpm - M7 Relational Database Systems with TPM Enabled.\n  * OLTP - Online Transaction Processing.\n  * OLTP_tpm - Online Transaction Processing with TPM Enabled.\n  * Virtualization - Virtual Host.\n  * Virtualization_tpm - Virtual Host with TPM Enabled.",
                     "intersightApi": "AcsControlGpu1state",
                     "enum": [
                         "DSS",
@@ -211,16 +211,21 @@
                         "HPC_tpm",
                         "Java",
                         "Java_tpm",
-                        "M6_analytical_DB_tpm",
+                        "M5-amd-virtual",
+                        "M5-intel-virtual",
+                        "M6-amd-virtual",
+                        "M6-intel-HPC",
+                        "M6-intel-analytical-DB",
+                        "M6-intel-azure",
+                        "M6-intel-relational-DB",
+                        "M6-intel-virtual",
+                        "M7-amd-virtual",
+                        "M7-intel-virtual",
                         "M6_Data_tpm",
                         "M6_HPC_tpm",
-                        "M6_relational_DB_tpm",
                         "M6_Virtualization_tpm",
-                        "M7_analytical_DB_tpm",
-                        "M7_Data_tpm",
-                        "M7_HPC_tpm",
-                        "M7_relational_DB_tpm",
-                        "M7_Virtualization_tpm",
+                        "M6_analytical_DB_tpm",
+                        "M6_relational_DB_tpm",
                         "OLTP",
                         "OLTP_tpm",
                         "Virtualization",
@@ -6849,19 +6854,26 @@
                     "maximum": 64,
                     "title": "slot_id"
                 },
-                "vsan_id": {
-                    "type": "integer",
-                    "default": 1,
-                    "description": "Default is 1.  Virtual San Identifier associated to the FC port.",
-                    "intersightApi": "VsanId",
-                    "minimum": 1,
-                    "maximum": 4093,
-                    "title": "vsan_id"
+                "vsan_ids": {
+                    "type": "array",
+                    "description": "List of two Virtual San Identifier associated to the FC Port(s).",
+                    "intersightUri": "not_applicable",
+                    "items": {
+                        "type": "integer",
+                        "default": 3096,
+                        "description": "Default is `3096`.  Virtual San Identifier associated to the FC port.",
+                        "intersightApi": "VsanId",
+                        "minLength": 1,
+                        "maxLength": 4093,
+                        "title": "vsan_id"
+                    },
+                    "objectType": "VsanId",
+                    "title": "vsan_ids - VSAN Identifiers"
                 }
             },
             "required": [
                 "port_list",
-                "vsan_id"
+                "vsan_ids"
             ],
             "title": "port_role_fc_storage - Fabric Fc Storage Role - Intersight Uri: fabric/FcStorageRoles"
         },
@@ -7546,7 +7558,7 @@
                 },
                 "port_role_fc_storage": {
                     "type": "array",
-                    "description": "Use this Map to Configure Ports for FC Storage.\nRequired Attributes:\n  * port_list\n\nOptional Attributes:\n  * admin_speed\n  * breakout_port_id\n  * slot_id\n  * vsan_id",
+                    "description": "Use this Map to Configure Ports for FC Storage.\nRequired Attributes:\n  * port_list\n\nOptional Attributes:\n  * admin_speed\n  * breakout_port_id\n  * slot_id\n  * vsan_ids",
                     "intersightUri": "fabric/FcStorageRoles",
                     "items": {
                         "$ref": "#/definitions/fabric.FcStorageRole"
@@ -8629,7 +8641,6 @@
                 }
             },
             "required": [
-                "advanced_mode",
                 "description",
                 "models",
                 "name",
@@ -8650,7 +8661,7 @@
                     "default": "4.2(3d)",
                     "description": "The bundle version to which the server will be upgraded.",
                     "intersightApi": "BundleVersion",
-                    "minLength": 8,
+                    "minLength": 7,
                     "maxLength": 16,
                     "pattern": "^\\d\\.\\d\\(([\\da-z]|0\\.2[3-9]\\d{4})\\)$",
                     "title": "firmware_version"
@@ -11307,7 +11318,7 @@
                 },
                 "iscsi_boot": {
                     "type": "array",
-                    "description": "iSCSI boot support allows you to initialize the Operating System on FI-attached blade and rack servers from a remote disk across a Storage Area Network. The remote disk, known as the target, is accessed using TCP/IP and iSCSI boot firmware.\nPrerequisites - The following are required to configure the iSCSI boot device:\n  * iSCSI Static Target Policy\u2014When you select Static as the mode for configuring the iSCSI boot policy, you can use the iSCSI Static Target policy to specify the primary target details. You can also specify the details of a secondary target, if required.\n  * iSCSI Adapter Policy\u2014Using this policy you can specify the TCP and DHCP Connection Timeout and the retry count when the logical unit number of the boot device is busy.\n  * Creating an IQN Pool\u2014Using this policy you can specify the TCP and DHCP Connection Timeout and the retry count when the logical unit number of the boot device is busy.\nRequired Attributes:\n  * name\n\nOptional Attributes:\n  * authentication\n  * description\n  * dhcp_vendor_id_iqn\n  * initiator_ip_source\n  * initiator_static_ipv4_config\n  * tags\n  * target_source_type",
+                    "description": "iSCSI boot support allows you to initialize the Operating System on FI-attached blade and rack servers from a remote disk across a Storage Area Network. The remote disk, known as the target, is accessed using TCP/IP and iSCSI boot firmware.\nPrerequisites - The following are required to configure the iSCSI boot device:\n  * iSCSI Static Target Policy\u2014When you select Static as the mode for configuring the iSCSI boot policy, you can use the iSCSI Static Target policy to specify the primary target details. You can also specify the details of a secondary target, if required.\n  * iSCSI Adapter Policy\u2014Using this policy you can specify the TCP and DHCP Connection Timeout and the retry count when the logical unit number of the boot device is busy.\n  * Creating an IQN Pool\u2014Using this policy you can specify the TCP and DHCP Connection Timeout and the retry count when the logical unit number of the boot device is busy.\nRequired Attributes:\n  * name\n\nOptional Attributes:\n  * authentication\n  * description\n  * dhcp_vendor_id_iqn\n  * initiator_ip_pool\n  * initiator_ip_source\n  * initiator_static_ipv4_config\n  * tags\n  * target_source_type",
                     "intersightUri": "vnic/IscsiBootPolicies",
                     "items": {
                         "$ref": "#/definitions/vnic.IscsiBootPolicy"
@@ -14393,9 +14404,10 @@
                 "adapter_template": {
                     "type": "string",
                     "default": "VMware",
-                    "description": "Name of a Pre-Configured Adapter Policy.  Options are:\n  * Linux\n  * Linux-NVMe-RoCE\n  * MQ\n  * MQ-SMBd\n  * SMBServer\n  * SMBClient\n  * Solaris\n  * SRIOV\n  * usNIC\n  * usNICOracleRAC\n  * VMware\n  * VMwarePassThru\n  * WIN-AzureStack\n  * Win-HPN\n  * Win-HPN-SMBd\n  * Windows",
+                    "description": "Name of a Pre-Configured Adapter Policy.  Options are:\n  * 16RxQs-4G\n  * Linux\n  * Linux-NVMe-RoCE\n  * MQ\n  * MQ-SMBd\n  * SMBServer\n  * SMBClient\n  * Solaris\n  * SRIOV\n  * usNIC\n  * usNICOracleRAC\n  * VMware\n  * VMware-High-Trf\n  * VMwarePassThru\n  * WIN-AzureStack\n  * Win-HPN\n  * Win-HPN-SMBd\n  * Windows",
                     "intersightApi": "not_applicable",
                     "enum": [
+                        "16RxQs-4G",
                         "Linux",
                         "Linux-NVMe-RoCE",
                         "MQ",
@@ -14407,6 +14419,7 @@
                         "usNIC",
                         "usNICOracleRAC",
                         "VMware",
+                        "VMware-High-Trf",
                         "VMwarePassThru",
                         "WIN-AzureStack",
                         "Win-HPN",
@@ -15535,6 +15548,16 @@
                     "maxLength": 255,
                     "pattern": "^$|^(?:iqn\\.[0-9]{4}-[0-9]{2}(?:\\.[A-Za-z](?:[A-Za-z0-9\\-]*[A-Za-z0-9])?)+(?::.*)?|eui\\.[0-9A-Fa-f]{16})",
                     "title": "dhcp_vendor_id_iqn"
+                },
+                "initiator_ip_pool": {
+                    "type": "string",
+                    "default": "default",
+                    "description": "The Name of the iSCSI IP Pool.",
+                    "intersightApi": "$ref:vnic.IscsiBootPolicy.Relationship:InitiatorIpPool",
+                    "minLength": 1,
+                    "maxLength": 64,
+                    "pattern": "^[a-zA-Z0-9_\\.:-]+$",
+                    "title": "initiator_ip_pool"
                 },
                 "initiator_ip_source": {
                     "type": "string",
