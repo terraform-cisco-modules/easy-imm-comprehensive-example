@@ -8663,7 +8663,7 @@
                     "intersightApi": "BundleVersion",
                     "minLength": 7,
                     "maxLength": 16,
-                    "pattern": "^\\d\\.\\d\\(([\\da-z]|0\\.2[3-9]\\d{4})\\)$",
+                    "pattern": "^\\d\\.\\d\\(\\d[a-z]|0\\.2[3-9]\\d{4}\\)$",
                     "title": "firmware_version"
                 },
                 "server_model": {
@@ -14404,10 +14404,11 @@
                 "adapter_template": {
                     "type": "string",
                     "default": "VMware",
-                    "description": "Name of a Pre-Configured Adapter Policy.  Options are:\n  * 16RxQs-4G\n  * Linux\n  * Linux-NVMe-RoCE\n  * MQ\n  * MQ-SMBd\n  * SMBServer\n  * SMBClient\n  * Solaris\n  * SRIOV\n  * usNIC\n  * usNICOracleRAC\n  * VMware\n  * VMware-High-Trf\n  * VMwarePassThru\n  * WIN-AzureStack\n  * Win-HPN\n  * Win-HPN-SMBd\n  * Windows",
+                    "description": "Name of a Pre-Configured Adapter Policy.  Options are:\n  * 16RxQs-4G\n  * 16RxQs-5G\n  * Linux\n  * Linux-NVMe-RoCE\n  * MQ\n  * MQ-SMBd\n  * SMBServer\n  * SMBClient\n  * Solaris\n  * SRIOV\n  * usNIC\n  * usNICOracleRAC\n  * VMware\n  * VMware-High-Trf\n  * VMwarePassThru\n  * WIN-AzureStack\n  * Win-HPN\n  * Win-HPN-SMBd\n  * Windows",
                     "intersightApi": "not_applicable",
                     "enum": [
                         "16RxQs-4G",
+                        "16RxQs-5G",
                         "Linux",
                         "Linux-NVMe-RoCE",
                         "MQ",
