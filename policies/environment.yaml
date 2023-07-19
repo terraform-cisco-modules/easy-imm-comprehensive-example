@@ -10,11 +10,10 @@ default: # Name of the Organization
         power_redundancy: Grid
       - description: 9508 Power Policy
         name: "9508"
-        power_allocation: 8400
+        power_allocation: 5600
         power_redundancy: Grid
       - description: Server Power Policy
         name: Server
-        power_allocation: 8400
         power_redundancy: Grid
         power_restore: LastState
     thermal:

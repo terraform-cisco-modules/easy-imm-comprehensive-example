@@ -11,8 +11,8 @@ default: # Name of the Organization
         description: M2-pxe Server Profile Template
         imc_access_policy: kvm
         ipmi_over_lan_policy: ipmi
-        lan_connectivity_policy: vmware-lcp
-        local_user_policy: local_users
+        lan_connectivity_policy: lcp
+        local_user_policy: users
         name: M2-pxe
         power_policy: Server
         san_connectivity_policy: scp

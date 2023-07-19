@@ -11237,7 +11237,7 @@
                 },
                 "fibre_channel_adapter": {
                     "type": "array",
-                    "description": "A Fibre Channel adapter policy governs the host-side behavior of the adapter, including how the adapter handles traffic. You can enable FCP Error Recovery, change the default settings of Queues, and Interrupt handling for performance enhancement.\nNote: We recommend that you use the values in these policies for the applicable operating system. Do not modify any of the values in the default policies unless directed to do so by Cisco Technical Support.\nRequired Attributes:\n  * name\n\nRecommended Attribute: adapter_template\n\nOptional Attributes:\n  * description\n  * error_detection_timeout\n  * error_recovery\n  * flogi\n  * interrupt\n  * io_throttle_count\n  * lun\n  * plogi\n  * receive\n  * resource_allocation_timeout\n  * scsi_io\n  * tags\n  * transmit",
+                    "description": "A Fibre Channel adapter policy governs the host-side behavior of the adapter, including how the adapter handles traffic. You can enable FCP Error Recovery, change the default settings of Queues, and Interrupt handling for performance enhancement.\nNote: We recommend that you use the values in these policies for the applicable operating system. Do not modify any of the values in the default policies unless directed to do so by Cisco Technical Support.\nRequired Attributes:\n  * name\n\nRecommended Attribute: adapter_template\n\nOptional Attributes:\n  * description\n  * error_detection_timeout\n  * error_recovery\n  * flogi\n  * interrupt\n  * io_throttle_count\n  * lun_queue_depth\n  * maximum_luns_per_target\n  * plogi\n  * receive\n  * resource_allocation_timeout\n  * scsi_io\n  * tags\n  * transmit",
                     "intersightUri": "vnic/FcAdapterPolicies",
                     "items": {
                         "$ref": "#/definitions/vnic.FcAdapterPolicy"
@@ -15032,14 +15032,14 @@
                     "maximum": 254,
                     "title": "lun_queue_depth"
                 },
-                "max_luns_per_target": {
+                "maximum_luns_per_target": {
                     "type": "integer",
                     "default": 1024,
                     "description": "Default is 1024.  The maximum number of LUNs that the Fibre Channel driver will export or show. The maximum number of LUNs is usually controlled by the operating system running on the server. Lun Count value can exceed 1024 only for vHBA of type 'FC Initiator' and on servers having supported firmware version.",
                     "intersightApi": "LunCount",
                     "minimum": 1,
                     "maximum": 4096,
-                    "title": "max_luns_per_target"
+                    "title": "maximum_luns_per_target"
                 },
                 "name": {
                     "$ref": "#/definitions/policy.AbstractPolicy/properties/name"

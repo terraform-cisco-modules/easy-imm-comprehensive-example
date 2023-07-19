@@ -13,8 +13,4 @@ default: # Name of the Organization
           - description: example-ucs-1 UCS Chassis Profile
             name: example-ucs-1
             serial_number: FOX2611P8N1
-          - name: example-ucs-2
-            serial_number: unknown
-          - name: example-ucs-3
-            serial_number: unknown
         thermal_policy: '9508'

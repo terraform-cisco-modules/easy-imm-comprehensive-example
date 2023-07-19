@@ -42,18 +42,18 @@ default: # Name of the Organization
         mac_security_forge: allow
         name: lldp
     ethernet_network_group:
-      - allowed_vlans: 64,998-999,3001,3003-3004
+      - allowed_vlans: 101-103,1000-1199
         name: uplink
-      - allowed_vlans: '125'
+      - allowed_vlans: '101'
         name: mgmt
-        native_vlan: 125
-      - allowed_vlans: '126'
+        native_vlan: 101
+      - allowed_vlans: '102'
         name: migration
-        native_vlan: 126
-      - allowed_vlans: '127'
+        native_vlan: 102
+      - allowed_vlans: '103'
         name: storage
-        native_vlan: 127
-      - allowed_vlans: 64,998-999,3001,3003-3004
+        native_vlan: 103
+      - allowed_vlans: 101-103,1000-1199
         name: dvs
         native_vlan: 1
     ethernet_qos:
