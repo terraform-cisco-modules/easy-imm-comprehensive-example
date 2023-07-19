@@ -134,7 +134,7 @@ default: # Name of the Organization
             port: 514
             protocol: udp
     virtual_kvm:
-      - allow_tunneled_vkvm: false
+      - allow_tunneled_vkvm: true
         description: vkvm Virtual KVM Policy
         enable_local_server_video: true
         enable_video_encryption: true

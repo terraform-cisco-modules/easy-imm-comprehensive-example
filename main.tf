@@ -207,7 +207,7 @@ module "policies" {
 module "domain_profiles" {
   #source = "../terraform-intersight-profiles-domain"
   source         = "terraform-cisco-modules/profiles-domain/intersight"
-  version        = "2.1.5"
+  version        = "2.1.6"
   for_each       = { for i in sort(keys(local.model)) : i => lookup(local.model[i], "profiles", {}) if i != "intersight" }
   moids_policies = var.moids_policies
   moids_pools    = var.moids_pools
