@@ -23,6 +23,24 @@ default: # Name of the Organization
           primary_dns: 208.67.220.220
           secondary_dns: 208.67.222.222
         name: kvm-ooband
+      - ipv4_blocks:
+          - from: 10.92.101.101
+            size: 16
+        ipv4_configuration:
+          gateway: 10.92.101.1
+          netmask: 255.255.255.0
+          primary_dns: 10.101.128.15
+          secondary_dns: 10.101.128.16
+        name: inband
+      - ipv4_blocks:
+          - from: 192.168.64.128
+            size: 16
+        ipv4_configuration:
+          gateway: 192.168.64.1
+          netmask: 255.255.254.0
+          primary_dns: 208.67.222.222
+          secondary_dns: 208.67.220.220
+        name: ooband
     iqn:
       - assignment_order: sequential
         description: default
